@@ -10,12 +10,12 @@ import stripeJs, { loadStripe, Appearance } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
 // ** Demo Imports
-import PricingCTA from 'src/views/pages/pricing/PricingCTA'
-import PricingPlans from 'src/@core/components/subscription/SubsctionPlans'
-import SubscriptionHeader from 'src/@core/components/subscription/SubscriptionHeader'
+// import PricingCTA from 'src/views/pages/pricing/PricingCTA'
+// import PricingPlans from 'src/@core/components/subscription/SubsctionPlans'
+// import SubscriptionHeader from 'src/@core/components/subscription/SubscriptionHeader'
 import ShippingDetailsForm from 'src/@core/components/Checkout/ShippingDetailsForm'
 import CheckoutForm from 'src/@core/components/Checkout/CheckoutForm'
-import PricingFooter from 'src/views/pages/pricing/PricingFooter'
+// import PricingFooter from 'src/views/pages/pricing/PricingFooter'
 
 import { IntentBody } from 'src/@core/components/Checkout/type'
 
