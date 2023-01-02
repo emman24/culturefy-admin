@@ -1,27 +1,35 @@
 
 
 // ** Redux Imports
+import { Dispatch } from 'redux'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import toast from 'react-hot-toast'
 
 // ** Employee Service Imports
-import { UserService } from 'src/services'
+import { ProjectServices } from 'src/services'
 
 // ** Types Imports
-import { IUser } from 'src/types/apps/user'
-import { Redux } from 'src/store'
-import { ApiParams } from 'src/types/api'
+import { IExample } from 'src/types/apps/example'
+
+export interface DataParams {
+    query?: string
+}
+
+interface Redux {
+    getState: any
+    dispatch: Dispatch<any>
+}
 
 interface InitialState {
-    entities: IUser[] | [];
-    entity: IUser | {};
+    entities: IExample[] | [];
+    entity: IExample | {};
     total: number;
-    params: ApiParams;
+    params: DataParams;
     status: 'pending' | 'error' | 'success' | 'idle';
 }
 
 export const QueryAction = createAsyncThunk(
-    'user/query',
+    'example/query',
     async (query: string, { getState, dispatch }: Redux) => {
         dispatch(Slice.actions.handleQuery(query))
         return query;
@@ -29,29 +37,29 @@ export const QueryAction = createAsyncThunk(
 )
 
 export const fetchOneAction = createAsyncThunk(
-    'user/fetchOne',
+    'example/fetchOne',
     async (id: string) => {
-        const response = await UserService.getById(id);
+        const response = await ProjectServices.getById(id);
         return response.data
     }
 )
 
 export const fetchAllAction = createAsyncThunk(
-    'user/fetchAll',
-    async (params: ApiParams, { getState, dispatch }: Redux) => {
+    'example/fetchAll',
+    async (params: DataParams, { getState, dispatch }: Redux) => {
         const { query } = params;
-        const response = await UserService.getAll({ query });
+        const response = await ProjectServices.getAll({ query });
         return response.data
     }
 )
 
 export const addAction = createAsyncThunk(
-    'user/add',
+    'example/add',
     async (data: { [key: string]: number | string }, { getState, dispatch }: Redux) => {
         dispatch(Slice.actions.handleStatus('pending'))
         try {
-            const response = await UserService.add(data);
-            const query = getState().user.params.query;
+            const response = await ProjectServices.add(data);
+            const query = getState().example.params.query;
             dispatch(fetchAllAction({ query }))
             toast.success("Added succesfully!")
             dispatch(Slice.actions.handleStatus('success'))
@@ -65,11 +73,11 @@ export const addAction = createAsyncThunk(
 )
 
 export const updateAction = createAsyncThunk(
-    'user/update',
-    async ({ id, data }: { id: string, data: IUser }, { getState, dispatch }: Redux) => {
+    'example/update',
+    async ({ id, data }: { id: string, data: IExample }, { getState, dispatch }: Redux) => {
         dispatch(Slice.actions.handleStatus('pending'))
         try {
-            const response = await UserService.update(id, data);
+            const response = await ProjectServices.update(id, data);
             const query = getState().entity.params.query;
             dispatch(fetchAllAction({ query }))
             toast.success("updated succesfully!")
@@ -84,11 +92,11 @@ export const updateAction = createAsyncThunk(
 )
 
 export const deleteAction = createAsyncThunk(
-    'user/delete',
+    'example/delete',
     async (id: string, { getState, dispatch }: Redux) => {
         dispatch(Slice.actions.handleStatus('pending'))
         try {
-            const response = await UserService.delete(id);
+            const response = await ProjectServices.delete(id);
             const query = getState().entity.params.query;
             dispatch(fetchAllAction({ query }))
             toast.success("deleted succesfully!")
@@ -104,7 +112,7 @@ export const deleteAction = createAsyncThunk(
 
 // @ts-ignore
 export const Slice = createSlice({
-    name: 'user',
+    name: 'example',
     initialState: {
         entities: [],
         entity: {},
@@ -123,15 +131,12 @@ export const Slice = createSlice({
         builder.addCase(fetchAllAction.fulfilled, (state, action) => {
             const { data } = action.payload;
 
-            state.entities = data.users || []
-            state.total = data.users?.length || 0
-            // state.entities = []
-            // state.total = 0
-
+            state.entities = data.entities || []
+            state.total = data.entities?.length || 0
         })
         builder.addCase(fetchOneAction.fulfilled, (state, action) => {
             const { data } = action.payload;
-            state.entity = data.user || {};
+            state.entity = data.entity || {};
         })
     }
 })

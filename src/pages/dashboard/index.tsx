@@ -20,22 +20,6 @@ const ACLPage = () => {
     // ** Hooks
     const ability = useContext(AbilityContext)
 
-    const { getEmployees } = useEmployee(null)
-    const { getClients } = useClient(null)
-    const { getAssignmentTypes } = useAssignmentType(null)
-    const { getReportLabels } = useLabel(null)
-
-    useEffect(() => {
-        (function () {
-            Promise.all([getEmployees({}), getClients({}), getAssignmentTypes({}), getReportLabels({})])
-                .then(() => {
-                    console.log('====================================');
-                    console.log("Meta API done");
-                    console.log('====================================');
-                })
-        })()
-    }, [])
-
     return (
         <Grid container spacing={6}>
             <Grid item md={6} xs={12}>

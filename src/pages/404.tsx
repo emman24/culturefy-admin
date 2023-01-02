@@ -14,7 +14,7 @@ import Box, { BoxProps } from '@mui/material/Box'
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Demo Imports
-import FooterIllustrations from 'src/views/pages/misc/FooterIllustrations'
+// import FooterIllustrations from 'src/views/pages/misc/FooterIllustrations'
 
 // ** Styled Components
 const BoxWrapper = styled(Box)<BoxProps>(({ theme }) => ({
@@ -56,7 +56,7 @@ const Error404 = () => {
           </Button>
         </Link>
       </Box>
-      <FooterIllustrations image='/images/pages/misc-404-object.png' />
+      {/* <FooterIllustrations image='/images/pages/misc-404-object.png' /> */}
     </Box>
   )
 }
