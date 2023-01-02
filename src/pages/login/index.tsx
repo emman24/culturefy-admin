@@ -136,12 +136,12 @@ const LoginPage = () => {
 
   const onSubmit = (data: FormData) => {
     const { email, password } = data
-    auth.login({ email, password }, (error) => {
+    auth.login({ email, password }, error => {
       setError('password', {
         type: 'manual',
-        message: error.message || 'Invalid credentials!'
+        message: error?.message || 'Invalid credentials!'
       })
-      toast.error(error.message || 'Invalid credentials!')
+      toast.error(error?.message || 'Invalid credentials!')
     })
   }
 
@@ -274,9 +274,9 @@ const LoginPage = () => {
                 sx={{ my: 7 }}
                 loading={auth.status === 'pending'}
                 disabled={auth.status === 'pending'}
-                loadingPosition="end"
+                loadingPosition='end'
                 size='large'
-                variant="contained"
+                variant='contained'
                 type='submit'
               >
                 Login
