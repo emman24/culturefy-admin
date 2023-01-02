@@ -1,4 +1,3 @@
-
 import { useState, useEffect, MouseEvent, useCallback, ReactElement } from 'react'
 
 // ** Next Import
@@ -44,223 +43,223 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEmployee } from 'src/@core/hooks/form/useEmployee'
 
 // ** Import Custom hooks
-import useToggleDrawer from "src/@core/hooks/useToggleDrawer"
+import useToggleDrawer from 'src/@core/hooks/useToggleDrawer'
 
 // ** Types Imports
 import { IUser } from 'src/types/apps/user'
 import { RootState, AppDispatch } from 'src/store'
 
 interface CellType {
-    row: IUser
+  row: IUser
 }
 
 // ** Styled component for the link inside menu
 const MenuItemLink = styled('a')(({ theme }) => ({
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    textDecoration: 'none',
-    padding: theme.spacing(1.5, 4),
-    color: theme.palette.text.primary
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  textDecoration: 'none',
+  padding: theme.spacing(1.5, 4),
+  color: theme.palette.text.primary
 }))
 
 // ** Styled component for the link for the avatar with image
 const AvatarWithImageLink = styled(Link)(({ theme }) => ({
-    marginRight: theme.spacing(3)
+  marginRight: theme.spacing(3)
 }))
 
 // ** Styled component for the link for the avatar without image
 const AvatarWithoutImageLink = styled(Link)(({ theme }) => ({
-    textDecoration: 'none',
-    marginRight: theme.spacing(3)
+  textDecoration: 'none',
+  marginRight: theme.spacing(3)
 }))
 
 // ** Vars
 const EmployeeRoleIcons: IUser = {
-    ADMIN: <Laptop sx={{ mr: 2, color: 'error.main' }} />,
-    INSPECTOR: <CogOutline sx={{ mr: 2, color: 'warning.main' }} />,
-    MANAGER: <PencilOutline sx={{ mr: 2, color: 'info.main' }} />,
+  ADMIN: <Laptop sx={{ mr: 2, color: 'error.main' }} />,
+  INSPECTOR: <CogOutline sx={{ mr: 2, color: 'warning.main' }} />,
+  MANAGER: <PencilOutline sx={{ mr: 2, color: 'info.main' }} />
 }
 
 // ** renders client column
 export const renderClient = (row: IUser) => {
-    if (row.company && row.company.logo) {
-        return (
-            <AvatarWithImageLink href={`/users/view/${row.id}`} >
-                <CustomAvatar src={row?.company?.logo} sx={{ mr: 3, width: 34, height: 34 }} />
-            </AvatarWithImageLink>
-        )
-    } else {
-        return (
-            <AvatarWithoutImageLink href={`/users/view/${row.id}`} >
-                <CustomAvatar
-                    skin='light'
-                    color={row.avatarColor || 'primary'}
-                    sx={{ mr: 3, width: 34, height: 34, fontSize: '1rem' }}
-                >
-                    {getInitials(row?.company?.name)}
-                </CustomAvatar>
-            </AvatarWithoutImageLink>
-        )
-    }
+  if (row.company && row.company.logo) {
+    return (
+      <AvatarWithImageLink href={`/users/view/${row.id}`}>
+        <CustomAvatar src={row?.company?.logo} sx={{ mr: 3, width: 34, height: 34 }} />
+      </AvatarWithImageLink>
+    )
+  } else {
+    return (
+      <AvatarWithoutImageLink href={`/users/view/${row.id}`}>
+        <CustomAvatar
+          skin='light'
+          color={row.avatarColor || 'primary'}
+          sx={{ mr: 3, width: 34, height: 34, fontSize: '1rem' }}
+        >
+          {getInitials(row?.company?.name)}
+        </CustomAvatar>
+      </AvatarWithoutImageLink>
+    )
+  }
 }
 
 const columns = [
-    {
-        flex: 0.2,
-        minWidth: 230,
-        field: 'first_name',
-        headerName: 'Users',
-        renderCell: ({ row }: CellType) => {
-            return (
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Link href={`/users/view/${row.id}`} passHref>
-                        <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
-                            <Typography
-                                noWrap
-                                component='a'
-                                variant='subtitle2'
-                                sx={{ color: 'text.primary', textDecoration: 'none' }}
-                            >
-                                {row.first_name} {row.last_name}
-                            </Typography>
-                        </Box>
-                    </Link>
-                </Box>
-            )
-        }
-    },
-    {
-        flex: 0.2,
-        minWidth: 250,
-        field: 'email',
-        headerName: 'Email',
-        renderCell: ({ row }: CellType) => {
-            return (
-                <Typography noWrap variant='body2'>
-                    {row.email}
-                </Typography>
-            )
-        }
-    },
-    // {
-    //     flex: 0.15,
-    //     field: 'role_code',
-    //     minWidth: 150,
-    //     headerName: 'Role',
-    //     renderCell: ({ row }: CellType) => {
-    //         return (
-    //             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-    //                 {EmployeeRoleIcons[row.role_code]}
-    //                 <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
-    //                     {row.role_code}
-    //                 </Typography>
-    //             </Box>
-    //         )
-    //     }
-    // },
-    {
-        flex: 0.1,
-        minWidth: 110,
-        field: 'status',
-        headerName: 'email verify',
-        renderCell: ({ row }: CellType) => {
-            return (
-                <CustomChip
-                    skin='light'
-                    size='small'
-                    label={row.email_status}
-                    color={row.email_status === "VERIFIED" ? 'success' : 'error'}
-                    sx={{ textTransform: 'capitalize', '& .MuiChip-label': { lineHeight: '18px' } }}
-                />
-            )
-        }
-    },
-    {
-        flex: 0.1,
-        minWidth: 90,
-        sortable: false,
-        field: 'actions',
-        headerName: 'Actions',
-        renderCell: ({ row }: CellType) => <RowOptions id={row.id} />
+  {
+    flex: 0.2,
+    minWidth: 230,
+    field: 'first_name',
+    headerName: 'Users',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Link href={`/users/view/${row.id}`} passHref>
+            <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
+              <Typography
+                noWrap
+                component='a'
+                variant='subtitle2'
+                sx={{ color: 'text.primary', textDecoration: 'none' }}
+              >
+                {row.first_name} {row.last_name}
+              </Typography>
+            </Box>
+          </Link>
+        </Box>
+      )
     }
+  },
+  {
+    flex: 0.2,
+    minWidth: 250,
+    field: 'email',
+    headerName: 'Email',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography noWrap variant='body2'>
+          {row.email}
+        </Typography>
+      )
+    }
+  },
+  // {
+  //     flex: 0.15,
+  //     field: 'role_code',
+  //     minWidth: 150,
+  //     headerName: 'Role',
+  //     renderCell: ({ row }: CellType) => {
+  //         return (
+  //             <Box sx={{ display: 'flex', alignItems: 'center' }}>
+  //                 {EmployeeRoleIcons[row.role_code]}
+  //                 <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
+  //                     {row.role_code}
+  //                 </Typography>
+  //             </Box>
+  //         )
+  //     }
+  // },
+  {
+    flex: 0.1,
+    minWidth: 110,
+    field: 'status',
+    headerName: 'email verify',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <CustomChip
+          skin='light'
+          size='small'
+          label={row.email_status}
+          color={row.email_status === 'VERIFIED' ? 'success' : 'error'}
+          sx={{ textTransform: 'capitalize', '& .MuiChip-label': { lineHeight: '18px' } }}
+        />
+      )
+    }
+  },
+  {
+    flex: 0.1,
+    minWidth: 90,
+    sortable: false,
+    field: 'actions',
+    headerName: 'Actions',
+    renderCell: ({ row }: CellType) => <RowOptions id={row.id} />
+  }
 ]
 
 const RowOptions = ({ id }: { id: string }) => {
-    // ** Hooks
-    const { handleDrawer, handleModal } = useToggleDrawer();
+  // ** Hooks
+  const { handleDrawer, handleModal } = useToggleDrawer()
 
-    // ** State
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  // ** State
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
-    const rowOptionsOpen = Boolean(anchorEl)
+  const rowOptionsOpen = Boolean(anchorEl)
 
-    const handleRowOptionsClick = (event: MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget)
-    }
-    const handleRowOptionsClose = () => {
-        setAnchorEl(null)
-    }
+  const handleRowOptionsClick = (event: MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleRowOptionsClose = () => {
+    setAnchorEl(null)
+  }
 
-    const handleDelete = async () => {
-        handleModal(id)
-        handleRowOptionsClose()
-    }
+  const handleDelete = async () => {
+    handleModal(id)
+    handleRowOptionsClose()
+  }
 
-    const handleUpdate = () => handleDrawer(id)
+  const handleUpdate = () => handleDrawer(id)
 
-    return (
-        <>
-            <IconButton size='small' onClick={handleRowOptionsClick}>
-                <DotsVertical />
-            </IconButton>
-            <Menu
-                keepMounted
-                anchorEl={anchorEl}
-                open={rowOptionsOpen}
-                onClose={handleRowOptionsClose}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right'
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right'
-                }}
-                PaperProps={{ style: { minWidth: '8rem' } }}
-            >
-                <MenuItem onClick={handleDelete}>
-                    <DeleteOutline fontSize='small' sx={{ mr: 2 }} />
-                    Delete
-                </MenuItem>
-            </Menu>
-        </>
-    )
+  return (
+    <>
+      <IconButton size='small' onClick={handleRowOptionsClick}>
+        <DotsVertical />
+      </IconButton>
+      <Menu
+        keepMounted
+        anchorEl={anchorEl}
+        open={rowOptionsOpen}
+        onClose={handleRowOptionsClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right'
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right'
+        }}
+        PaperProps={{ style: { minWidth: '8rem' } }}
+      >
+        <MenuItem onClick={handleDelete}>
+          <DeleteOutline fontSize='small' sx={{ mr: 2 }} />
+          Delete
+        </MenuItem>
+      </Menu>
+    </>
+  )
 }
 
 const EmployeeTable = () => {
+  // ** State
+  const [pageSize, setPageSize] = useState<number>(10)
 
-    // ** State
-    const [pageSize, setPageSize] = useState<number>(10)
+  // ** Hooks
+  const dispatch = useDispatch<AppDispatch>()
+  const store = useSelector((state: RootState) => state.user)
+  console.log(store, 'store')
 
-    // ** Hooks
-    const dispatch = useDispatch<AppDispatch>()
-    const store = useSelector((state: RootState) => state.user)
-
-    return (
-        <DataGrid
-            autoHeight
-            rows={store.entities || []}
-            columns={columns}
-            checkboxSelection
-            pageSize={pageSize}
-            disableSelectionOnClick
-            rowsPerPageOptions={[10, 25, 50]}
-            sx={{ '& .MuiDataGrid-columnHeaders': { borderRadius: 0 } }}
-            onPageSizeChange={(newPageSize: number) => setPageSize(newPageSize)}
-            components={{ Toolbar: GridToolbar }}
-        />
-    )
+  return (
+    <DataGrid
+      autoHeight
+      rows={store.entities || []}
+      columns={columns}
+      checkboxSelection
+      pageSize={pageSize}
+      disableSelectionOnClick
+      rowsPerPageOptions={[10, 25, 50]}
+      sx={{ '& .MuiDataGrid-columnHeaders': { borderRadius: 0 } }}
+      onPageSizeChange={(newPageSize: number) => setPageSize(newPageSize)}
+      components={{ Toolbar: GridToolbar }}
+    />
+  )
 }
 
 export default EmployeeTable

@@ -14,19 +14,17 @@ import Table from 'src/@core/components/apps/users/components/Table'
 import DeleteAlert from 'src/@core/components/common/deleteAlert'
 
 // ** Import Custom hooks
-import useToggleDrawer from "src/@core/hooks/useToggleDrawer"
+import useToggleDrawer from 'src/@core/hooks/useToggleDrawer'
 import { useUser } from 'src/@core/hooks/apps/useUser'
 
 const Page = () => {
-
   // ** Hooks
-  const { serviceId, isDrawerOpen, handleDrawer } = useToggleDrawer();
+  const { serviceId, isDrawerOpen, handleDrawer } = useToggleDrawer()
   const { getUsers, deleteUser, store } = useUser(null)
 
   useEffect(() => {
-    getUsers({ query: "" })
-
-    return () => { }
+    getUsers({ query: '' })
+    return () => {}
   }, [])
 
   const handleDelete = () => {
@@ -36,8 +34,8 @@ const Page = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <Card style={{ marginBottom: 10 }} >
-          <TableHeader value={""} handleFilter={() => { }} />
+        <Card style={{ marginBottom: 10 }}>
+          <TableHeader value={''} handleFilter={() => {}} />
         </Card>
         <Table />
       </Grid>
@@ -51,4 +49,4 @@ Page.acl = {
   subject: 'employee-page'
 }
 
-export default Page;
+export default Page

@@ -1,29 +1,28 @@
-import axios from 'axios';
+import axios from 'axios'
 
 // ** Config
 import authConfig from 'src/configs/auth'
 
 const instance = axios.create({
-  baseURL: "http://localhost:8002/api/v1", // local
+  baseURL: 'http://192.168.0.26:8002/api/v1', // local
   timeout: 500000,
   headers: {
     Accept: 'application/json',
-    'Content-Type': 'application/json',
-  },
-});
+    'Content-Type': 'application/json'
+  }
+})
 
 // Add a request interceptor
 instance.interceptors.request.use(function (config) {
-
   const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
 
   return {
     ...config,
     headers: {
-      authorization: storedToken ? `Bearer ${storedToken}` : null,
-    },
-  };
-});
+      authorization: storedToken ? `Bearer ${storedToken}` : null
+    }
+  }
+})
 
 // const responseBody = (response: any) => response.data;
 
@@ -39,4 +38,4 @@ instance.interceptors.request.use(function (config) {
 //   delete: (url: any) => instance.delete(url).then(responseBody),
 // };
 
-export default instance;
+export default instance

@@ -13,7 +13,15 @@ import authConfig from 'src/configs/auth'
 import { AuthServices, CompanyServices } from 'src/services'
 
 // ** Types
-import { AuthValuesType, RegisterParams, LoginParams, ErrCallbackType, UserDataType, ISignupFormValues, ICompanyFormValues } from './types'
+import {
+  AuthValuesType,
+  RegisterParams,
+  LoginParams,
+  ErrCallbackType,
+  UserDataType,
+  ISignupFormValues,
+  ICompanyFormValues
+} from './types'
 
 // ** Third Party Imports
 import toast from 'react-hot-toast'
@@ -28,7 +36,7 @@ const steps = [
     subtitle: 'Add Company Details'
   },
   {
-    title: "Subscriptions",
+    title: 'Subscriptions',
     subtitle: 'Pick a plan that works best for you'
   }
 ]
@@ -45,8 +53,8 @@ const defaultProvider: AuthValuesType = {
   setIsInitialized: () => Boolean,
   register: () => Promise.resolve(),
   createAccount: () => Promise.resolve(),
-  createCompany(body, errorCallback?) { },
-  // Signup related 
+  createCompany(body, errorCallback?) {},
+  // Signup related
   activeStep: 0,
   steps,
   handleBack: () => Promise.resolve(),
@@ -69,7 +77,7 @@ const AuthProvider = ({ children }: Props) => {
   // ** States
   const [user, setUser] = useState<UserDataType | null>(defaultProvider.user)
   const [userTmp, setUserTmp] = useState<UserDataType | null>(defaultProvider.user)
-  const [accessTokenTmp, setAccessTokenTmp] = useState<string | null>("")
+  const [accessTokenTmp, setAccessTokenTmp] = useState<string | null>('')
 
   const [loading, setLoading] = useState<boolean>(defaultProvider.loading)
   const [status, setStatus] = useState<AuthValuesType['status']>('idle')
@@ -103,7 +111,7 @@ const AuthProvider = ({ children }: Props) => {
 
       const accessToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
       const refreshToken = window.localStorage.getItem(authConfig.refreshTokenKeyName)
-      const user = JSON.parse(window.localStorage.getItem('userData') || "{}")
+      const user = JSON.parse(window.localStorage.getItem('userData') || '{}')
 
       // console.log('====================================');
       // console.log(user);
@@ -147,19 +155,18 @@ const AuthProvider = ({ children }: Props) => {
     setStatus('pending')
     AuthServices.login(params)
       .then(async ({ data: response }) => {
-
-        console.log('==========Login data================');
-        console.log(response);
-        console.log('====================================');
+        console.log('==========Login data================')
+        console.log(response)
+        console.log('====================================')
 
         saveLogin({
-          accessToken: response.data.tokens.accessToken || "",
-          refreshToken: response.data.tokens.refreshToken || "",
+          accessToken: response.data.tokens.accessToken || '',
+          refreshToken: response.data.tokens.refreshToken || '',
           user: response.data.user
         })
         setStatus('success')
       })
-      .catch((error) => {
+      .catch(error => {
         setStatus('error')
         if (errorCallback) errorCallback(error.response?.data)
       })
@@ -189,8 +196,8 @@ const AuthProvider = ({ children }: Props) => {
 
   const handleCreateAccount = async (body: ISignupFormValues, errorCallback?: ErrCallbackType) => {
     setStatus('pending')
-    delete body.confirm_password;
-    delete body.API_ERROR;
+    delete body.confirm_password
+    delete body.API_ERROR
     try {
       const { data } = await AuthServices.signup(body)
 
@@ -201,20 +208,19 @@ const AuthProvider = ({ children }: Props) => {
 
       setStatus('success')
       handleNext()
-
     } catch (error: any) {
       setStatus('error')
-      toast.error(error?.response?.data?.message || "Something went wrong!")
+      toast.error(error?.response?.data?.message || 'Something went wrong!')
       if (errorCallback) errorCallback(error?.response?.data)
     }
   }
 
   const handleCreateCompany = async (body: ICompanyFormValues, errorCallback?: ErrCallbackType) => {
-    delete body.API_ERROR;
+    delete body.API_ERROR
     setStatus('pending')
     try {
       const { data } = await CompanyServices.add(body, {
-        'Authorization': `Bearer ${accessTokenTmp}`,
+        Authorization: `Bearer ${accessTokenTmp}`
       })
       console.log('====================================')
       console.log(accessTokenTmp)
@@ -228,10 +234,9 @@ const AuthProvider = ({ children }: Props) => {
       // })
       setStatus('success')
       handleNext()
-
     } catch (error: any) {
       setStatus('error')
-      toast.error(error?.response?.data?.message || "Something went wrong!")
+      toast.error(error?.response?.data?.message || 'Something went wrong!')
       if (errorCallback) errorCallback(error?.response?.data)
     }
   }
@@ -254,16 +259,16 @@ const AuthProvider = ({ children }: Props) => {
     setActiveStep(0)
   }
 
-  const saveLogin = ({ accessToken, refreshToken, user }: { accessToken: string, refreshToken: string, user: any }) => {
+  const saveLogin = ({ accessToken, refreshToken, user }: { accessToken: string; refreshToken: string; user: any }) => {
     // save token in localStorage
     window.localStorage.setItem(authConfig.storageTokenKeyName, accessToken)
     window.localStorage.setItem(authConfig.refreshTokenKeyName, refreshToken)
 
     const returnUrl = router.query.returnUrl
 
-    console.log('=========returnUrl===========================');
-    console.log(returnUrl);
-    console.log('====================================');
+    console.log('=========returnUrl===========================')
+    console.log(returnUrl)
+    console.log('====================================')
 
     setUser(user)
     window.localStorage.setItem('userData', JSON.stringify(user))
@@ -272,7 +277,6 @@ const AuthProvider = ({ children }: Props) => {
 
     router.replace(redirectURL as string)
   }
-
 
   const values = {
     user,
@@ -292,7 +296,7 @@ const AuthProvider = ({ children }: Props) => {
     handleNext,
     handleReset,
     status,
-    setStatus,
+    setStatus
   }
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>
