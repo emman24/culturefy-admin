@@ -75,7 +75,7 @@ const HorizontalLayout = (props: LayoutProps) => {
   return (
     <HorizontalLayoutWrapper className='layout-wrapper'>
       {/* Navbar (or AppBar) and Navigation Menu Wrapper */}
-      <AppBar
+      <AppBar 
         color='default'
         elevation={skin === 'bordered' ? 0 : 3}
         className='layout-navbar-and-nav-container'

@@ -111,12 +111,13 @@ const columns = [
   {
     flex: 0.2,
     minWidth: 230,
-    field: 'first_name',
-    headerName: 'Users',
+    field: '_id',
+    headerName: 'Id',
     renderCell: ({ row }: CellType) => {
+      console.log('row ', row)
       return (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Link href={`/users/view/${row.id}`} passHref>
+          <Link href={`/users/view/${row._id}`} passHref>
             <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
               <Typography
                 noWrap
@@ -124,7 +125,7 @@ const columns = [
                 variant='subtitle2'
                 sx={{ color: 'text.primary', textDecoration: 'none' }}
               >
-                {row.first_name} {row.last_name}
+                {row._id}
               </Typography>
             </Box>
           </Link>
@@ -135,57 +136,108 @@ const columns = [
   {
     flex: 0.2,
     minWidth: 250,
-    field: 'email',
-    headerName: 'Email',
+    field: 'facebook_link',
+    headerName: 'Facebook Link',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          {row.email}
+          {row.facebook_link}
         </Typography>
       )
     }
   },
-  // {
-  //     flex: 0.15,
-  //     field: 'role_code',
-  //     minWidth: 150,
-  //     headerName: 'Role',
-  //     renderCell: ({ row }: CellType) => {
-  //         return (
-  //             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-  //                 {EmployeeRoleIcons[row.role_code]}
-  //                 <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
-  //                     {row.role_code}
-  //                 </Typography>
-  //             </Box>
-  //         )
-  //     }
-  // },
   {
-    flex: 0.1,
-    minWidth: 110,
-    field: 'status',
-    headerName: 'email verify',
+    flex: 0.2,
+    minWidth: 250,
+    field: 'instagram_link',
+    headerName: 'Instagram Link',
     renderCell: ({ row }: CellType) => {
       return (
-        <CustomChip
-          skin='light'
-          size='small'
-          label={row.email_status}
-          color={row.email_status === 'VERIFIED' ? 'success' : 'error'}
-          sx={{ textTransform: 'capitalize', '& .MuiChip-label': { lineHeight: '18px' } }}
-        />
+        <Typography noWrap variant='body2'>
+          {row.instagram_link}
+        </Typography>
       )
     }
   },
   {
-    flex: 0.1,
-    minWidth: 90,
-    sortable: false,
-    field: 'actions',
-    headerName: 'Actions',
-    renderCell: ({ row }: CellType) => <RowOptions id={row.id} />
-  }
+    flex: 0.2,
+    minWidth: 250,
+    field: 'linkedin_link',
+    headerName: 'Linkedin Link',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography noWrap variant='body2'>
+          {row.linkedin_link}
+        </Typography>
+      )
+    }
+  },
+  {
+    flex: 0.2,
+    minWidth: 250,
+    field: 'location',
+    headerName: 'Location',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography noWrap variant='body2'>
+          {row.location}
+        </Typography>
+      )
+    }
+  },
+  {
+    flex: 0.2,
+    minWidth: 250,
+    field: 'logo',
+    headerName: 'logo',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography noWrap variant='body2'>
+          {row.logo}
+        </Typography>
+      )
+    }
+  },
+  {
+    flex: 0.2,
+    minWidth: 250,
+    field: 'name',
+    headerName: 'name',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography noWrap variant='body2'>
+          {row.name}
+        </Typography>
+      )
+    }
+  },
+  {
+    flex: 0.2,
+    minWidth: 250,
+    field: 'twitter_link',
+    headerName: 'twitter_link',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography noWrap variant='body2'>
+          {row.twitter_link}
+        </Typography>
+      )
+    }
+  },
+  {
+    flex: 0.2,
+    minWidth: 250,
+    field: 'website',
+    headerName: 'website',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography noWrap variant='body2'>
+          {row.website}
+        </Typography>
+      )
+    }
+  },
+  
 ]
 
 const RowOptions = ({ id }: { id: string }) => {
@@ -204,12 +256,12 @@ const RowOptions = ({ id }: { id: string }) => {
     setAnchorEl(null)
   }
 
-  const handleDelete = async () => {
-    handleModal(id)
-    handleRowOptionsClose()
-  }
+  // const handleDelete = async () => {
+  //   handleModal(id)
+  //   handleRowOptionsClose()
+  // }
 
-  const handleUpdate = () => handleDrawer(id)
+  // const handleUpdate = () => handleDrawer(id)
 
   return (
     <>
@@ -231,10 +283,10 @@ const RowOptions = ({ id }: { id: string }) => {
         }}
         PaperProps={{ style: { minWidth: '8rem' } }}
       >
-        <MenuItem onClick={handleDelete}>
+        {/* <MenuItem onClick={handleDelete}>
           <DeleteOutline fontSize='small' sx={{ mr: 2 }} />
           Delete
-        </MenuItem>
+        </MenuItem> */}
       </Menu>
     </>
   )
@@ -246,22 +298,20 @@ const EmployeeTable = () => {
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
-  // const store = useSelector((state: RootState) => state.user)
-  // const store2 = useSelector((state: RootState) => state.business)
   const { getBusiness, store } = useBusiness(null);
   useEffect(()=>{
     getBusiness();
   },[])
   
 
-  console.log('store ', store)
+  console.log('store?.business ', store?.business)
   // console.log('store2 ', store2 )
 
   return (
     <DataGrid
       autoHeight
-      // rows={store.entities || []}
-      // rows={store.entities || []}
+      getRowId={(row) => row._id}
+      rows={store?.business || []}
       columns={columns}
       checkboxSelection
       pageSize={pageSize}

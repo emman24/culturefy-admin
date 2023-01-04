@@ -135,6 +135,7 @@ const LoginPage = () => {
   })
 
   const onSubmit = (data: FormData) => {
+
     const { email, password } = data
     auth.login({ email, password }, error => {
       setError('password', {
@@ -143,6 +144,7 @@ const LoginPage = () => {
       })
       toast.error(error?.message || 'Invalid credentials!')
     })
+    
   }
 
   const imageSource = skin === 'bordered' ? 'auth-v2-login-illustration-bordered' : 'auth-v2-login-illustration'
@@ -192,7 +194,7 @@ const LoginPage = () => {
             </Box>
             {/* <Alert icon={false} sx={{ py: 3, mb: 6, ...bgClasses.primaryLight, '& .MuiAlert-message': { p: 0 } }}>
               <Typography variant='caption' sx={{ mb: 2, display: 'block', color: 'primary.main' }}>
-                Admin: <strong>admin@squabble.com</strong> / Pass: <strong>password</strong>
+                Admin: <strong>admin@culturefy.com</strong> / Pass: <strong>password</strong>
               </Typography>
             </Alert> */}
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
@@ -282,7 +284,7 @@ const LoginPage = () => {
                 Login
               </LoadingButton>
 
-              <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
+              {/* <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
                 <Typography sx={{ mr: 2, color: 'text.secondary' }}>New on our platform?</Typography>
                 <Typography>
                   <Link passHref href='/signup'>
@@ -291,7 +293,7 @@ const LoginPage = () => {
                     </Typography>
                   </Link>
                 </Typography>
-              </Box>
+              </Box> */}
               {/* <Divider sx={{ mt: 5, mb: 7.5, '& .MuiDivider-wrapper': { px: 4 } }}>or</Divider>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Link href='/' passHref>

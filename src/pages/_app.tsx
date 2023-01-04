@@ -117,12 +117,12 @@ const App = (props: ExtendedAppProps) => {
     <Provider store={store}>
       <CacheProvider value={emotionCache}>
         <Head>
-          <title>{`${themeConfig.templateName} - Squabble Dashboard`}</title>
+          <title>{`${themeConfig.templateName} - Culturefy Dashboard`}</title>
           <meta
             name='description'
-            content={`${themeConfig.templateName}Squabble – Admin Dashboard`}
+            content={`${themeConfig.templateName}Culturefy – Admin Dashboard`}
           />
-          <meta name='keywords' content='Squabble Admin Dashboard software' />
+          <meta name='keywords' content='Culturefy Admin Dashboard software' />
           <meta name='viewport' content='initial-scale=1, width=device-width' />
         </Head>
 

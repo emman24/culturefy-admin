@@ -21,13 +21,18 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "apexcharts": [
-        "./node_modules/apexcharts-clevision"
-      ],
-      "apexcharts/*": [
-        "./node_modules/apexcharts-clevision/*"
-      ],
-    }
+      "@/layouts/*": ["src/layoyts/*"],
+      "@/components/*": ["src/components/*"],
+      "@/public/*": ["./public/*"]
+    },
+    // "paths": {
+    //   "apexcharts": [
+    //     "./node_modules/apexcharts-clevision"
+    //   ],
+    //   "apexcharts/*": [
+    //     "./node_modules/apexcharts-clevision/*"
+    //   ],
+    // }
   },
   "include": [
     "src",

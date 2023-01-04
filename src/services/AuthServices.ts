@@ -4,7 +4,7 @@ import requests from './httpService';
 
 const AuthServices = {
   login(body: any): Promise<AxiosResponse<any, any>> {
-    return requests.post(`/auth/signin`, body);
+    return requests.post(`/signin`, body);
   },
   signup(body: any): Promise<AxiosResponse<any, any>> {
     return requests.post(`/auth/signup`, body);

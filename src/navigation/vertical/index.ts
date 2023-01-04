@@ -11,6 +11,7 @@ import VoterPrizesIcon from 'mdi-material-ui/CurrencyUsd'
 
 import CogTransfer from 'mdi-material-ui/CogTransfer'
 import AssignmentIcon from 'mdi-material-ui/ClipboardCheck'
+import SchoolOutline from 'mdi-material-ui/SchoolOutline'
 
 // ** Type import
 import { VerticalNavItemsType } from 'src/@core/layouts/types'
@@ -28,47 +29,95 @@ const navigation = (): VerticalNavItemsType => {
       subject: 'dashboard-page',
     },
     {
-      title: 'Users',
+      title: 'Culture Check',
+      icon: CogTransfer,
+      children: [
+        {
+          title: 'Assignment Type',
+          icon: AssignmentIcon,
+          // path: '/assignment-type',
+          action: 'itsHaveAccess',
+          subject: 'assignment-type-page',
+        },
+        {
+          title: 'Report Label',
+          icon: AssignmentIcon,
+          // path: '/label',
+          action: 'itsHaveAccess',
+          subject: 'report-label-page',
+        },
+      ]
+    },
+    {
+      title: 'Learning',
+      icon: SchoolOutline,
+      children: [
+        {
+          title: 'Assignment Type',
+          icon: AssignmentIcon,
+          path: '/assignment-type',
+          action: 'itsHaveAccess',
+          subject: 'assignment-type-page',
+        },
+        {
+          title: 'Report Label',
+          icon: AssignmentIcon,
+          path: '/label',
+          action: 'itsHaveAccess',
+          subject: 'report-label-page',
+        },
+      ]
+    },
+
+    // {
+    //   title: 'Users',
+    //   icon: UserIcon,
+    //   path: '/users',
+    //   action: 'itsHaveAccess',
+    //   subject: 'dashboard-page',
+    // },
+    {
+      title: 'Businesses',
       icon: UserIcon,
-      path: '/users',
+      path: '/businesses',
       action: 'itsHaveAccess',
       subject: 'dashboard-page',
     },
-    {
-      title: 'Wallet',
-      icon: WalletIcon,
-      path: '/wallet',
-      action: 'itsHaveAccess',
-      subject: 'dashboard-page',
-    },
-    {
-      title: 'Notifications',
-      icon: NotificationsIcon,
-      path: '/notifications',
-      action: 'itsHaveAccess',
-      subject: 'dashboard-page',
-    },
-    {
-      title: 'Banner Ads',
-      icon: BannerAdsIcon,
-      path: '/banner-ads',
-      action: 'itsHaveAccess',
-      subject: 'dashboard-page',
-    },
-    {
-      title: 'Challenges',
-      icon: ChallengesIcon,
-      path: '/challenges',
-      action: 'itsHaveAccess',
-      subject: 'dashboard-page',
-    },
-    {
-      title: 'Voter Prizes',
-      icon: VoterPrizesIcon,
-      path: '/voter-prizes',
-      action: 'itsHaveAccess',
-      subject: 'dashboard-page',
-    },
+    // {  
+    //   title: 'Wallet',
+    //   icon: WalletIcon,
+    //   path: '/wallet',
+    //   action: 'itsHaveAccess',
+    //   subject: 'dashboard-page',
+    // },
+    // {
+    //   title: 'Notifications',
+    //   icon: NotificationsIcon,
+    //   path: '/notifications',
+    //   action: 'itsHaveAccess',
+    //   subject: 'dashboard-page',
+    // },
+    // {
+    //   title: 'Banner Ads',
+    //   icon: BannerAdsIcon,
+    //   path: '/banner-ads',
+    //   action: 'itsHaveAccess',
+    //   subject: 'dashboard-page',
+    // },
+    // {
+    //   title: 'Challenges',
+    //   icon: ChallengesIcon,
+    //   path: '/challenges',
+    //   action: 'itsHaveAccess',
+    //   subject: 'dashboard-page',
+    // },
+    // {
+    //   title: 'Voter Prizes',
+    //   icon: VoterPrizesIcon,
+    //   path: '/voter-prizes',
+    //   action: 'itsHaveAccess',
+    //   subject: 'dashboard-page',
+    // },
     // {
     //   title: 'Employees',
     //   icon: EmailOutline,
@@ -90,26 +139,26 @@ const navigation = (): VerticalNavItemsType => {
     //   action: 'itsHaveAccess',
     //   subject: 'project-page',
     // },
-    {
-      title: 'Setting',
-      icon: CogTransfer,
-      children: [
-        {
-          title: 'Assignment Type',
-          icon: AssignmentIcon,
-          path: '/assignment-type',
-          action: 'itsHaveAccess',
-          subject: 'assignment-type-page',
-        },
-        {
-          title: 'Report Label',
-          icon: AssignmentIcon,
-          path: '/label',
-          action: 'itsHaveAccess',
-          subject: 'report-label-page',
-        },
-      ]
-    },
+    // {
+    //   title: 'Setting',
+    //   icon: CogTransfer,
+    //   children: [
+    //     {
+    //       title: 'Assignment Type',
+    //       icon: AssignmentIcon,
+    //       path: '/assignment-type',
+    //       action: 'itsHaveAccess',
+    //       subject: 'assignment-type-page',
+    //     },
+    //     {
+    //       title: 'Report Label',
+    //       icon: AssignmentIcon,
+    //       path: '/label',
+    //       action: 'itsHaveAccess',
+    //       subject: 'report-label-page',
+    //     },
+    //   ]
+    // },
 
     // {
     //   title: 'Assignment',

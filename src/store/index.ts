@@ -5,6 +5,7 @@ import { configureStore, Dispatch } from '@reduxjs/toolkit'
 import example from 'src/store/apps/example'
 import user from 'src/store/apps/user'
 import challenges from './apps/challenges'
+import business from './apps/business'
 
 // import project from './apps/project'
 
@@ -12,6 +13,7 @@ export const store = configureStore({
   reducer: {
     example,
     user,
+    business,
     challenges
   },
   middleware: getDefaultMiddleware =>

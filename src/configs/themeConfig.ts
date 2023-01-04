@@ -44,7 +44,7 @@ type ThemeConfig = {
 
 const themeConfig: ThemeConfig = {
   // ** Layout Configs
-  templateName: 'Squabble' /* App Name */,
+  templateName: 'Culturefy' /* App Name */,
   layout: 'vertical' /* vertical | horizontal */,
   mode: 'light' /* light | dark */,
   direction: 'ltr' /* ltr | rtl */,

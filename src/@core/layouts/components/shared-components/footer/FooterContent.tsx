@@ -12,7 +12,7 @@ const FooterContent = () => {
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
       <Typography sx={{ mr: 2 }}>
-        {`QAC Plus © ${new Date().getFullYear()}`}
+        {`Culturefy © ${new Date().getFullYear()}`}
         <Box component='span' sx={{ color: 'error.main' }}>
           ❤️
         </Box>
