@@ -76,7 +76,8 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
       await updateBusiness(serviceId, data);
     } else {
       // await addAssignmentType(data);
-      data = { ...data, logo: fileUrl };
+      console.log('data addBusiness ', data);
+      
       await addBusiness(data);
     }
   }
