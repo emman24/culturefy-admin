@@ -9,12 +9,14 @@ import { DataGrid, GridToolbar } from '@mui/x-data-grid'
 import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
+import MenuItem from '@mui/material/MenuItem'
 
 // ** Icons Imports
 import Laptop from 'mdi-material-ui/Laptop'
 import CogOutline from 'mdi-material-ui/CogOutline'
 import DotsVertical from 'mdi-material-ui/DotsVertical'
 import PencilOutline from 'mdi-material-ui/PencilOutline'
+import DeleteOutline from 'mdi-material-ui/DeleteOutline'
 
 // ** Custom Components Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -99,6 +101,7 @@ const columns = [
   {
     flex: 0.2,
     minWidth: 250,
+    minHeight: 100,
     field: 'logo',
     headerName: 'logo',
     renderCell: ({ row }: CellType) => {
@@ -132,7 +135,7 @@ const columns = [
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          { row.location ? row.location :  `No Location` }
+          {row.location ? row.location : `No Location`}
         </Typography>
       )
     }
@@ -145,7 +148,7 @@ const columns = [
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          { row.website ? row.website :  `No Website` }
+          {row.website ? row.website : `No Website`}
         </Typography>
       )
     }
@@ -183,7 +186,7 @@ const columns = [
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          { row.facebook_link ? row.facebook_link :  `No Facebook Link` }
+          {row.facebook_link ? row.facebook_link : `No Facebook Link`}
         </Typography>
       )
     }
@@ -196,7 +199,7 @@ const columns = [
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          { row.instagram_link ? row.instagram_link :  `No Instagram Link` }
+          {row.instagram_link ? row.instagram_link : `No Instagram Link`}
         </Typography>
       )
     }
@@ -209,7 +212,7 @@ const columns = [
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          { row.linkedin_link ? row.linkedin_link :  `No Linkedin Link` }
+          {row.linkedin_link ? row.linkedin_link : `No Linkedin Link`}
         </Typography>
       )
     }
@@ -222,15 +225,25 @@ const columns = [
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          { row.twitter_link ? row.twitter_link :  `No Twitter Link` }
+          {row.twitter_link ? row.twitter_link : `No Twitter Link`}
         </Typography>
       )
     }
   },
-  
+  {
+    flex: 0.1,
+    minWidth: 90,
+    sortable: false,
+    field: 'actions',
+    headerName: 'Actions',
+    renderCell: ({ row }: CellType) => <RowOptions id={row._id} />
+  }
+
 ]
 
 const RowOptions = ({ id }: { id: string }) => {
+
+  const { deleteBusiness } = useBusiness(null);
   // ** Hooks
   const { handleDrawer, handleModal } = useToggleDrawer()
 
@@ -246,12 +259,17 @@ const RowOptions = ({ id }: { id: string }) => {
     setAnchorEl(null)
   }
 
-  // const handleDelete = async () => {
-  //   handleModal(id)
-  //   handleRowOptionsClose()
-  // }
+  const handleDelete = async () => {
+    deleteBusiness(id)
+    // console.log('id ',id);
+    handleRowOptionsClose()
+  }
 
-  // const handleUpdate = () => handleDrawer(id)
+  const handleUpdate = () => {
+    handleRowOptionsClose()
+    console.log('id ',id);
+    handleDrawer(id)
+  }
 
   return (
     <>
@@ -273,10 +291,14 @@ const RowOptions = ({ id }: { id: string }) => {
         }}
         PaperProps={{ style: { minWidth: '8rem' } }}
       >
-        {/* <MenuItem onClick={handleDelete}>
+        <MenuItem onClick={handleUpdate}>
+          <PencilOutline fontSize='small' sx={{ mr: 2 }} />
+          Edit
+        </MenuItem>
+        <MenuItem onClick={handleDelete}>
           <DeleteOutline fontSize='small' sx={{ mr: 2 }} />
           Delete
-        </MenuItem> */}
+        </MenuItem>
       </Menu>
     </>
   )
@@ -285,14 +307,12 @@ const RowOptions = ({ id }: { id: string }) => {
 const EmployeeTable = () => {
   // ** State
   const [pageSize, setPageSize] = useState<number>(10)
-
-  // ** Hooks
-  const dispatch = useDispatch<AppDispatch>()
   const { getBusiness, store } = useBusiness(null);
-  useEffect(()=>{
-    getBusiness();
-  },[])
   
+  useEffect(() => {
+    getBusiness();
+  }, [])
+
 
   console.log('store?.business ', store?.business)
   // console.log('store2 ', store2 )
@@ -300,7 +320,7 @@ const EmployeeTable = () => {
   return (
     <DataGrid
       autoHeight
-      getRowId={(row) =>  row?._id}
+      getRowId={(row) => row?._id}
       rows={store?.business || []}
       columns={columns}
       checkboxSelection

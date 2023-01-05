@@ -82,6 +82,22 @@ const navigation = (): VerticalNavItemsType => {
       path: '/businesses',
       action: 'itsHaveAccess',
       subject: 'dashboard-page',
+      children: [
+        {
+          title: 'Businesses',
+          icon: AssignmentIcon,
+          path: '/businesses-all',
+          action: 'itsHaveAccess',
+          subject: 'assignment-type-page',
+        },
+        {
+          title: 'Businesses Questions',
+          icon: AssignmentIcon,
+          path: '/businesses-questions',
+          action: 'itsHaveAccess',
+          subject: 'report-label-page',
+        },
+      ]
     },
     // {  
     //   title: 'Wallet',

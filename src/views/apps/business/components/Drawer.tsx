@@ -59,7 +59,7 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
   // ** Hooks
   const {
     form: { control, reset, handleSubmit, formState: { errors } },
-    addBusiness,
+    addBusiness,updateBusiness,
     store,
   } = useBusiness(serviceId)
 
@@ -70,13 +70,14 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
   }
 
   const onSubmit = async (data: any) => {
-    // if (serviceId) {
-    //   await updateAssignmentType(serviceId, data)
-    // } else {
-    //   await addAssignmentType(data);
-    // }
-    data = {...data,logo:fileUrl}
-    addBusiness(data)
+    if (serviceId) {
+      // await updateAssignmentType(serviceId, data)
+      await updateBusiness(serviceId,data);
+    } else {
+      // await addAssignmentType(data);
+      data = {...data,logo:fileUrl};
+      await addBusiness(data);
+    }
   }
 
   const handleClose = () => {
@@ -203,8 +204,8 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
           </Button>
           <LoadingButton
             sx={{ mr: 3 }}
-            loading={store.status === 'pending'}
-            disabled={store.status === 'pending'}
+            // loading={store.status === 'pending'}
+            // disabled={store.status === 'pending'}
             loadingPosition="end"
             size='large'
             variant="contained"
