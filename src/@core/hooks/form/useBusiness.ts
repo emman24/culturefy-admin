@@ -17,7 +17,7 @@ import useToggleDrawer from "src/@core/hooks/useToggleDrawer"
 
 // ** Actions Imports
 import {
-    addAction,
+    addAction,fetchAllAction
 } from 'src/store/apps/business'
 
 import { assignmentTypeSchema } from 'src/@core/schema'
@@ -36,6 +36,7 @@ export const useBusiness = (serviceId: string | null) => {
     mode: 'onChange',
     resolver: yupResolver(assignmentTypeSchema.add)
   })
+
 
 //   useEffect(() => {
 //     serviceId && dispatch(fetchAssignmentTypeAction(serviceId))
@@ -59,6 +60,10 @@ export const useBusiness = (serviceId: string | null) => {
 //     dispatch(fetchAssignmentTypesAction({ query }))
 //   }
 
+const getBusiness = async () => {
+  dispatch(fetchAllAction());
+}
+
   cancelAnimationFrame
   const addBusiness = async (data: any) => {
     dispatch(addAction({ ...data }))
@@ -77,6 +82,7 @@ export const useBusiness = (serviceId: string | null) => {
 
   return {
     form, store,
+    getBusiness,
     addBusiness
   }
 }
