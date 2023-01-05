@@ -19,31 +19,33 @@ import useToggleDrawer from "src/@core/hooks/useToggleDrawer"
 // ** Actions Imports
 import {
   addAction, fetchAllAction, deleteAction, fetchOneAction,updateAction
-} from 'src/store/apps/business'
+} from 'src/store/apps/businessUser'
 
-import { assignmentTypeSchema } from 'src/@core/schema'
+import { businessUserSchema } from 'src/@core/schema'
 
 const defaultValues = {
-  name: '',
+  first_name: '',
+  last_name: '',
   email: '',
-  logo: '',
-  website: '',
+  date_of_birth: '',
+  phone: '',
+  password: '',
+  gender: '',
   location: '',
-  facebook_link: '',
-  instagram_link: '',
-  linkedin_link: '',
-  twitter_link: '',
+  permissions: '',
+  business_id: '',
+  role: '',
 }
 
-export const useBusiness = (serviceId: string | null) => {
+export const useBusinessUser = (serviceId: string | null) => {
   // // ** Hook
   const dispatch = useDispatch<AppDispatch>()
   const { handleDrawer, handleModal } = useToggleDrawer();
-  const store = useSelector((state: RootState) => state.business)
+  const store = useSelector((state: RootState) => state.businessUser)
   const form = useForm({
     defaultValues,
     mode: 'onChange',
-    resolver: yupResolver(assignmentTypeSchema.add)
+    resolver: yupResolver(businessUserSchema.add)
   })
 
 
@@ -52,22 +54,24 @@ export const useBusiness = (serviceId: string | null) => {
   }, [serviceId])
 
   useMemo(() => {
-    if (store.business && serviceId) {
+    if (store.businessUser && serviceId) {
       // console.log('serviceId ',serviceId);
-      'name' in store.business && form.setValue('name', store.business.name)
-      'email' in store.business && form.setValue('email', store.business.email)
-      'logo' in store.business && form.setValue('logo', store.business.logo)
-      'website' in store.business && form.setValue('website', store.business.website)
-      'location' in store.business && form.setValue('location', store.business.location)
-      'facebook_link' in store.business && form.setValue('facebook_link', store.business.facebook_link)
-      'instagram_link' in store.business && form.setValue('instagram_link', store.business.instagram_link)
-      'linkedin_link' in store.business && form.setValue('linkedin_link', store.business.linkedin_link)
-      'twitter_link' in store.business && form.setValue('twitter_link', store.business.twitter_link)
+      'first_name' in store.businessUser && form.setValue('first_name', store.businessUser.first_name)
+      'last_name' in store.businessUser && form.setValue('last_name', store.businessUser.last_name)
+      'email' in store.businessUser && form.setValue('email', store.businessUser.email)
+      'date_of_birth' in store.businessUser && form.setValue('date_of_birth', store.businessUser.date_of_birth)
+      'phone' in store.businessUser && form.setValue('phone', store.businessUser.phone)
+      'password' in store.businessUser && form.setValue('password', store.businessUser.password)
+      'gender' in store.businessUser && form.setValue('gender', store.businessUser.gender)
+      'location' in store.businessUser && form.setValue('location', store.businessUser.location)
+      'permissions' in store.businessUser && form.setValue('permissions', store.businessUser.permissions)
+      'business_id' in store.businessUser && form.setValue('business_id', store.businessUser.business_id)
+      'role' in store.businessUser && form.setValue('role', store.businessUser.role)
     }
     else {
-      form.setValue('name', '')
+      form.setValue('first_name', '')
     }
-  }, [store.business, serviceId])
+  }, [store.businessUsers, serviceId])
 
   //   const getAssignmentType = async (id: string) => {
   //     dispatch(fetchAssignmentTypeAction(id))
@@ -77,21 +81,21 @@ export const useBusiness = (serviceId: string | null) => {
   //     dispatch(fetchAssignmentTypesAction({ query }))
   //   }
 
-  const getBusiness = async () => {
+  const getBusinessUser = async () => {
     dispatch(fetchAllAction());
   }
 
 
-  const deleteBusiness = async (id: string) => {
+  const deleteBusinessUser = async (id: string) => {
     dispatch(deleteAction(id));
   }
 
-  const addBusiness = async (data: any) => {
+  const addBusinessUser = async (data: any) => {
     dispatch(addAction({ ...data }))
       .then(({ payload }: any) => {
         if (payload.statusCode === "10000") {
           handleDrawer(null)
-          console.log('============BUSINESS_ADDED===============');
+          console.log('============BUSINESSUser_ADDED===============');
         } else {
           console.log('============API_ERROR===============');
           console.log(payload);
@@ -100,7 +104,7 @@ export const useBusiness = (serviceId: string | null) => {
       })
   }
 
-  const updateBusiness = async (id: string, data: any) => {
+  const updateBusinessUser = async (id: string, data: any) => {
     dispatch(updateAction({ id, data }))
       .then(({ payload }: any) => {
         if (payload.statusCode === "10000") {
@@ -116,9 +120,9 @@ export const useBusiness = (serviceId: string | null) => {
 
   return {
     form, store,
-    getBusiness,
-    addBusiness,
-    deleteBusiness,
-    updateBusiness
+    getBusinessUser,
+    addBusinessUser,
+    deleteBusinessUser,
+    updateBusinessUser
   }
 }

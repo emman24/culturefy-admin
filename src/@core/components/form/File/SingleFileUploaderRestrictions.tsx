@@ -35,7 +35,7 @@ const HeadingTypography = styled(Typography)<TypographyProps>(({ theme }) => ({
 // ** types
 interface IFileUploader extends DropzoneOptions {
   onUpload: (file: FileProp) => void
-  existFile: any
+  existFile: FileProp
 }
 
 const FileUploaderRestrictions = ({
@@ -63,7 +63,7 @@ const FileUploaderRestrictions = ({
     maxSize,
     accept,
     onDrop: (acceptedFiles: File[]) => {
-      handleUpload(Object.assign(acceptedFiles[0]))
+      // handleUpload(Object.assign(acceptedFiles[0]))
     },
     onDropRejected: () => {
       toast.error(`You can only upload ${maxFiles} file & maximum size of ${maxSize} MB.`, {
@@ -74,6 +74,8 @@ const FileUploaderRestrictions = ({
 
   const renderFilePreview = (file: FileProp) => {
     if (file && existFile.type === "image") {
+      console.log('file renderFilePreview ',file);
+      
       return <img width={"100%"} height={"auto"} alt={"report image"} src={file.source} />
     } else if (file && existFile.type === "video") {
       return (
@@ -107,13 +109,13 @@ const FileUploaderRestrictions = ({
     </ListItem>
   )
 
-  // useEffect(
-  //   () => () => {
-  //     Make sure to revoke the data uris to avoid memory leaks
-  //     file.forEach((file) => URL.revokeObjectURL(file.preview));
-  //   },
-  //   [file]
-  // );
+  useEffect(
+    () => () => {
+      // Make sure to revoke the data uris to avoid memory leaks
+      // file.forEach((file) => URL.revokeObjectURL(file.preview));
+    },
+    [file]
+  );
 
   const handleUpload = (file: File) => {
     setStatus('pending')

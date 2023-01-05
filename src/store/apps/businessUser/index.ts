@@ -4,46 +4,46 @@ import toast from 'react-hot-toast'
 
 // ** Employee Service Imports
 // import { Services } from 'src/services'
-import BusinessServices from 'src/services/business.service'
+import BusinessUserServices from 'src/services/businessUser.service'
 
 // ** Types Imports
 import { IUser } from 'src/types/apps/user'
-import { IBusiness } from 'src/types/apps/business'
+import { IBusinessUser } from 'src/types/apps/businessUser'
 import { Redux } from 'src/store'
 import { ApiParams } from 'src/types/api'
 
 interface InitialState {
-  businesses: IBusiness[] | [],
-  business: IBusiness | {},
+  businessUsers: IBusinessUser[] | [],
+  businessUser: IBusinessUser | {},
   total: number
   params: ApiParams
   status: 'pending' | 'error' | 'success' | 'idle'
 }
 
-export const QueryAction = createAsyncThunk('business/query', async (query: string, { getState, dispatch }: Redux) => {
+export const QueryAction = createAsyncThunk('businessUser/query', async (query: string, { getState, dispatch }: Redux) => {
   dispatch(Slice.actions.handleQuery(query))
   return query
 })
 
-export const fetchOneAction = createAsyncThunk('business/fetchOne', async (id: string) => {
-  const response = await BusinessServices.getById(id)
+export const fetchOneAction = createAsyncThunk('businessUser/fetchOne', async (id: string) => {
+  const response = await BusinessUserServices.getById(id)
   return response.data
 })
 
 export const fetchAllAction = createAsyncThunk(
-  'business/fetchAll',
+  'businessUser/fetchAll',
   async () => {
-    const response = await BusinessServices.getAll()
+    const response = await BusinessUserServices.getAll()
     return response.data
   }
 )
 
 export const addAction = createAsyncThunk(
-  'business/add',
+  'businessUser/add',
   async (data: { [key: string]: number | string }, { getState, dispatch }: Redux) => {
     dispatch(Slice.actions.handleStatus('pending'))
     try {
-      const response = await BusinessServices.createBusiness(data)
+      const response = await BusinessUserServices.createBusinessUser(data)
       toast.success('Added succesfully!')
       dispatch(Slice.actions.handleStatus('success'))
       dispatch(fetchAllAction())
@@ -56,10 +56,10 @@ export const addAction = createAsyncThunk(
   }
 )
 
-export const deleteAction = createAsyncThunk('business/delete', async (id: string, { dispatch }: Redux) => {
+export const deleteAction = createAsyncThunk('businessUser/delete', async (id: string, { dispatch }: Redux) => {
   dispatch(Slice.actions.handleStatus('pending'))
   try {
-    const response = await BusinessServices.deleteBusiness(id)
+    const response = await BusinessUserServices.deleteBusinessUser(id)
     toast.success('deleted succesfully!')
     dispatch(Slice.actions.handleStatus('success'))
     dispatch(fetchAllAction())
@@ -74,11 +74,11 @@ export const deleteAction = createAsyncThunk('business/delete', async (id: strin
 
 
 export const updateAction = createAsyncThunk(
-  'business/update',
-  async ({ id, data }: { id: string; data: IBusiness }, { getState, dispatch }: Redux) => {
+  'businessUser/update',
+  async ({ id, data }: { id: string; data: IBusinessUser }, { getState, dispatch }: Redux) => {
     dispatch(Slice.actions.handleStatus('pending'))
     try {
-      const response = await BusinessServices.updateBusiness(id, data)
+      const response = await BusinessUserServices.updateBusinessUser(id, data)
       // const query = getState().entity.params.query
       // dispatch(fetchAllAction({ query }))
       dispatch(fetchAllAction())
@@ -98,10 +98,10 @@ export const updateAction = createAsyncThunk(
 // @ts-ignore
 
 export const Slice = createSlice({
-  name: 'business',
+  name: 'businessUser',
   initialState: {
-    businesses: [],
-    business: {},
+    businessUsers: [],
+    businessUser: {},
     params: {},
     total: 0,
     status: 'pending'
@@ -117,14 +117,14 @@ export const Slice = createSlice({
   extraReducers: builder => {
     builder.addCase(fetchAllAction.fulfilled, (state, action) => {
       const { data } = action.payload
-      state.businesses = data || []
+      state.businessUsers = data || []
       state.total = data?.length || 0
-      // state.businesses = []
+      // state.businessUsers = []
       // state.total = 0
     })
     builder.addCase(fetchOneAction.fulfilled, (state, action) => {
       const { data } = action.payload
-      state.business = data || {}
+      state.businessUser = data || {}
     })
   }
 })

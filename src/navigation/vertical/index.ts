@@ -12,6 +12,7 @@ import VoterPrizesIcon from 'mdi-material-ui/CurrencyUsd'
 import CogTransfer from 'mdi-material-ui/CogTransfer'
 import AssignmentIcon from 'mdi-material-ui/ClipboardCheck'
 import SchoolOutline from 'mdi-material-ui/SchoolOutline'
+import Account from 'mdi-material-ui/Account'
 
 // ** Type import
 import { VerticalNavItemsType } from 'src/@core/layouts/types'
@@ -79,14 +80,20 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'Businesses',
       icon: UserIcon,
-      path: '/businesses',
       action: 'itsHaveAccess',
       subject: 'dashboard-page',
       children: [
         {
+          title: 'Users',
+          icon: Account,
+          path: '/business-user',
+          action: 'itsHaveAccess',
+          subject: 'assignment-type-page',
+        },
+        {    
           title: 'Businesses',
           icon: AssignmentIcon,
-          path: '/businesses-all',
+          path: '/businesses',
           action: 'itsHaveAccess',
           subject: 'assignment-type-page',
         },

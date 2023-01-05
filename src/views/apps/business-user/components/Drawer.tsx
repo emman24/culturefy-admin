@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem'
 import { useSelector } from 'react-redux'
 
 // ** Third Party Imports
-import { useBusiness } from 'src/@core/hooks/form/useBusiness'
+import { useBusinessUser } from 'src/@core/hooks/form/useBusinessUser'
 
 // ** import form support components
 import { InputField, Select } from 'src/@core/components/form'
@@ -52,20 +52,20 @@ const Footer = styled(Box)<BoxProps>(({ theme }) => ({
 
 const EmployeeDrawer = (props: SidebarAddUserType) => {
 
-  const [fileUrl, setFileUrl] = useState('')
+  // const [fileUrl, setFileUrl] = useState('')
   // ** Props
   const { open, toggle, serviceId } = props
 
   // ** Hooks
   const {
     form: { control, reset, handleSubmit, formState: { errors } },
-    addBusiness, updateBusiness,
+    addBusinessUser , updateBusinessUser,
     store,
-  } = useBusiness(serviceId)
+  } = useBusinessUser(serviceId)
 
   const handleUpdateAssesst = async (file: any) => {
-    console.log(file.url);
-    setFileUrl(file.url)
+    // console.log(file.url);
+    // setFileUrl(file.url)
     // await updateReportAssesst(assesstId, { source })
   }
 
@@ -73,11 +73,11 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
 
     if (serviceId) {
       // await updateAssignmentType(serviceId, data)
-      await updateBusiness(serviceId, data);
+      await updateBusinessUser(serviceId, data);
     } else {
       // await addAssignmentType(data);
-      data = { ...data, logo: fileUrl };
-      await addBusiness(data);
+      // data = { ...data, logo: fileUrl };
+      await addBusinessUser(data);
     }
   }
 
@@ -98,7 +98,7 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Header>
           <Typography variant='h6'>
-            {!serviceId ? "Add Business" : "Update Business"}
+            {!serviceId ? "Add Business User" : "Update Business User"}
           </Typography>
           <Close fontSize='small' onClick={handleClose} sx={{ cursor: 'pointer' }} />
         </Header>
@@ -107,51 +107,64 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
 
             <Grid item xs={12}>
               <InputField
-                name='name'
-                label='Business Name'
-                placeholder='Enter Name'
+                name='first_name'
+                label='first_name'
+                placeholder='Enter first_name'
                 //  @ts-ignore
                 control={control}
               />
             </Grid>
             <Grid item xs={12}>
-              {/* <InputField
-                name='logo'
-                label='Business Logo'
-                placeholder='Enter logo'
+              <InputField
+                name='last_name'
+                label='last_name'
+                placeholder='Enter last_name'
                 //  @ts-ignore
                 control={control}
-              /> */}
-              {/* <SingleFileUploader
-                maxFiles={1}
-                maxSize={5000000}
-                accept={{ 'image/*': ['.png', '.jpg', '.jpeg'] }}
-                existFile={file}
-                onUpload={(file) => {
-                  handleUpdateAssesst(file)
-                }}
-              /> */}
-              <FileUploader
-                name='logo'
-                //@ts-ignore
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <InputField
+                name='email'
+                label='email'
+                placeholder='Enter email'
+                //  @ts-ignore
                 control={control}
               />
+            </Grid>
+            <Grid item xs={12}>
+              <InputField
+                name='date_of_birth'
+                label='date_of_birth'
+                placeholder='Enter date_of_birth'
+                //  @ts-ignore
+                control={control}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <InputField
+                name='phone'
+                label='phone'
+                placeholder='Enter phone'
+                //  @ts-ignore
+                control={control}
+              />
+            </Grid>
 
-            </Grid>
             <Grid item xs={12}>
               <InputField
-                name='email'
-                label='Business Email'
-                placeholder='Enter Email'
+                name='password'
+                label='password'
+                placeholder='Enter password'
                 //  @ts-ignore
                 control={control}
               />
             </Grid>
             <Grid item xs={12}>
               <InputField
-                name='website'
-                label='Business Website'
-                placeholder='Enter Website'
+                name='gender'
+                label='gender'
+                placeholder='Enter gender'
                 //  @ts-ignore
                 control={control}
               />
@@ -159,48 +172,40 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
             <Grid item xs={12}>
               <InputField
                 name='location'
-                label='Business Location'
-                placeholder='Enter Location'
+                label='location'
+                placeholder='Enter location'
                 //  @ts-ignore
                 control={control}
               />
             </Grid>
             <Grid item xs={12}>
               <InputField
-                name='facebook_link'
-                label='Business Facebook Link'
-                placeholder='Enter Facebook Link'
+                name='permissions'
+                label='permissions'
+                placeholder='Enter permissions'
                 //  @ts-ignore
                 control={control}
               />
             </Grid>
             <Grid item xs={12}>
               <InputField
-                name='linkedin_link'
-                label='Business Linkedin Link'
-                placeholder='Enter Linkedin Link'
+                name='business_id'
+                label='business_id'
+                placeholder='Enter business_id'
                 //  @ts-ignore
                 control={control}
               />
             </Grid>
             <Grid item xs={12}>
               <InputField
-                name='instagram_link'
-                label='Business Instagram Link'
-                placeholder='Enter Instagram Link'
+                name='role'
+                label='role'
+                placeholder='Enter role'
                 //  @ts-ignore
                 control={control}
               />
             </Grid>
-            <Grid item xs={12}>
-              <InputField
-                name='twitter_link'
-                label='Business Twitter Link'
-                placeholder='Enter Twitter Link'
-                //  @ts-ignore
-                control={control}
-              />
-            </Grid>
+            
 
           </Grid>
 

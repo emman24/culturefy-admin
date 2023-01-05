@@ -36,10 +36,10 @@ import useToggleDrawer from 'src/@core/hooks/useToggleDrawer'
 // ** Types Imports
 import { IUser } from 'src/types/apps/user'
 import { RootState, AppDispatch } from 'src/store'
-import { fetchAllAction } from 'src/store/apps/business'
+import { fetchAllAction } from 'src/store/apps/businessUser'
 
 
-import { useBusiness } from 'src/@core/hooks/form/useBusiness'
+import { useBusinessUser } from 'src/@core/hooks/form/useBusinessUser'
 
 
 interface CellType {
@@ -100,16 +100,13 @@ export const renderClient = (row: IUser) => {
 const columns = [
   {
     flex: 0.2,
-    minWidth: 250,
-    minHeight: 100,
-    field: 'logo',
-    headerName: 'logo',
+    minWidth: 200,
+    field: 'first_name',
+    headerName: 'first_name',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          <div className='business-logo'>
-            <img src={row.logo} alt='business_logo' />
-          </div>
+          {row.first_name ? row.first_name : ``}
         </Typography>
       )
     }
@@ -117,12 +114,64 @@ const columns = [
   {
     flex: 0.2,
     minWidth: 200,
-    field: 'name',
-    headerName: 'name',
+    field: 'last_name',
+    headerName: 'last_name',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          {row.name}
+          {row.last_name ? row.last_name : ``}
+        </Typography>
+      )
+    }
+  },
+  {
+    flex: 0.2,
+    minWidth: 200,
+    field: 'email',
+    headerName: 'email',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography noWrap variant='body2'>
+          {row.email ? row.email : ``}
+        </Typography>
+      )
+    }
+  },
+  {
+    flex: 0.2,
+    minWidth: 200,
+    field: 'date_of_birth',
+    headerName: 'date_of_birth',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography noWrap variant='body2'>
+          {row.date_of_birth ? row.date_of_birth : ``}
+        </Typography>
+      )
+    }
+  },
+  {
+    flex: 0.2,
+    minWidth: 200,
+    field: 'phone',
+    headerName: 'phone',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography noWrap variant='body2'>
+          {row.phone ? row.phone : ``}
+        </Typography>
+      )
+    }
+  },
+  {
+    flex: 0.2,
+    minWidth: 200,
+    field: 'gender',
+    headerName: 'gender',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography noWrap variant='body2'>
+          {row.gender ? row.gender : ``}
         </Typography>
       )
     }
@@ -131,11 +180,11 @@ const columns = [
     flex: 0.2,
     minWidth: 200,
     field: 'location',
-    headerName: 'Location',
+    headerName: 'location',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          {row.location ? row.location : `No Location`}
+          {row.location ? row.location : ``}
         </Typography>
       )
     }
@@ -143,50 +192,12 @@ const columns = [
   {
     flex: 0.2,
     minWidth: 200,
-    field: 'website',
-    headerName: 'website',
+    field: 'permissions',
+    headerName: 'permissions',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          {row.website ? row.website : `No Website`}
-        </Typography>
-      )
-    }
-  },
-  // {
-  //   flex: 0.2,
-  //   minWidth: 230,
-  //   field: '_id',
-  //   headerName: 'Id',
-  //   renderCell: ({ row }: CellType) => {
-  //     console.log('row ', row)
-  //     return (
-  //       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-  //         <Link href={`/users/view/${row._id}`} passHref>
-  //           <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
-  //             <Typography
-  //               noWrap
-  //               component='a'
-  //               variant='subtitle2'
-  //               sx={{ color: 'text.primary', textDecoration: 'none' }}
-  //             >
-  //               {row._id}
-  //             </Typography>
-  //           </Box>
-  //         </Link>
-  //       </Box>
-  //     )
-  //   }
-  // },
-  {
-    flex: 0.2,
-    minWidth: 200,
-    field: 'facebook_link',
-    headerName: 'Facebook Link',
-    renderCell: ({ row }: CellType) => {
-      return (
-        <Typography noWrap variant='body2'>
-          {row.facebook_link ? row.facebook_link : `No Facebook Link`}
+          {row.permissions ? row.permissions : ``}
         </Typography>
       )
     }
@@ -194,12 +205,12 @@ const columns = [
   {
     flex: 0.2,
     minWidth: 200,
-    field: 'instagram_link',
-    headerName: 'Instagram Link',
+    field: 'business_id',
+    headerName: 'business_id',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          {row.instagram_link ? row.instagram_link : `No Instagram Link`}
+          {row.business_id ? row.business_id : ``}
         </Typography>
       )
     }
@@ -207,25 +218,12 @@ const columns = [
   {
     flex: 0.2,
     minWidth: 200,
-    field: 'linkedin_link',
-    headerName: 'Linkedin Link',
+    field: 'role',
+    headerName: 'role',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          {row.linkedin_link ? row.linkedin_link : `No Linkedin Link`}
-        </Typography>
-      )
-    }
-  },
-  {
-    flex: 0.2,
-    minWidth: 200,
-    field: 'twitter_link',
-    headerName: 'twitter_link',
-    renderCell: ({ row }: CellType) => {
-      return (
-        <Typography noWrap variant='body2'>
-          {row.twitter_link ? row.twitter_link : `No Twitter Link`}
+          {row.role ? row.role : ``}
         </Typography>
       )
     }
@@ -243,7 +241,7 @@ const columns = [
 
 const RowOptions = ({ id }: { id: string }) => {
 
-  const { deleteBusiness } = useBusiness(null);
+  const { deleteBusinessUser } = useBusinessUser(null);
   // ** Hooks
   const { handleDrawer, handleModal } = useToggleDrawer()
 
@@ -260,7 +258,7 @@ const RowOptions = ({ id }: { id: string }) => {
   }
 
   const handleDelete = async () => {
-    deleteBusiness(id)
+    deleteBusinessUser(id)
     // console.log('id ',id);
     handleRowOptionsClose()
   }
@@ -307,21 +305,21 @@ const RowOptions = ({ id }: { id: string }) => {
 const EmployeeTable = () => {
   // ** State
   const [pageSize, setPageSize] = useState<number>(10)
-  const { getBusiness, store } = useBusiness(null);
+  const { getBusinessUser, store } = useBusinessUser(null);
   
   useEffect(() => {
-    getBusiness();
+    getBusinessUser();
   }, [])
 
 
-  console.log('store?.businesses ', store?.businesses)
+  console.log('store?.businessUsers ', store?.businessUsers)
   // console.log('store2 ', store2 )
 
   return (
     <DataGrid
       autoHeight
       getRowId={(row) => row?._id}
-      rows={store?.businesses || []}
+      rows={store?.businessUsers || []}
       columns={columns}
       checkboxSelection
       pageSize={pageSize}

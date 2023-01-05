@@ -2,23 +2,23 @@ import { AxiosResponse } from 'axios'
 
 import requests from 'src/services/httpService';
 
-const BusinessServices = {
+const BusinessUserServices = {
   getAll(): Promise<AxiosResponse> {
     return requests.get(`/business`);
   },
   getById(id: string): Promise<AxiosResponse> {
     return requests.get(`/business/${id}`);
   },
-  createBusiness(body: any): Promise<AxiosResponse> {
-    return requests.post('/business', body);
+  createBusinessUser(body: any): Promise<AxiosResponse> {
+    return requests.post('/create-business-user', body);
   },
-  deleteBusiness(id: string): Promise<AxiosResponse> {
+  deleteBusinessUser(id: string): Promise<AxiosResponse> {
     return requests.delete(`/business/${id}`);
   },
-  updateBusiness(id: string, body:any): Promise<AxiosResponse> {
+  updateBusinessUser(id: string, body:any): Promise<AxiosResponse> {
     return requests.patch(`/business/${id}`,body);
   },
   
 };
 
-export default BusinessServices;
+export default BusinessUserServices;
