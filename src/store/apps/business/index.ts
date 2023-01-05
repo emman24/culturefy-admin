@@ -39,24 +39,23 @@ export const fetchAllAction = createAsyncThunk(
   }
 )
 
-// export const addAction = createAsyncThunk(
-//   'user/add',
-//   async (data: { [key: string]: number | string }, { getState, dispatch }: Redux) => {
-//     dispatch(Slice.actions.handleStatus('pending'))
-//     try {
-//       const response = await BusinessServices.add(data)
-//       const query = getState().user.params.query
-//       dispatch(fetchAllAction({ query }))
-//       toast.success('Added succesfully!')
-//       dispatch(Slice.actions.handleStatus('success'))
-//       return response.data
-//     } catch (error: any) {
-//       toast.error(error.response.data.message || 'Something went wrong!')
-//       dispatch(Slice.actions.handleStatus('error'))
-//       return error.response.data
-//     }
-//   }
-// )
+export const addAction = createAsyncThunk(
+  'business/add',
+  async (data: { [key: string]: number | string }, { getState, dispatch }: Redux) => {
+    dispatch(Slice.actions.handleStatus('pending'))
+    try {
+      const response = await BusinessServices.createBusiness(data)
+      toast.success('Added succesfully!')
+      dispatch(Slice.actions.handleStatus('success'))
+      dispatch(fetchAllAction())
+      return response.data
+    } catch (error: any) {
+      toast.error(error.response.data.message || 'Something went wrong!')
+      dispatch(Slice.actions.handleStatus('error'))
+      return error.response.data
+    }
+  }
+)
 
 // export const updateAction = createAsyncThunk(
 //   'user/update',
@@ -112,7 +111,6 @@ export const Slice = createSlice({
   extraReducers: builder => {
     builder.addCase(fetchAllAction.fulfilled, (state, action) => {
       const { data } = action.payload
-
       state.business = data || []
       // state.total = data?.length || 0
       // state.entities = []

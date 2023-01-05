@@ -35,7 +35,7 @@ const HeadingTypography = styled(Typography)<TypographyProps>(({ theme }) => ({
 // ** types
 interface IFileUploader extends DropzoneOptions {
   onUpload: (file: FileProp) => void
-  existFile: FileProp
+  existFile: any
 }
 
 const FileUploaderRestrictions = ({
@@ -117,9 +117,10 @@ const FileUploaderRestrictions = ({
 
   const handleUpload = (file: File) => {
     setStatus('pending')
-    const uploadURL: string = 'https://api.cloudinary.com/v1_1/dh4lnup4h/auto/upload';
-    const uploadPreset: string = "dtztq65u" // 'mfcn3oqs'; 
-
+    // const uploadURL: string = 'https://api.cloudinary.com/v1_1/dh4lnup4h/auto/upload';
+    const uploadURL: string = 'https://api.cloudinary.com/v1_1/dw7nck3bs/auto/upload';
+    // const uploadPreset: string = "dtztq65u" // 'mfcn3oqs'; 
+    const uploadPreset: string = "vbing51p" // 'mfcn3oqs'; 
     if (file) {
       const formData = new FormData();
       formData.append('file', file);

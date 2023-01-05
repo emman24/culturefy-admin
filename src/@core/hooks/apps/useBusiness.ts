@@ -18,7 +18,7 @@ import { RootState, AppDispatch } from 'src/store'
 
 // ** Actions Imports
 // import { fetchAllAction } from 'src/store/apps/business'
-import { fetchAllAction } from 'src/store/apps/business'
+import { fetchAllAction, addAction } from 'src/store/apps/business'
 
 
 
@@ -44,18 +44,19 @@ export const useBusiness = (serviceId: string | null) => {
         dispatch(fetchAllAction());
     }
 
-    // const addUser = async (data: any) => {
-    //     dispatch(addAction({ ...data }))
-    //         .then(({ payload }: any) => {
-    //             if (payload.statusCode === "10000") {
-    //                 handleDrawer(null)
-    //             } else {
-    //                 console.log('============API_ERROR===============');
-    //                 console.log(payload);
-    //                 console.log('====================================');
-    //             }
-    //         })
-    // }
+    const addBusiness = async (data: any) => {
+        dispatch(addAction({ ...data }))
+            .then(({ payload }: any) => {
+                if (payload.statusCode === "10000") {
+                    // handleDrawer(null)
+                    console.log('============BUSINESS_ADDED===============');
+                } else {
+                    console.log('============API_ERROR===============');
+                    console.log(payload);
+                    console.log('====================================');
+                }
+            })
+    }
 
     // const updateUser = async (id: string, data: any) => {
     //     dispatch(updateAction({ id, data }))
@@ -90,5 +91,6 @@ export const useBusiness = (serviceId: string | null) => {
     return {
         store,
         getBusiness,
+        addBusiness,
     }
 };

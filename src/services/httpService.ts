@@ -4,8 +4,8 @@ import axios from 'axios'
 import authConfig from 'src/configs/auth'
 
 const instance = axios.create({
-  // baseURL: 'http://192.168.0.26:8002/api/v1', // local
-  baseURL: 'http://localhost:5000/api/v1', // local
+  baseURL: "http://192.168.0.44:5000/api/v1", // local
+  // baseURL: 'http://localhost:5000/api/v1', // local
   timeout: 500000,
   headers: {
     Accept: 'application/json',

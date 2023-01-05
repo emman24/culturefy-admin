@@ -22,3 +22,15 @@ code:not([class*='language-']):after {
 code[class*='language-'] {
   padding: 0;
 }
+
+
+
+/* BUSINESS PAGE CSS  */
+.business-logo{
+  display: block;
+  width: 100px;
+}
+.business-logo img{
+  width: 100%;
+  object-fit: contain;
+}

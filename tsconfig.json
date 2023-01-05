@@ -8,6 +8,7 @@
       "dom.iterable",
       "esnext"
     ],
+    
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -33,6 +34,7 @@
     //     "./node_modules/apexcharts-clevision/*"
     //   ],
     // }
+    
   },
   "include": [
     "src",

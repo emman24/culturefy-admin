@@ -38,12 +38,12 @@ import { getInitials } from 'src/@core/utils/get-initials'
 
 // ** Actions Imports
 import { fetchData, deleteUser } from 'src/store/apps/user'
-import { fetchAssignmentTypesAction } from 'src/store/apps/assignment-type'
+// import { fetchAssignmentTypesAction } from 'src/store/apps/assignment-type'
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
 import { ThemeColor } from 'src/@core/layouts/types'
-import { EmployeeType } from 'src/types/apps/employeeTypes'
+// import { EmployeeType } from 'src/types/apps/employeeTypes'
 
 // ** Custom Components Imports
 import TableHeader from 'src/views/apps/assignmentType/components/TableHeader'
@@ -73,9 +73,9 @@ const userRoleObj: UserRoleType = {
     subscriber: <AccountOutline sx={{ mr: 2, color: 'primary.main' }} />
 }
 
-interface CellType {
-    row: EmployeeType
-}
+// interface CellType {
+//     row: EmployeeType
+// }
 
 const userStatusObj: UserStatusType = {
     active: 'success',
@@ -159,18 +159,18 @@ const Page = () => {
     // ** Hooks
     const dispatch = useDispatch<AppDispatch>()
     const { serviceId, isDrawerOpen, handleDrawer, view } = useToggleDrawer();
-    const { deleteAssignmentType } = useAssignmentType(null)
+    // const { deleteAssignmentType } = useAssignmentType(null)
 
-    useEffect(() => {
-        dispatch(fetchAssignmentTypesAction({}))
-    }, [dispatch, plan, role, status, value])
+    // useEffect(() => {
+    //     dispatch(fetchAssignmentTypesAction({}))
+    // }, [dispatch, plan, role, status, value])
 
     const handleFilter = useCallback((val: string) => {
         setValue(val)
     }, [])
 
     const handleDelete = () => {
-        serviceId && deleteAssignmentType(serviceId)
+        // serviceId && deleteAssignmentType(serviceId)
     }
 
     return (
