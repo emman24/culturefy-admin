@@ -4,7 +4,7 @@ import requests from 'src/services/httpService';
 
 const BusinessUserServices = {
   getAll(): Promise<AxiosResponse> {
-    return requests.get(`/business`);
+    return requests.get(`/users`);
   },
   getById(id: string): Promise<AxiosResponse> {
     return requests.get(`/business/${id}`);

@@ -7,6 +7,7 @@ import user from 'src/store/apps/user'
 import challenges from './apps/challenges'
 import business from './apps/business'
 import businessUser from './apps/businessUser'
+import positionGoal from './apps/positionGoal'
 
 // import project from './apps/project'
 
@@ -16,6 +17,7 @@ export const store = configureStore({
     user,
     business,
     businessUser,
+    positionGoal,
     challenges
   },
   middleware: getDefaultMiddleware =>

@@ -28,7 +28,6 @@ import { getInitials } from 'src/@core/utils/get-initials'
 import { useDispatch, useSelector } from 'react-redux'
 
 // ** Actions Imports
-import { useEmployee } from 'src/@core/hooks/form/useEmployee'
 
 // ** Import Custom hooks
 import useToggleDrawer from 'src/@core/hooks/useToggleDrawer'
@@ -36,7 +35,6 @@ import useToggleDrawer from 'src/@core/hooks/useToggleDrawer'
 // ** Types Imports
 import { IUser } from 'src/types/apps/user'
 import { RootState, AppDispatch } from 'src/store'
-import { fetchAllAction } from 'src/store/apps/businessUser'
 
 
 import { useBusinessUser } from 'src/@core/hooks/form/useBusinessUser'
@@ -176,32 +174,32 @@ const columns = [
       )
     }
   },
-  {
-    flex: 0.2,
-    minWidth: 200,
-    field: 'location',
-    headerName: 'location',
-    renderCell: ({ row }: CellType) => {
-      return (
-        <Typography noWrap variant='body2'>
-          {row.location ? row.location : ``}
-        </Typography>
-      )
-    }
-  },
-  {
-    flex: 0.2,
-    minWidth: 200,
-    field: 'permissions',
-    headerName: 'permissions',
-    renderCell: ({ row }: CellType) => {
-      return (
-        <Typography noWrap variant='body2'>
-          {row.permissions ? row.permissions : ``}
-        </Typography>
-      )
-    }
-  },
+  // {
+  //   flex: 0.2,
+  //   minWidth: 200,
+  //   field: 'location',
+  //   headerName: 'location',
+  //   renderCell: ({ row }: CellType) => {
+  //     return (
+  //       <Typography noWrap variant='body2'>
+  //         {row.location ? row.location : ``}
+  //       </Typography>
+  //     )
+  //   }
+  // },
+  // {
+  //   flex: 0.2,
+  //   minWidth: 200,
+  //   field: 'permissions',
+  //   headerName: 'permissions',
+  //   renderCell: ({ row }: CellType) => {
+  //     return (
+  //       <Typography noWrap variant='body2'>
+  //         {row.permissions ? row.permissions : ``}
+  //       </Typography>
+  //     )
+  //   }
+  // },
   {
     flex: 0.2,
     minWidth: 200,
@@ -223,7 +221,7 @@ const columns = [
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          {row.role ? row.role : ``}
+          {row.role ? row.role.code : ``}
         </Typography>
       )
     }
@@ -305,21 +303,21 @@ const RowOptions = ({ id }: { id: string }) => {
 const EmployeeTable = () => {
   // ** State
   const [pageSize, setPageSize] = useState<number>(10)
-  const { getBusinessUser, store } = useBusinessUser(null);
+  const { getBusinessUser, store:{ businessUsers:{ users } } } = useBusinessUser(null);
   
   useEffect(() => {
     getBusinessUser();
   }, [])
 
 
-  console.log('store?.businessUsers ', store?.businessUsers)
+  console.log('businessUsers ', users)
   // console.log('store2 ', store2 )
 
   return (
     <DataGrid
       autoHeight
       getRowId={(row) => row?._id}
-      rows={store?.businessUsers || []}
+      rows={ users || []}
       columns={columns}
       checkboxSelection
       pageSize={pageSize}

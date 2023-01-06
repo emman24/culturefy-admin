@@ -32,20 +32,68 @@ const navigation = (): VerticalNavItemsType => {
     {
       title: 'Culture Check',
       icon: CogTransfer,
+      action: 'itsHaveAccess',
+      subject: 'dashboard-page',
       children: [
         {
-          title: 'Assignment Type',
-          icon: AssignmentIcon,
+          title: 'Admin',
+          icon: UserIcon,
           // path: '/assignment-type',
-          action: 'itsHaveAccess',
-          subject: 'assignment-type-page',
+          // action: 'itsHaveAccess',
+          // subject: 'assignment-type-page',
+          children: [
+            {
+              title: 'Position Goal',
+              icon: AssignmentIcon,
+              path: '/position-goals',
+              action: 'itsHaveAccess',
+              subject: 'assignment-type-page',
+            },
+            {
+              title: 'BCS Answers',
+              icon: AssignmentIcon,
+              // path: '/label',
+              action: 'itsHaveAccess',
+              subject: 'report-label-page',
+            },
+            {
+              title: 'Brand Audit',
+              icon: AssignmentIcon,
+              // path: '/label',
+              action: 'itsHaveAccess',
+              subject: 'report-label-page',
+            },
+            {
+              title: 'Posses Card',
+              icon: AssignmentIcon,
+              // path: '/label',
+              action: 'itsHaveAccess',
+              subject: 'report-label-page',
+            },
+          ]
         },
         {
-          title: 'Report Label',
-          icon: AssignmentIcon,
+          title: 'User',
+          icon: UserIcon,
           // path: '/label',
-          action: 'itsHaveAccess',
-          subject: 'report-label-page',
+          // action: 'itsHaveAccess',
+          // subject: 'report-label-page',
+          children: [
+            {
+              title: 'Position Goal',
+              icon: AssignmentIcon,
+              // path: '/assignment-type',
+              action: 'itsHaveAccess',
+              subject: 'assignment-type-page',
+            },
+            {
+              title: 'BCS Answers',
+              icon: AssignmentIcon,
+              // path: '/label',
+              action: 'itsHaveAccess',
+              subject: 'report-label-page',
+            },
+          ]
         },
       ]
     },

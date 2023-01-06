@@ -11,8 +11,8 @@ export default {
         phone: yup.string().required(),
         password: yup.string().required(),
         gender: yup.string().required(),
-        location: yup.string().required(),
-        permissions: yup.string().required(),
+        // location: yup.string().required(),
+        // permissions: yup.mixed().required(),
         business_id: yup.string().required(),
         role: yup.string().required(),
     })

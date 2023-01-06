@@ -7,3 +7,5 @@ export { default as assignmentTypeSchema } from './assignment_type'
 export { default as reportSchema } from './report'
 export { default as subscriptiontSchema } from './subscription'
 export { default as businessUserSchema } from './businessUser'
+export { default as positionGoalSchema } from './positionGoal'
+

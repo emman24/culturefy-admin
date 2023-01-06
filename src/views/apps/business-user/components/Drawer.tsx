@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux'
 import { useBusinessUser } from 'src/@core/hooks/form/useBusinessUser'
 
 // ** import form support components
-import { InputField, Select } from 'src/@core/components/form'
+import { InputField, RadioField, Select } from 'src/@core/components/form'
 import { SingleFileUploader, FileUploader } from 'src/@core/components/form'
 
 // ** Icons Imports
@@ -26,7 +26,8 @@ import { Grid } from '@mui/material'
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
 import { Trumpet } from 'mdi-material-ui'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useBusiness } from 'src/@core/hooks/form/useBusiness'
 
 interface SidebarAddUserType {
   open: boolean
@@ -59,9 +60,17 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
   // ** Hooks
   const {
     form: { control, reset, handleSubmit, formState: { errors } },
-    addBusinessUser , updateBusinessUser,
-    store,
+    addBusinessUser, updateBusinessUser,
+    // store,
   } = useBusinessUser(serviceId)
+
+  const { getBusiness , store } = useBusiness(null);
+
+  useEffect(()=>{
+    getBusiness();
+  },[])
+  // console.log('store getBusiness ', store.businesses);
+  
 
   const handleUpdateAssesst = async (file: any) => {
     // console.log(file.url);
@@ -70,13 +79,13 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
   }
 
   const onSubmit = async (data: any) => {
-
     if (serviceId) {
       // await updateAssignmentType(serviceId, data)
       await updateBusinessUser(serviceId, data);
     } else {
       // await addAssignmentType(data);
-      // data = { ...data, logo: fileUrl };
+      
+      data = { ...data, permissions: ["VOTE_IN_POLLS", "CREATE_FOLDERS"] };
       await addBusinessUser(data);
     }
   }
@@ -85,6 +94,19 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
     reset()
     toggle()
   }
+
+  const rolesSelect = [
+    {
+      id: 0,
+      name: 'Admin',
+      value: 'ADMIN',
+    },
+    {
+      id: 0,
+      name: 'User',
+      value: 'USER',
+    },
+  ]
 
   return (
     <Drawer
@@ -108,7 +130,7 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
             <Grid item xs={12}>
               <InputField
                 name='first_name'
-                label='first_name'
+                label='First Name'
                 placeholder='Enter first_name'
                 //  @ts-ignore
                 control={control}
@@ -117,7 +139,7 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
             <Grid item xs={12}>
               <InputField
                 name='last_name'
-                label='last_name'
+                label='Last Name'
                 placeholder='Enter last_name'
                 //  @ts-ignore
                 control={control}
@@ -126,7 +148,7 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
             <Grid item xs={12}>
               <InputField
                 name='email'
-                label='email'
+                label='Email'
                 placeholder='Enter email'
                 //  @ts-ignore
                 control={control}
@@ -135,7 +157,7 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
             <Grid item xs={12}>
               <InputField
                 name='date_of_birth'
-                label='date_of_birth'
+                label='Date of Birth'
                 placeholder='Enter date_of_birth'
                 //  @ts-ignore
                 control={control}
@@ -144,8 +166,8 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
             <Grid item xs={12}>
               <InputField
                 name='phone'
-                label='phone'
-                placeholder='Enter phone'
+                label='Phone'
+                placeholder='Enter Phone'
                 //  @ts-ignore
                 control={control}
               />
@@ -154,58 +176,63 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
             <Grid item xs={12}>
               <InputField
                 name='password'
-                label='password'
-                placeholder='Enter password'
+                label='Password'
+                placeholder='Enter Password'
                 //  @ts-ignore
                 control={control}
               />
             </Grid>
             <Grid item xs={12}>
-              <InputField
+              <RadioField
                 name='gender'
-                label='gender'
-                placeholder='Enter gender'
+                label='Gender'
+                options={[{ label: "Male", value: "MALE" }, { label: "Female", value: "FEMALE" }]}
                 //  @ts-ignore
                 control={control}
               />
             </Grid>
-            <Grid item xs={12}>
+
+            {/* <Grid item xs={12}>
               <InputField
                 name='location'
-                label='location'
-                placeholder='Enter location'
+                label='Location'
+                placeholder='Enter Location'
                 //  @ts-ignore
                 control={control}
               />
-            </Grid>
+            </Grid> */}
+
             <Grid item xs={12}>
-              <InputField
-                name='permissions'
-                label='permissions'
-                placeholder='Enter permissions'
-                //  @ts-ignore
-                control={control}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <InputField
+              <Select
                 name='business_id'
-                label='business_id'
-                placeholder='Enter business_id'
+                label='Business Name'
                 //  @ts-ignore
                 control={control}
-              />
+              // disabled={true}
+              >
+                {
+                  store?.businesses?.map((business) => (
+                    <MenuItem key={business._id} value={business._id}>{business.name}</MenuItem>
+                  ))
+                }
+              </Select>
             </Grid>
+
             <Grid item xs={12}>
-              <InputField
+              <Select
                 name='role'
-                label='role'
-                placeholder='Enter role'
+                label='Role'
                 //  @ts-ignore
                 control={control}
-              />
+              // disabled={true}
+              >
+                {
+                  rolesSelect.map((role) => (
+                    <MenuItem key={role.id} value={role.value}>{role.name}</MenuItem>
+                  ))
+                }
+              </Select>
             </Grid>
-            
 
           </Grid>
 

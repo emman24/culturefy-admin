@@ -31,8 +31,8 @@ const defaultValues = {
   phone: '',
   password: '',
   gender: '',
-  location: '',
-  permissions: '',
+  // location: '',
+  // permissions: '',
   business_id: '',
   role: '',
 }
@@ -63,13 +63,21 @@ export const useBusinessUser = (serviceId: string | null) => {
       'phone' in store.businessUser && form.setValue('phone', store.businessUser.phone)
       'password' in store.businessUser && form.setValue('password', store.businessUser.password)
       'gender' in store.businessUser && form.setValue('gender', store.businessUser.gender)
-      'location' in store.businessUser && form.setValue('location', store.businessUser.location)
-      'permissions' in store.businessUser && form.setValue('permissions', store.businessUser.permissions)
+      // 'location' in store.businessUser && form.setValue('location', store.businessUser.location)
+      // 'permissions' in store.businessUser && form.setValue('permissions', store.businessUser.permissions)
       'business_id' in store.businessUser && form.setValue('business_id', store.businessUser.business_id)
       'role' in store.businessUser && form.setValue('role', store.businessUser.role)
     }
     else {
       form.setValue('first_name', '')
+      form.setValue('last_name', '')
+      form.setValue('email', '')
+      form.setValue('date_of_birth', '')
+      form.setValue('phone', '')
+      form.setValue('password', '')
+      form.setValue('gender', '')
+      form.setValue('business_id', '')
+      form.setValue('role', '')
     }
   }, [store.businessUsers, serviceId])
 
@@ -94,6 +102,7 @@ export const useBusinessUser = (serviceId: string | null) => {
     dispatch(addAction({ ...data }))
       .then(({ payload }: any) => {
         if (payload.statusCode === "10000") {
+          form.reset()
           handleDrawer(null)
           console.log('============BUSINESSUser_ADDED===============');
         } else {
