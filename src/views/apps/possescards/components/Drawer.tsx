@@ -11,11 +11,14 @@ import MenuItem from '@mui/material/MenuItem'
 import { useSelector } from 'react-redux'
 
 // ** Third Party Imports
-import { useBusinessUser } from 'src/@core/hooks/form/useBusinessUser'
+
+import { usePossescards } from 'src/@core/hooks/form/usePossescards'
 
 // ** import form support components
-import { InputField, RadioField, Select } from 'src/@core/components/form'
+import { InputField, Select } from 'src/@core/components/form'
 import { SingleFileUploader, FileUploader } from 'src/@core/components/form'
+import { useReport } from 'src/@core/hooks/form/useReport'
+
 
 // ** Icons Imports
 import Close from 'mdi-material-ui/Close'
@@ -27,7 +30,7 @@ import { Grid } from '@mui/material'
 import { RootState, AppDispatch } from 'src/store'
 import { Trumpet } from 'mdi-material-ui'
 import { useEffect, useState } from 'react'
-import { useBusiness } from 'src/@core/hooks/form/useBusiness'
+import FieldArrayCustom from 'src/@core/components/form/FieldArray'
 
 interface SidebarAddUserType {
   open: boolean
@@ -51,62 +54,52 @@ const Footer = styled(Box)<BoxProps>(({ theme }) => ({
   backgroundColor: theme.palette.background.default
 }))
 
-const EmployeeDrawer = (props: SidebarAddUserType) => {
+const PossescardsDrawer = (props: SidebarAddUserType) => {
 
-  // const [fileUrl, setFileUrl] = useState('')
+  const [fileUrl, setFileUrl] = useState('')
   // ** Props
   const { open, toggle, serviceId } = props
 
   // ** Hooks
   const {
-    form: { control, reset, handleSubmit, formState: { errors } },
-    addBusinessUser, updateBusinessUser,
-    // store,
-  } = useBusinessUser(serviceId)
-
-  const { getBusiness , store } = useBusiness(null);
-
-  useEffect(()=>{
-    getBusiness();
-  },[])
-  // console.log('store getBusiness ', store.businesses);
-  
+    form: { control, getValues, reset, handleSubmit, formState: { errors } },
+    addPossesCard, updatePossesCard,
+    store,
+  } = usePossescards(serviceId)
 
   const handleUpdateAssesst = async (file: any) => {
-    // console.log(file.url);
-    // setFileUrl(file.url)
+    console.log(file.url);
+    setFileUrl(file.url)
     // await updateReportAssesst(assesstId, { source })
   }
 
   const onSubmit = async (data: any) => {
     if (serviceId) {
       // await updateAssignmentType(serviceId, data)
-      await updateBusinessUser(serviceId, data);
+      data = { ...data, points: fieldsArray }
+      await updatePossesCard(serviceId, data);
     } else {
-      // await addAssignmentType(data);
-      
-      data = { ...data, permissions: ["VOTE_IN_POLLS", "CREATE_FOLDERS"] };
-      await addBusinessUser(data);
+      data = { ...data, points: fieldsArray }
+      await addPossesCard(data);
     }
+    console.log('data ', data);
   }
+
 
   const handleClose = () => {
     reset()
     toggle()
   }
 
-  const rolesSelect = [
-    {
-      id: 0,
-      name: 'Admin',
-      value: 'ADMIN',
-    },
-    {
-      id: 0,
-      name: 'User',
-      value: 'USER',
-    },
-  ]
+  const [fieldsArray, setFieldsArray] = useState(['']);
+
+  useEffect(() => {
+    if (store?.possescard?.points?.length) {
+      setFieldsArray(store?.possescard?.points)
+    }
+  }, [store?.possescard])
+
+  // console.log('fieldsArray', fieldsArray);  
 
   return (
     <Drawer
@@ -120,7 +113,7 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Header>
           <Typography variant='h6'>
-            {!serviceId ? "Add Business User" : "Update Business User"}
+            {!serviceId ? "Add Possescard" : "Update Possescard"}
           </Typography>
           <Close fontSize='small' onClick={handleClose} sx={{ cursor: 'pointer' }} />
         </Header>
@@ -129,109 +122,63 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
 
             <Grid item xs={12}>
               <InputField
-                name='first_name'
-                label='First Name'
-                placeholder='Enter first_name'
-                //  @ts-ignore
-                control={control}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <InputField
-                name='last_name'
-                label='Last Name'
-                placeholder='Enter last_name'
-                //  @ts-ignore
-                control={control}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <InputField
-                name='email'
-                label='Email'
-                placeholder='Enter email'
-                //  @ts-ignore
-                control={control}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <InputField
-                name='date_of_birth'
-                label='Date of Birth'
-                placeholder='Enter date_of_birth'
-                //  @ts-ignore
-                control={control}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <InputField
-                name='phone'
-                label='Phone'
-                placeholder='Enter Phone'
+                name='title'
+                label='Possescard Title'
+                placeholder='Enter Title'
                 //  @ts-ignore
                 control={control}
               />
             </Grid>
 
             <Grid item xs={12}>
+              <FieldArrayCustom fieldsArray={fieldsArray} setFieldsArray={setFieldsArray} />
+            </Grid>
+
+            <Grid item xs={12}>
+
+              <FileUploader
+                name='image'
+                //@ts-ignore
+                control={control}
+              />
+
+              {/* <SingleFileUploader
+                name='image'
+                //@ts-ignore
+                control={control}
+                existFile={store?.possescard?.image}
+                onUpload={(file) => {
+                  handleUpdateAssesst(file)
+                }}
+              /> */}
+
+            </Grid>
+            <Grid item xs={12}>
               <InputField
-                name='password'
-                label='Password'
-                placeholder='Enter Password'
+                name='description'
+                label='Possescard Description'
+                placeholder='Enter Description'
                 //  @ts-ignore
                 control={control}
               />
             </Grid>
             <Grid item xs={12}>
-              <RadioField
-                name='gender'
-                label='Gender'
-                options={[{ label: "Male", value: "MALE" }, { label: "Female", value: "FEMALE" }]}
-                //  @ts-ignore
-                control={control}
-              />
-            </Grid>
-
-            {/* <Grid item xs={12}>
               <InputField
-                name='location'
-                label='Location'
-                placeholder='Enter Location'
+                name='color'
+                label='Possescard Color'
+                placeholder='Enter Color'
                 //  @ts-ignore
                 control={control}
               />
-            </Grid> */}
-
-            <Grid item xs={12}>
-              <Select
-                name='business'
-                label='Business Name'
-                //  @ts-ignore
-                control={control}
-              // disabled={true}
-              >
-                {
-                  store?.businesses?.map((business) => (
-                    <MenuItem key={business._id} value={business._id}>{business.name}</MenuItem>
-                  ))
-                }
-              </Select>
             </Grid>
-
             <Grid item xs={12}>
-              <Select
-                name='role'
-                label='Role'
+              <InputField
+                name='text_color'
+                label='Possescard Text Color'
+                placeholder='Enter Text Color'
                 //  @ts-ignore
                 control={control}
-              // disabled={true}
-              >
-                {
-                  rolesSelect.map((role) => (
-                    <MenuItem key={role.id} value={role.value}>{role.name}</MenuItem>
-                  ))
-                }
-              </Select>
+              />
             </Grid>
 
           </Grid>
@@ -258,4 +205,4 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
   )
 }
 
-export default EmployeeDrawer
+export default PossescardsDrawer

@@ -8,17 +8,19 @@ import challenges from './apps/challenges'
 import business from './apps/business'
 import businessUser from './apps/businessUser'
 import positionGoal from './apps/positionGoal'
+import possescards from './apps/possescards'
 
 // import project from './apps/project'
 
 export const store = configureStore({
   reducer: {
-    example,
-    user,
+    // example,
+    // user,
     business,
     businessUser,
     positionGoal,
-    challenges
+    possescards,
+    // challenges
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

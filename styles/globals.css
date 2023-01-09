@@ -23,14 +23,38 @@ code[class*='language-'] {
   padding: 0;
 }
 
-
-
 /* BUSINESS PAGE CSS  */
-.business-logo{
+.business-logo {
   display: block;
   width: 100px;
 }
-.business-logo img{
+.business-logo img {
   width: 100%;
   object-fit: contain;
+}
+
+.inputFieldArray {
+  display: block;
+  max-width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  width: 300px;
+  border-radius: 6px;
+  border: 1px solid #d8d8dd;
+  outline: none;
+  font-family: 'Inter';
+  font-size: 16px;
+}
+.addIconFieldArray {
+  display: block;
+  text-align: center;
+  width: 300px;
+}
+
+.mainFieldArray {
+  display: flex;
+  gap: 10px;
+}
+.logo_culturefy{
+  margin: 20px 0;
 }

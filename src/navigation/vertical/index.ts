@@ -66,7 +66,7 @@ const navigation = (): VerticalNavItemsType => {
             {
               title: 'Posses Card',
               icon: AssignmentIcon,
-              // path: '/label',
+              path: '/possescards',
               action: 'itsHaveAccess',
               subject: 'report-label-page',
             },

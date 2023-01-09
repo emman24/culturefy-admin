@@ -13,7 +13,7 @@ export default {
         gender: yup.string().required(),
         // location: yup.string().required(),
         // permissions: yup.mixed().required(),
-        business_id: yup.string().required(),
+        business: yup.string().required(),
         role: yup.string().required(),
     })
 }

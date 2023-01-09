@@ -28,6 +28,7 @@ import { getInitials } from 'src/@core/utils/get-initials'
 import { useDispatch, useSelector } from 'react-redux'
 
 // ** Actions Imports
+import { useEmployee } from 'src/@core/hooks/form/useEmployee'
 
 // ** Import Custom hooks
 import useToggleDrawer from 'src/@core/hooks/useToggleDrawer'
@@ -35,9 +36,10 @@ import useToggleDrawer from 'src/@core/hooks/useToggleDrawer'
 // ** Types Imports
 import { IUser } from 'src/types/apps/user'
 import { RootState, AppDispatch } from 'src/store'
+import { fetchAllAction } from 'src/store/apps/business'
 
 
-import { useBusinessUser } from 'src/@core/hooks/form/useBusinessUser'
+import { usePossescards } from 'src/@core/hooks/form/usePossescards'
 
 
 interface CellType {
@@ -98,13 +100,16 @@ export const renderClient = (row: IUser) => {
 const columns = [
   {
     flex: 0.2,
-    minWidth: 200,
-    field: 'first_name',
-    headerName: 'first_name',
+    minWidth: 250,
+    minHeight: 100,
+    field: 'image',
+    headerName: 'logo',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          {row.first_name ? row.first_name : ``}
+          <div className='business-logo'>
+            <img src={row.image} alt='business_logo' />
+          </div>
         </Typography>
       )
     }
@@ -112,12 +117,12 @@ const columns = [
   {
     flex: 0.2,
     minWidth: 200,
-    field: 'last_name',
-    headerName: 'last_name',
+    field: 'title',
+    headerName: 'title',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          {row.last_name ? row.last_name : ``}
+          {row.title}
         </Typography>
       )
     }
@@ -125,12 +130,12 @@ const columns = [
   {
     flex: 0.2,
     minWidth: 200,
-    field: 'email',
-    headerName: 'email',
+    field: 'description',
+    headerName: 'Description',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          {row.email ? row.email : ``}
+          {row.description ? row.description : ` `}
         </Typography>
       )
     }
@@ -138,12 +143,26 @@ const columns = [
   {
     flex: 0.2,
     minWidth: 200,
-    field: 'date_of_birth',
-    headerName: 'date_of_birth',
+    field: 'points',
+    headerName: 'points',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          {row.date_of_birth ? row.date_of_birth : ``}
+          {row.points ? row.points : ` `}
+        </Typography>
+      )
+    }
+  },
+  
+  {
+    flex: 0.2,
+    minWidth: 200,
+    field: 'color',
+    headerName: 'Color',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography noWrap variant='body2'>
+          {row.color ? row.color : ` `}
         </Typography>
       )
     }
@@ -151,77 +170,12 @@ const columns = [
   {
     flex: 0.2,
     minWidth: 200,
-    field: 'phone',
-    headerName: 'phone',
+    field: 'text_color',
+    headerName: 'Text Color',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          {row.phone ? row.phone : ``}
-        </Typography>
-      )
-    }
-  },
-  {
-    flex: 0.2,
-    minWidth: 200,
-    field: 'gender',
-    headerName: 'gender',
-    renderCell: ({ row }: CellType) => {
-      return (
-        <Typography noWrap variant='body2'>
-          {row.gender ? row.gender : ``}
-        </Typography>
-      )
-    }
-  },
-  // {
-  //   flex: 0.2,
-  //   minWidth: 200,
-  //   field: 'location',
-  //   headerName: 'location',
-  //   renderCell: ({ row }: CellType) => {
-  //     return (
-  //       <Typography noWrap variant='body2'>
-  //         {row.location ? row.location : ``}
-  //       </Typography>
-  //     )
-  //   }
-  // },
-  // {
-  //   flex: 0.2,
-  //   minWidth: 200,
-  //   field: 'permissions',
-  //   headerName: 'permissions',
-  //   renderCell: ({ row }: CellType) => {
-  //     return (
-  //       <Typography noWrap variant='body2'>
-  //         {row.permissions ? row.permissions : ``}
-  //       </Typography>
-  //     )
-  //   }
-  // },
-  {
-    flex: 0.2,
-    minWidth: 200,
-    field: 'business',
-    headerName: 'business',
-    renderCell: ({ row }: CellType) => {
-      return (
-        <Typography noWrap variant='body2'>
-          {row.business ? row.business : ``}
-        </Typography>
-      )
-    }
-  },
-  {
-    flex: 0.2,
-    minWidth: 200,
-    field: 'role',
-    headerName: 'role',
-    renderCell: ({ row }: CellType) => {
-      return (
-        <Typography noWrap variant='body2'>
-          {row.role ? row.role.code : ``}
+          {row.text_color ? row.text_color : ``}
         </Typography>
       )
     }
@@ -239,7 +193,7 @@ const columns = [
 
 const RowOptions = ({ id }: { id: string }) => {
 
-  const { deleteBusinessUser } = useBusinessUser(null);
+  const { deletePossesCard } = usePossescards(null);
   // ** Hooks
   const { handleDrawer, handleModal } = useToggleDrawer()
 
@@ -256,14 +210,13 @@ const RowOptions = ({ id }: { id: string }) => {
   }
 
   const handleDelete = async () => {
-    deleteBusinessUser(id)
+    deletePossesCard(id)
     // console.log('id ',id);
     handleRowOptionsClose()
   }
 
   const handleUpdate = () => {
     handleRowOptionsClose()
-    console.log('id ',id);
     handleDrawer(id)
   }
 
@@ -303,21 +256,20 @@ const RowOptions = ({ id }: { id: string }) => {
 const EmployeeTable = () => {
   // ** State
   const [pageSize, setPageSize] = useState<number>(10)
-  const { getBusinessUser, store:{ businessUsers:{ users } } } = useBusinessUser(null);
+  const { getPossesCards, store:{ possescards } } = usePossescards(null);
   
   useEffect(() => {
-    getBusinessUser();
+    getPossesCards();
   }, [])
 
 
-  console.log('businessUsers ', users)
-  // console.log('store2 ', store2 )
+  console.log('store?.possescards ', possescards)
 
   return (
     <DataGrid
       autoHeight
       getRowId={(row) => row?._id}
-      rows={ users || []}
+      rows={possescards || []}
       columns={columns}
       checkboxSelection
       pageSize={pageSize}

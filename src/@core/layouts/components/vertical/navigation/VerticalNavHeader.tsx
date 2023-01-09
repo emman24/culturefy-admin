@@ -207,7 +207,8 @@ const VerticalNavHeader = (props: Props) => {
               </defs>
             </svg> */}
             <HeaderTitle variant='h6' sx={{ ...menuCollapsedStyles, ...(navCollapsed && !navHover ? {} : { ml: 2 }) }}>
-              {themeConfig.templateName}
+              {/* {themeConfig.templateName} */}
+              <img src='/images/logos/Logo.png' alt='Culturefy' className='logo_culturefy' />
             </HeaderTitle>
           </StyledLink>
         </Link>

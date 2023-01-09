@@ -9,6 +9,6 @@ export interface IBusinessUser {
     gender: string,
     location: string,
     permissions: string,
-    business_id: string,
+    business: string,
     role: string,
 }

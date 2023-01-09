@@ -33,7 +33,7 @@ const defaultValues = {
   gender: '',
   // location: '',
   // permissions: '',
-  business_id: '',
+  business: '',
   role: '',
 }
 
@@ -65,7 +65,7 @@ export const useBusinessUser = (serviceId: string | null) => {
       'gender' in store.businessUser && form.setValue('gender', store.businessUser.gender)
       // 'location' in store.businessUser && form.setValue('location', store.businessUser.location)
       // 'permissions' in store.businessUser && form.setValue('permissions', store.businessUser.permissions)
-      'business_id' in store.businessUser && form.setValue('business_id', store.businessUser.business_id)
+      'business' in store.businessUser && form.setValue('business', store.businessUser.business)
       'role' in store.businessUser && form.setValue('role', store.businessUser.role)
     }
     else {
@@ -76,7 +76,7 @@ export const useBusinessUser = (serviceId: string | null) => {
       form.setValue('phone', '')
       form.setValue('password', '')
       form.setValue('gender', '')
-      form.setValue('business_id', '')
+      form.setValue('business', '')
       form.setValue('role', '')
     }
   }, [store.businessUsers, serviceId])

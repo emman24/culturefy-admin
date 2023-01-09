@@ -8,4 +8,5 @@ export { default as reportSchema } from './report'
 export { default as subscriptiontSchema } from './subscription'
 export { default as businessUserSchema } from './businessUser'
 export { default as positionGoalSchema } from './positionGoal'
+export { default as PossesCardsSchema } from './possescards'
 
