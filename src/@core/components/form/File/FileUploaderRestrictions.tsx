@@ -143,7 +143,7 @@ const FileUploaderRestrictions = ({
           </Typography>
         </div>
       </div>
-      <IconButton onClick={(value) => value= ''}>
+      <IconButton onClick={ () => handleRemoveFile(file)}>
         <Close fontSize='small' />
       </IconButton>
     </ListItem>
