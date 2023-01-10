@@ -263,7 +263,7 @@ const EmployeeTable = () => {
   }, [])
 
 
-  console.log('store?.possescards ', possescards)
+  // console.log('store?.possescards ', possescards)
 
   return (
     <DataGrid

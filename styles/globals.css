@@ -54,6 +54,7 @@ code[class*='language-'] {
 .mainFieldArray {
   display: flex;
   gap: 10px;
+  margin: 15px 0;
 }
 .logo_culturefy{
   margin: 20px 0;

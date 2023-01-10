@@ -51,7 +51,7 @@ export const usePossescards = (serviceId: string | null) => {
     }, [serviceId])
 
     useMemo(() => {
-        console.log('store.possescard ',store.possescard);
+        // console.log('store.possescard ',store.possescard);
         if (store.possescard && serviceId) {
             'title' in store.possescard && form.setValue('title', store.possescard.title)
             'description' in store.possescard && form.setValue('description', store.possescard.description)

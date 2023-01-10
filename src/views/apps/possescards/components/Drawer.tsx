@@ -87,8 +87,8 @@ const PossescardsDrawer = (props: SidebarAddUserType) => {
 
 
   const handleClose = () => {
-    reset()
-    toggle()
+    reset();
+    toggle();
   }
 
   const [fieldsArray, setFieldsArray] = useState(['']);

@@ -83,6 +83,8 @@ const FileUploaderRestrictions = ({
   const [files, setFiles] = useState<File[]>([])
   const [status, setStatus] = useState<'idle' | 'pending' | 'succes' | 'error'>('idle')
 
+  const [fileurl, setFileurl] = useState('')
+
   useEffect(() => {
 
     return () => {
@@ -109,8 +111,16 @@ const FileUploaderRestrictions = ({
   const renderFilePreview = (file: FileProp) => {
     if (file.type.startsWith('image')) {
       return <img width={38} height={38} alt={file.name} src={URL.createObjectURL(file as any)} />
-    } else {
+    }
+    else {
       return <FileDocumentOutline />
+    }
+  }
+
+  const renderFilePreviewWithUrl = (value: string) => {
+    // console.log('value DropzoneWrapper ', value)
+    if (value) {
+      return <img width={38} height={38} alt='file' src={value} />
     }
   }
 
@@ -133,7 +143,7 @@ const FileUploaderRestrictions = ({
           </Typography>
         </div>
       </div>
-      <IconButton onClick={() => handleRemoveFile(file)}>
+      <IconButton onClick={(value) => value= ''}>
         <Close fontSize='small' />
       </IconButton>
     </ListItem>
@@ -145,7 +155,7 @@ const FileUploaderRestrictions = ({
 
   // useEffect(
   //   () => () => {
-  //     Make sure to revoke the data uris to avoid memory leaks
+  //     // Make sure to revoke the data uris to avoid memory leaks
   //     files.forEach((file) => URL.revokeObjectURL(file.preview));
   //   },
   //   [files]
@@ -155,8 +165,8 @@ const FileUploaderRestrictions = ({
     setStatus('pending')
     const uploadURL: string = 'https://api.cloudinary.com/v1_1/https-www-kharreedlo-com/image/upload';
     const uploadPreset: string = 'mfcn3oqs';
-
     if (files) {
+
       files.forEach((file) => {
         const formData = new FormData();
         formData.append('file', file);
@@ -183,6 +193,13 @@ const FileUploaderRestrictions = ({
     }
   }
 
+
+  useEffect(() => {
+    if (value) {
+      setFileurl(value)
+    }
+  }, [value])
+
   return (
     <DropzoneWrapper>
       <div {...getRootProps({ className: 'dropzone' })}>
@@ -198,6 +215,24 @@ const FileUploaderRestrictions = ({
           </Box>
         </Box>
       </div>
+      {
+        fileurl ?
+        <List>
+          <ListItem>
+            <div className='file-details'>
+              <div className='file-preview'>{renderFilePreviewWithUrl(fileurl)}</div>
+              <div>
+                <Typography className='file-name'>File</Typography>
+              </div>
+            </div>
+            <IconButton onClick={() => setFileurl('')}>
+              <Close fontSize='small' />
+            </IconButton>
+          </ListItem>
+        </List>
+        : ''
+
+      }
       {files.length ? (
         <Fragment>
           <List>{fileList}</List>
