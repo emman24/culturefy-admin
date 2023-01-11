@@ -148,7 +148,7 @@ const navigation = (): VerticalNavItemsType => {
         {
           title: 'Businesses Questions',
           icon: AssignmentIcon,
-          path: '/businesses-questions',
+          path: '/business-questions',
           action: 'itsHaveAccess',
           subject: 'report-label-page',
         },
