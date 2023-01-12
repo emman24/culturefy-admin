@@ -1,5 +1,5 @@
 // ** React Imports
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import json from './survey-json'
 import dynamic from 'next/dynamic'
@@ -13,19 +13,41 @@ const DynamicComponentWithNoSSR = dynamic(() => import('./SurveyCreator/SurveyCr
     ssr: false
 })
 
-
-// import { useBusinessQuestions } from 'src/@core/hooks/form/useBusinessQuestions'
+import { useBusinessQuestions } from 'src/@core/hooks/form/useBusinessQuestions'
 
 const Page = () => {
-    // const router = useRouter();
-    // const { getBusinessQuestions } = useBusinessQuestions(null);
-    // let businessId = router.query
-    // console.log('businessId ', businessId.id)
+    const [ jsonData , setJsonData] = useState(null);
+    const router = useRouter();
+    const { id } = router.query || null || '';
+    const { getBusinessQuestions, store: { businessQuestions } } = useBusinessQuestions(null);
+    // console.log('businessId ', id)
+
+    const businessQuesJSON = () => {
+        if (!id) return;
+        getBusinessQuestions(id);
+    }
+    useEffect(()=>{
+        businessQuesJSON();
+    },[id])
+
+    useEffect(() => {
+        if(businessQuestions !== ''){
+            const dynJSON = JSON.parse(businessQuestions?.question) 
+            setJsonData(dynJSON);
+        }else return;
+    }, [businessQuestions])
+
+
     return (
         <Grid container spacing={6}>
             <Grid item xs={12}>
                 <h2>Update Business Question</h2>
-                <DynamicComponentWithNoSSR json={json} />
+                {
+                    jsonData !== null ?  
+                    <DynamicComponentWithNoSSR json={jsonData} />
+                    :
+                    'Loading...'
+                }
             </Grid>
         </Grid>
     )

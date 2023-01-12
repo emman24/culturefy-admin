@@ -15,9 +15,20 @@ interface InitialState {
 }
 
 
-export const fetchOneAction = createAsyncThunk('businessQuestions/fetchOne', async (id: string) => {
-  const response = await BusinessQuestionsServices.getById(id)
-  return response.data
+export const fetchOneAction = createAsyncThunk('businessQuestions/fetchOne', async (id: string | string[],{dispatch}:Redux) => {
+  // const response = await BusinessQuestionsServices.getById(id)
+  // return response.data
+  dispatch(Slice.actions.handleStatus('pending'))
+    try {
+      const response = await BusinessQuestionsServices.getById(id,)
+      // toast.success('Fetched succesfully!')
+      dispatch(Slice.actions.handleStatus('success'))
+      return response.data
+    } catch (error: any) {
+      toast.error(error.response.data.message || 'Something went wrong!')
+      dispatch(Slice.actions.handleStatus('error'))
+      return error.response.data
+    }
 })
 
 
@@ -25,11 +36,12 @@ export const fetchOneAction = createAsyncThunk('businessQuestions/fetchOne', asy
 export const updateAction = createAsyncThunk(
   'businessQuestions/update',
   async ({ id, data }: { id: string | string[]; data: string }, { getState, dispatch }: Redux) => {
-    // dispatch(Slice.actions.handleStatus('pending'))
+    dispatch(Slice.actions.handleStatus('pending'))
     try {
       const response = await BusinessQuestionsServices.updateBusiness(id, data)
       toast.success('updated succesfully!')
       dispatch(Slice.actions.handleStatus('success'))
+      console.log('response.data ',response.data);
       return response.data
     } catch (error: any) {
       toast.error(error.response.data.message || 'Something went wrong!')

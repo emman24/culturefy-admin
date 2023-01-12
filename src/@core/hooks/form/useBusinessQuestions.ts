@@ -9,16 +9,16 @@ import {
 
 
 
-export const useBusinessQuestions = (serviceId: string | null) => {
+export const useBusinessQuestions = (id: string | null) => {
   // // ** Hook
   const dispatch = useDispatch<AppDispatch>()
-  const store = useSelector((state: RootState) => state.business)
+  const store = useSelector((state: RootState) => state.businessQuestions)
 
 
-  const getBusinessQuestions = async (id: string) => {
+  const getBusinessQuestions = async (id: string | string[]) => {
     dispatch(fetchOneAction(id))
       .then(({ payload }: any) => {
-        if (payload.statusCode === "10000") {
+        if (payload.statusCode) {
         //   handleDrawer(null)
         console.log('============API_SUCCESS===============');
         } else {
@@ -33,7 +33,7 @@ export const useBusinessQuestions = (serviceId: string | null) => {
   const updateBusinessQuestions = async (id: string | string[] , data: any) => {
     dispatch(updateAction({ id, data }))
       .then(({ payload }: any) => {
-        if (payload.statusCode === "10000") {
+        if (payload.statusCode) {
         //   handleDrawer(null)
         console.log('============API_SUCCESS===============');
         } else {
