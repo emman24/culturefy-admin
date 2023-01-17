@@ -18,7 +18,7 @@ export const useBusinessQuestions = (id: string | null) => {
   const getBusinessQuestions = async (id: string | string[]) => {
     dispatch(fetchOneAction(id))
       .then(({ payload }: any) => {
-        if (payload.statusCode) {
+        if (payload?.statusCode) {
         //   handleDrawer(null)
         console.log('============API_SUCCESS===============');
         } else {
@@ -33,7 +33,7 @@ export const useBusinessQuestions = (id: string | null) => {
   const updateBusinessQuestions = async (id: string | string[] , data: any) => {
     dispatch(updateAction({ id, data }))
       .then(({ payload }: any) => {
-        if (payload.statusCode) {
+        if (payload?.statusCode) {
         //   handleDrawer(null)
         console.log('============API_SUCCESS===============');
         } else {

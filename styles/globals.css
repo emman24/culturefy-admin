@@ -59,3 +59,89 @@ code[class*='language-'] {
 .logo_culturefy{
   margin: 20px 0;
 }
+
+
+/* SURVEY BUILDER CSS  */
+/* body .svc-creator {
+  --primary-color: #7ff07f;
+  --secondary-color: #1ab394;
+  --primary-text-color: #4a4a4a;
+  --secondary-text-color: #a7a7a7;
+  --inverted-text-color: #ffffff;
+  --primary-hover-color: #6fe06f;
+  --selection-border-color: #1ab394;
+  --primary-icon-color: #3d4d5d;
+  --primary-bg-color: #f8f8f8;
+  --secondary-bg-color: #f4f4f4;
+  --primary-border-color: #e7eaec;
+  --secondary-border-color: #ddd;
+  --error-color: #ed5565;
+}
+body .svc-creator {
+  --primary: #1ab7fa;
+  --primary-light: rgba(26, 183, 250, 0.1);
+  --foreground: #ededed;
+  --primary-foreground: #ffffff;
+  --secondary: #1ab7fa;
+  --background: #555555;
+  --background-dim: #4d4d4d;
+  --background-dim-light: #4d4d4d;
+} */
+
+
+/* body .svc-creator {
+  --primary-color: #fff;
+  --secondary-color: #fff;
+  --primary-text-color: #fff;
+  --secondary-text-color: #fff;
+  --inverted-text-color: #ffffff;
+  --primary-hover-color: #fff;
+  --selection-border-color: #fff;
+  --primary-icon-color: #fff;
+  --primary-bg-color: #f8f8f8;
+  --secondary-bg-color: #f4f4f4;
+  --primary-border-color: #e7eaec;
+  --secondary-border-color: #ddd;
+  --error-color: #ed5565;
+}
+body .svc-creator{
+  --primary: #fff;
+  --primary-light: rgba(26, 183, 250, 0.1);
+  --foreground: #ededed;
+  --primary-foreground: #ffffff;
+  --secondary: #1ab7fa;
+  --background: #282A42;
+  --background-dim: #282A42;
+  --background-dim-light: #282A42;
+} */
+
+
+body .svc-creator {
+  --primary-color: #2394ae;
+  --secondary-color: #bf161f;
+  --primary-text-color: #2394ae;
+  --secondary-text-color: #2394ae;
+  --inverted-text-color: #ffffff;
+  --primary-hover-color: #bf161f;
+  --selection-border-color: #bf161f;
+  --primary-icon-color: #2394ae;
+  --primary-bg-color: #f8f8f8;
+  --secondary-bg-color: #f4f4f4;
+  --primary-border-color: #e7eaec;
+  --secondary-border-color: #fff;
+  --error-color: #bf161f;
+}
+body .svc-creator {
+  /* --primary: #1ab7fa; */
+  --primary: #2394ae;
+  /* --primary-light: rgba(26, 183, 250, 0.1); */
+  --primary-light: #282A42;
+  --foreground: #fff;
+  --primary-foreground: #ffffff;
+  /* --secondary: #1ab7fa; */
+  --secondary: #bf161f;
+  --background: #282A42;
+  --background-dim: #282A42;
+  /* --background-dim-light: #282A42; */
+  --background-dim-light: #9b9cb226;
+}
