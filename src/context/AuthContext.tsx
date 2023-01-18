@@ -53,7 +53,7 @@ const defaultProvider: AuthValuesType = {
   setIsInitialized: () => Boolean,
   register: () => Promise.resolve(),
   createAccount: () => Promise.resolve(),
-  createCompany(body, errorCallback?) {},
+  createCompany(body, errorCallback?) { },
   // Signup related
   activeStep: 0,
   steps,
@@ -165,6 +165,7 @@ const AuthProvider = ({ children }: Props) => {
           user: response.data.user
         })
         setStatus('success')
+        router.push('/dashboard')
       })
       .catch(error => {
         setStatus('error')
