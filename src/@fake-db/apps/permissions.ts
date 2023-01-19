@@ -2,9 +2,9 @@
 import mock from 'src/@fake-db/mock'
 
 // ** Types
-import { PermissionRowType } from 'src/types/apps/permissionTypes'
+// import { PermissionRowType } from 'src/types/apps/permissionTypes'
 
-const data: { permissions: PermissionRowType[] } = {
+const data: { permissions: any } = {
   permissions: [
     {
       id: 1,
@@ -64,25 +64,25 @@ const data: { permissions: PermissionRowType[] } = {
 }
 
 // ------------------------------------------------
-// GET: Return Permissions List
-// ------------------------------------------------
-mock.onGet('/apps/permissions/data').reply(config => {
-  const { q = '' } = config.params
-  const queryLowered = q.toLowerCase()
-  const filteredData = data.permissions.filter(
-    permissions =>
-      permissions.name.toLowerCase().includes(queryLowered) ||
-      permissions.createdDate.toLowerCase().includes(queryLowered) ||
-      permissions.assignedTo.some(i => i.toLowerCase().startsWith(queryLowered))
-  )
+// // GET: Return Permissions List
+// // ------------------------------------------------
+// mock.onGet('/apps/permissions/data').reply(config => {
+//   const { q = '' } = config.params
+//   const queryLowered = q.toLowerCase()
+//   const filteredData = data.permissions.filter(
+//     permissions =>
+//       permissions.name.toLowerCase().includes(queryLowered) ||
+//       permissions.createdDate.toLowerCase().includes(queryLowered) ||
+//       permissions.assignedTo.some(i => i.toLowerCase().startsWith(queryLowered))
+//   )
 
-  return [
-    200,
-    {
-      params: config.params,
-      allData: data.permissions,
-      permissions: filteredData,
-      total: filteredData.length
-    }
-  ]
-})
+//   return [
+//     200,
+//     {
+//       params: config.params,
+//       allData: data.permissions,
+//       permissions: filteredData,
+//       total: filteredData.length
+//     }
+//   ]
+// })

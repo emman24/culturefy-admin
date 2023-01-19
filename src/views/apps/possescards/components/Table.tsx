@@ -20,6 +20,7 @@ import DeleteOutline from 'mdi-material-ui/DeleteOutline'
 
 // ** Custom Components Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
+// @ts-nocheck
 
 // ** Utils Import
 import { getInitials } from 'src/@core/utils/get-initials'

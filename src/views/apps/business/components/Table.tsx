@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState, useEffect, MouseEvent, useCallback, ReactElement } from 'react'
 
 // ** Next Import

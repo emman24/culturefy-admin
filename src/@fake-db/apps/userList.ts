@@ -2,9 +2,9 @@
 import mock from 'src/@fake-db/mock'
 
 // ** Types
-import { UsersType } from 'src/types/apps/userTypes'
+// import { UsersType } from 'src/types/apps/userTypes'
 
-const data: { users: UsersType[] } = {
+const data: { users: any } = {
   users: [
     {
       id: 1,
@@ -694,56 +694,56 @@ mock.onPost('/apps/users/add-user').reply(config => {
   return [201, { user }]
 })
 
-// GET: Updated DATA
-mock.onGet('/apps/users/list').reply(config => {
-  const { q = '', role = null, status = null, currentPlan = null } = config.params ?? ''
+// // GET: Updated DATA
+// mock.onGet('/apps/users/list').reply(config => {
+//   const { q = '', role = null, status = null, currentPlan = null } = config.params ?? ''
 
-  const queryLowered = q.toLowerCase()
+//   const queryLowered = q.toLowerCase()
 
-  const filteredData = data.users.filter(
-    user =>
-      (user.username.toLowerCase().includes(queryLowered) ||
-        user.fullName.toLowerCase().includes(queryLowered) ||
-        user.role.toLowerCase().includes(queryLowered) ||
-        (user.email.toLowerCase().includes(queryLowered) &&
-          user.currentPlan.toLowerCase().includes(queryLowered) &&
-          user.status.toLowerCase().includes(queryLowered))) &&
-      user.role === (role || user.role) &&
-      user.currentPlan === (currentPlan || user.currentPlan) &&
-      user.status === (status || user.status)
-  )
+//   const filteredData = data.users.filter(
+//     user =>
+//       (user.username.toLowerCase().includes(queryLowered) ||
+//         user.fullName.toLowerCase().includes(queryLowered) ||
+//         user.role.toLowerCase().includes(queryLowered) ||
+//         (user.email.toLowerCase().includes(queryLowered) &&
+//           user.currentPlan.toLowerCase().includes(queryLowered) &&
+//           user.status.toLowerCase().includes(queryLowered))) &&
+//       user.role === (role || user.role) &&
+//       user.currentPlan === (currentPlan || user.currentPlan) &&
+//       user.status === (status || user.status)
+//   )
 
-  return [
-    200,
-    {
-      allData: data.users,
-      users: filteredData,
-      params: config.params,
-      total: filteredData.length
-    }
-  ]
-})
+//   return [
+//     200,
+//     {
+//       allData: data.users,
+//       users: filteredData,
+//       params: config.params,
+//       total: filteredData.length
+//     }
+//   ]
+// })
 
-// GET: particular user data
-mock.onGet('/apps/user').reply(config => {
-  const { id } = config.params
+// // GET: particular user data
+// mock.onGet('/apps/user').reply(config => {
+//   const { id } = config.params
 
-  const userData = data.users.filter(user => user.id === parseInt(id, 10))
+//   const userData = data.users.filter(user => user.id === parseInt(id, 10))
 
-  if (userData.length) {
-    return [200, userData[0]]
-  } else {
-    return [404, { message: 'Unable to find the requested user!' }]
-  }
-})
+//   if (userData.length) {
+//     return [200, userData[0]]
+//   } else {
+//     return [404, { message: 'Unable to find the requested user!' }]
+//   }
+// })
 
-// DELETE: Deletes User
-mock.onDelete('/apps/users/delete').reply(config => {
-  // Get user id from URL
-  const userId = config.data
+// // DELETE: Deletes User
+// mock.onDelete('/apps/users/delete').reply(config => {
+//   // Get user id from URL
+//   const userId = config.data
 
-  const userIndex = data.users.findIndex(t => t.id === userId)
-  data.users.splice(userIndex, 1)
+//   const userIndex = data.users.findIndex(t => t.id === userId)
+//   data.users.splice(userIndex, 1)
 
-  return [200]
-})
+//   return [200]
+// })

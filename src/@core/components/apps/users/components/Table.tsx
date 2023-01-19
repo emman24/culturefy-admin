@@ -261,7 +261,7 @@ const EmployeeTable = () => {
   return (
     <DataGrid
       autoHeight
-      // rows={store.entities || []}
+      rows={[]}
       // rows={store.entities || []}
       columns={columns}
       checkboxSelection

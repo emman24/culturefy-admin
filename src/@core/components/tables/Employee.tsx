@@ -11,7 +11,7 @@ import { DataGrid, GridColumns, GridRenderCellParams } from '@mui/x-data-grid'
 // ** Custom Components
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
-import QuickSearchToolbar from 'src/views/table/data-grid/QuickSearchToolbar'
+// import QuickSearchToolbar from 'src/views/table/data-grid/QuickSearchToolbar'
 
 // ** Types Imports
 import { ThemeColor } from 'src/@core/layouts/types'
@@ -199,7 +199,7 @@ const TableEmployee = ({ data = [] }: ITableEmployee) => {
         columns={columns}
         pageSize={pageSize}
         rowsPerPageOptions={[7, 10, 25, 50]}
-        components={{ Toolbar: QuickSearchToolbar }}
+        // components={{ Toolbar: QuickSearchToolbar }}
         rows={filteredData.length ? filteredData : data}
         onPageSizeChange={newPageSize => setPageSize(newPageSize)}
         // componentsProps={{

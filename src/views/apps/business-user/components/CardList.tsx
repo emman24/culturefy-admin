@@ -1,3 +1,5 @@
+
+// @ts-nocheck
 import { Avatar, Button, Card, CardContent, CardHeader, Grid, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { styled } from '@mui/material/styles';

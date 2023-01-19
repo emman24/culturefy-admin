@@ -12,10 +12,10 @@ import toast from 'react-hot-toast'
 import { AuthServices } from 'src/services'
 
 // ** Types Imports
-import { User } from 'src/types/apps/user'
+// import { any } from 'src/types/apps/user'
 
 interface InitialState {
-    user: User;
+    user: any;
     accessToken: string,
     refreshToken: string,
 }

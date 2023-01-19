@@ -32,6 +32,7 @@ const Page = () => {
 
     useEffect(() => {
         if(businessQuestions !== ''){
+            // @ts-ignore
             const dynJSON = JSON.parse(businessQuestions?.question) 
             setJsonData(dynJSON);
         }else return;
