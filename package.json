@@ -8,7 +8,8 @@
     "start": "next start",
     "export": "next export",
     "lint": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "start:pm2": "pm2 start --name admin npm -- start"
   },
   "dependencies": {
     "@casl/ability": "5.4.3",
