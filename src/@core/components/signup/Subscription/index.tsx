@@ -9,7 +9,7 @@ import MuiCardContent, { CardContentProps } from '@mui/material/CardContent'
 
 import PricingPlans from 'src/@core/components/subscription/SubsctionPlans'
 import SubscriptionHeader from 'src/@core/components/subscription/SubscriptionHeader'
-import Checkout from 'src/@core/components/Checkout'
+// import Checkout from 'src/@core/components/Checkout'
 
 import { useSubscription } from 'src/@core/hooks/form/useSubscription'
 
@@ -27,26 +27,26 @@ const CardContent = styled(MuiCardContent)<CardContentProps>(({ theme }) => ({
 
 const Pricing = ({ step }: { step: number }) => {
 
-    const { getSubscriptions, store } = useSubscription(null);
+    // const { getSubscriptions, store } = useSubscription(null);
 
-    const [plan, setPlan] = useState<'PRE_DEFINED' | 'CUSTOM'>('PRE_DEFINED');
-    const [subscription, setSubscription] = useState<{ [key: string]: any } | null>(null)
+    // const [plan, setPlan] = useState<'PRE_DEFINED' | 'CUSTOM'>('PRE_DEFINED');
+    // const [subscription, setSubscription] = useState<{ [key: string]: any } | null>(null)
 
-    useEffect(() => {
-        getSubscriptions({ query: "" })
-    }, [])
+    // useEffect(() => {
+    //     getSubscriptions({ query: "" })
+    // }, [])
 
-    const handleChange = (e: ChangeEvent<{ checked: boolean }>) => {
-        if (e.target.checked) {
-            setPlan('CUSTOM')
-        } else {
-            setPlan('PRE_DEFINED')
-        }
-    }
+    // const handleChange = (e: ChangeEvent<{ checked: boolean }>) => {
+    //     if (e.target.checked) {
+    //         setPlan('CUSTOM')
+    //     } else {
+    //         setPlan('PRE_DEFINED')
+    //     }
+    // }
 
     return (
         <Fragment key={step}>
-            {
+            {/* {
                 subscription ? (
                     <Checkout />
                 ) : (
@@ -58,7 +58,7 @@ const Pricing = ({ step }: { step: number }) => {
                         />
                     </CardContent>
                 )
-            }
+            } */}
         </Fragment>
     )
 }

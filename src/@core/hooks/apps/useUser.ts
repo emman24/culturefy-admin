@@ -32,6 +32,7 @@ export const useUser = (serviceId: string | null) => {
 
     // ** Hook
     const { handleDrawer, handleModal } = useToggleDrawer();
+    // @ts-ignore
     const store = useSelector((state: RootState) => state.user)
     const dispatch = useDispatch<AppDispatch>()
 

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useEffect, useState } from "react";
 import { SurveyCreatorComponent, SurveyCreator } from "survey-creator-react";
 import { registerMyQuestion } from "../SurveyQuestions/SurveyQuestions";

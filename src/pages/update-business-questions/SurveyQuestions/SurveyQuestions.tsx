@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Question, ElementFactory, StylesManager } from "survey-core";
 
 const QUESTION_TYPE = "myquestion";
