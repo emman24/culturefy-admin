@@ -1,7 +1,7 @@
 // ** React Imports
 import React, { useEffect, useState } from 'react'
 
-import json from './survey-json'
+import json from '../../components/survey-json'
 import dynamic from 'next/dynamic'
 
 // ** MUI Imports
@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid'
 // import SurveyCreatorWidget from './SurveyCreator/SurveyCreator'
 import { useRouter } from 'next/router'
 
-const DynamicComponentWithNoSSR = dynamic(() => import('./SurveyCreator/SurveyCreator'), {
+const DynamicComponentWithNoSSR = dynamic(() => import('../../components/SurveyCreator/SurveyCreator'), {
     ssr: false
 })
 
@@ -38,13 +38,14 @@ const Page = () => {
         }else return;
     }, [businessQuestions])
 
+    console.log(jsonData , "jsonn")
 
     return (
         <Grid container spacing={6}>
             <Grid item xs={12}>
                 <h2>Update Business Question</h2>
                 {
-                    jsonData !== null ?  
+                    jsonData ?  
                     <DynamicComponentWithNoSSR json={jsonData} />
                     :
                     // <DynamicComponentWithNoSSR json={json} />
