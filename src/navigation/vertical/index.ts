@@ -70,6 +70,13 @@ const navigation = (): VerticalNavItemsType => {
               action: 'itsHaveAccess',
               subject: 'report-label-page',
             },
+            {
+              title: 'Recommendation',
+              icon: AssignmentIcon,
+              path: '/recommendation',
+              action: 'itsHaveAccess',
+              subject: 'report-label-page',
+            },
           ]
         },
         {
