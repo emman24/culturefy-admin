@@ -10,6 +10,8 @@ import businessUser from './apps/businessUser'
 import positionGoal from './apps/positionGoal'
 import possescards from './apps/possescards'
 import businessQuestions from './apps/businessQuestions'
+import recommendations from './apps/recommendations'
+
 
 // import project from './apps/project'
 
@@ -22,6 +24,7 @@ export const store = configureStore({
     positionGoal,
     possescards,
     businessQuestions,
+    recommendations
     // challenges
   },
   middleware: getDefaultMiddleware =>

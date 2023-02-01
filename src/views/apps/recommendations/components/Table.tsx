@@ -40,7 +40,7 @@ import { RootState, AppDispatch } from 'src/store'
 import { fetchAllAction } from 'src/store/apps/business'
 
 
-import { usePossescards } from 'src/@core/hooks/form/usePossescards'
+import { useRecommendations } from 'src/@core/hooks/form/useRecommendations'
 
 
 interface CellType {
@@ -101,26 +101,11 @@ export const renderClient = (row: IUser) => {
 const columns = [
   {
     flex: 0.2,
-    minWidth: 250,
-    minHeight: 100,
-    field: 'image',
-    headerName: 'logo',
-    renderCell: ({ row }: CellType) => {
-      return (
-        <Typography noWrap variant='body2'>
-          <div className='business-logo'>
-            <img src={row.image} alt='business_logo' />
-          </div>
-        </Typography>
-      )
-    }
-  },
-  {
-    flex: 0.2,
     minWidth: 200,
     field: 'title',
     headerName: 'title',
     renderCell: ({ row }: CellType) => {
+      console.log(row)
       return (
         <Typography noWrap variant='body2'>
           {row.title}
@@ -144,39 +129,12 @@ const columns = [
   {
     flex: 0.2,
     minWidth: 200,
-    field: 'points',
-    headerName: 'points',
+    field: 'function',
+    headerName: 'Function',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          {row.points ? row.points : ` `}
-        </Typography>
-      )
-    }
-  },
-  
-  {
-    flex: 0.2,
-    minWidth: 200,
-    field: 'color',
-    headerName: 'Color',
-    renderCell: ({ row }: CellType) => {
-      return (
-        <Typography noWrap variant='body2'>
-          {row.color ? row.color : ` `}
-        </Typography>
-      )
-    }
-  },
-  {
-    flex: 0.2,
-    minWidth: 200,
-    field: 'text_color',
-    headerName: 'Text Color',
-    renderCell: ({ row }: CellType) => {
-      return (
-        <Typography noWrap variant='body2'>
-          {row.text_color ? row.text_color : ``}
+          {row.function}
         </Typography>
       )
     }
@@ -194,7 +152,7 @@ const columns = [
 
 const RowOptions = ({ id }: { id: string }) => {
 
-  const { deletePossesCard } = usePossescards(null);
+  const { getRecommendations } = useRecommendations(null);
   // ** Hooks
   const { handleDrawer, handleModal } = useToggleDrawer()
 
@@ -257,20 +215,22 @@ const RowOptions = ({ id }: { id: string }) => {
 const EmployeeTable = () => {
   // ** State
   const [pageSize, setPageSize] = useState<number>(10)
-  const { getPossesCards, store:{ possescards } } = usePossescards(null);
+  const { getRecommendations, store:{ recommendations } } = useRecommendations(null);
   
   useEffect(() => {
-    getPossesCards();
+    getRecommendations();
   }, [])
 
 
   // console.log('store?.possescards ', possescards)
 
+  console.log(recommendations , "recommendations")
+
   return (
     <DataGrid
       autoHeight
       getRowId={(row) => row?._id}
-      rows={possescards || []}
+      rows={recommendations || []}
       columns={columns}
       checkboxSelection
       pageSize={pageSize}
