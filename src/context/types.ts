@@ -15,7 +15,7 @@ export type UserDataType = {
   id: number
   role: { id: string, code: string }
   email: string
-  fullName: string
+  name: string
   username: string
   password: string
   avatar?: string | null

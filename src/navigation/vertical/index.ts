@@ -49,20 +49,20 @@ const navigation = (): VerticalNavItemsType => {
               action: 'itsHaveAccess',
               subject: 'assignment-type-page',
             },
-            {
-              title: 'BCS Answers',
-              icon: AssignmentIcon,
-              // path: '/label',
-              action: 'itsHaveAccess',
-              subject: 'report-label-page',
-            },
-            {
-              title: 'Brand Audit',
-              icon: AssignmentIcon,
-              // path: '/label',
-              action: 'itsHaveAccess',
-              subject: 'report-label-page',
-            },
+            // {
+            //   title: 'BCS Answers',
+            //   icon: AssignmentIcon,
+            //   // path: '/label',
+            //   action: 'itsHaveAccess',
+            //   subject: 'report-label-page',
+            // },
+            // {
+            //   title: 'Brand Audit',
+            //   icon: AssignmentIcon,
+            //   // path: '/label',
+            //   action: 'itsHaveAccess',
+            //   subject: 'report-label-page',
+            // },
             {
               title: 'Posses Card',
               icon: AssignmentIcon,
@@ -72,51 +72,51 @@ const navigation = (): VerticalNavItemsType => {
             },
           ]
         },
-        {
-          title: 'User',
-          icon: UserIcon,
-          // path: '/label',
-          // action: 'itsHaveAccess',
-          // subject: 'report-label-page',
-          children: [
-            {
-              title: 'Position Goal',
-              icon: AssignmentIcon,
-              // path: '/assignment-type',
-              action: 'itsHaveAccess',
-              subject: 'assignment-type-page',
-            },
-            {
-              title: 'BCS Answers',
-              icon: AssignmentIcon,
-              // path: '/label',
-              action: 'itsHaveAccess',
-              subject: 'report-label-page',
-            },
-          ]
-        },
+        // {
+        //   title: 'User',
+        //   icon: UserIcon,
+        //   // path: '/label',
+        //   // action: 'itsHaveAccess',
+        //   // subject: 'report-label-page',
+        //   children: [
+        //     {
+        //       title: 'Position Goal',
+        //       icon: AssignmentIcon,
+        //       // path: '/assignment-type',
+        //       action: 'itsHaveAccess',
+        //       subject: 'assignment-type-page',
+        //     },
+        //     {
+        //       title: 'BCS Answers',
+        //       icon: AssignmentIcon,
+        //       // path: '/label',
+        //       action: 'itsHaveAccess',
+        //       subject: 'report-label-page',
+        //     },
+        //   ]
+        // },
       ]
     },
-    {
-      title: 'Learning',
-      icon: SchoolOutline,
-      children: [
-        {
-          title: 'Assignment Type',
-          icon: AssignmentIcon,
-          path: '/assignment-type',
-          action: 'itsHaveAccess',
-          subject: 'assignment-type-page',
-        },
-        {
-          title: 'Report Label',
-          icon: AssignmentIcon,
-          path: '/label',
-          action: 'itsHaveAccess',
-          subject: 'report-label-page',
-        },
-      ]
-    },
+    // {
+    //   title: 'Learning',
+    //   icon: SchoolOutline,
+    //   children: [
+    //     {
+    //       title: 'Assignment Type',
+    //       icon: AssignmentIcon,
+    //       path: '/assignment-type',
+    //       action: 'itsHaveAccess',
+    //       subject: 'assignment-type-page',
+    //     },
+    //     {
+    //       title: 'Report Label',
+    //       icon: AssignmentIcon,
+    //       path: '/label',
+    //       action: 'itsHaveAccess',
+    //       subject: 'report-label-page',
+    //     },
+    //   ]
+    // },
 
     // {
     //   title: 'Users',

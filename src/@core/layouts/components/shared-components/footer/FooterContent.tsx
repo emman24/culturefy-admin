@@ -10,7 +10,7 @@ const FooterContent = () => {
   const hidden = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
 
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center' }}>
       <Typography sx={{ mr: 2 }}>
         {`Culturefy © ${new Date().getFullYear()}`}
         <Box component='span' sx={{ color: 'error.main' }}>
