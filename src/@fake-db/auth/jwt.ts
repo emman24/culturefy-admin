@@ -1,3 +1,4 @@
+// @ts-nocheck
 // ** JWT import
 import jwt from 'jsonwebtoken'
 
