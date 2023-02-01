@@ -152,7 +152,7 @@ const columns = [
 
 const RowOptions = ({ id }: { id: string }) => {
 
-  const { getRecommendations } = useRecommendations(null);
+  const { getRecommendations,deleteRecommendation, updateRecommendation } = useRecommendations(null);
   // ** Hooks
   const { handleDrawer, handleModal } = useToggleDrawer()
 
@@ -169,12 +169,13 @@ const RowOptions = ({ id }: { id: string }) => {
   }
 
   const handleDelete = async () => {
-    deletePossesCard(id)
+    deleteRecommendation(id)
     // console.log('id ',id);
     handleRowOptionsClose()
   }
 
   const handleUpdate = () => {
+    // updateRecommendation(id)
     handleRowOptionsClose()
     handleDrawer(id)
   }
@@ -224,7 +225,7 @@ const EmployeeTable = () => {
 
   // console.log('store?.possescards ', possescards)
 
-  console.log(recommendations , "recommendations")
+  // console.log(recommendations , "recommendations")
 
   return (
     <DataGrid

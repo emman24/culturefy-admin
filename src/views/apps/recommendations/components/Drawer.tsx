@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux'
 // ** Third Party Imports
 
 import { usePossescards } from 'src/@core/hooks/form/usePossescards'
+import { useRecommendations } from 'src/@core/hooks/form/useRecommendations'
 import { usePositionGoal } from 'src/@core/hooks/form/usePositionGoal'
 
 // ** import form support components
@@ -58,6 +59,8 @@ const Footer = styled(Box)<BoxProps>(({ theme }) => ({
 
 const PossescardsDrawer = (props: SidebarAddUserType) => {
   const [fileUrl, setFileUrl] = useState('')
+  const [goals, setGoals] = useState([''])
+
   // ** Props
   const { open, toggle, serviceId } = props
 
@@ -70,10 +73,14 @@ const PossescardsDrawer = (props: SidebarAddUserType) => {
       handleSubmit,
       formState: { errors }
     },
-    addPossesCard,
-    updatePossesCard,
+    addRecommendation,
+    deleteRecommendation,
+    updateRecommendation,
     store
-  } = usePossescards(serviceId)
+  } = useRecommendations(serviceId)
+
+  console.log(errors, "==============================");
+
 
   const handleUpdateAssesst = async (file: any) => {
     console.log(file.url)
@@ -82,15 +89,18 @@ const PossescardsDrawer = (props: SidebarAddUserType) => {
   }
 
   const onSubmit = async (data: any) => {
-    // if (serviceId) {
-    //   // await updateAssignmentType(serviceId, data)
-    //   data = { ...data, points: fieldsArray }
-    //   await updatePossesCard(serviceId, data)
-    // } else {
-    //   data = { ...data, points: fieldsArray }
-    //   await addPossesCard(data)
-    // }
-    console.log('data ', data)
+    if (serviceId) {
+      await updateAssignmentType(serviceId, data)
+      data = { ...data, goals: goals }
+      await updateRecommendation(serviceId, data)
+      console.log('data updateRecommendation', data);
+
+    } else {
+      data = { ...data, goals: goals }
+      await addRecommendation(data)
+      console.log('data addRecommendation ', data);
+    }
+    // console.log('data ', data)
   }
 
   const handleClose = () => {
@@ -100,9 +110,8 @@ const PossescardsDrawer = (props: SidebarAddUserType) => {
 
   const [fieldsArray, setFieldsArray] = useState([''])
 
-  const [goals, setGoals] = useState([''])
 
-  console.log(goals, 'goal;s')
+  // console.log(goals, 'goal;s')
   const {
     getpositionGoal,
     store: { positionGoals }
@@ -138,21 +147,6 @@ const PossescardsDrawer = (props: SidebarAddUserType) => {
         </Header>
         <Box sx={{ p: 5 }}>
           <Grid container spacing={4}>
-            {/* <Grid item xs={12}>
-              <Select
-                name='action'
-                label='Select Goal'
-                //  @ts-ignore
-                control={control}
-              // disabled={true}
-              >
-                {
-                  positionGoals?.map((item) => (
-                    <MenuItem key={item._id} value={item._id}>{item.title}</MenuItem>
-                  ))
-                }
-              </Select>
-            </Grid> */}
 
             <Grid item xs={12}>
               <Autocomplete
@@ -186,7 +180,7 @@ const PossescardsDrawer = (props: SidebarAddUserType) => {
                 label='Select Function'
                 //  @ts-ignore
                 control={control}
-                // disabled={true}
+              // disabled={true}
               >
                 {functionData?.map(item => (
                   <MenuItem key={item.name} value={item.value}>
@@ -195,33 +189,6 @@ const PossescardsDrawer = (props: SidebarAddUserType) => {
                 ))}
               </Select>
             </Grid>
-            {/* 
-            <Grid item xs={12}>
-              <Autocomplete
-                multiple
-                id='checkboxes-tags-demo'
-                options={functionData}
-                disableCloseOnSelect
-                getOptionLabel={option => option.name}
-                renderOption={(props, option, { selected }) => {
-                  return (
-                    <li {...props}>
-                      <Checkbox
-                        // icon={icon}
-                        // checkedIcon={Checkbox}
-                        style={{ marginRight: 8 }}
-                        checked={selected}
-                      />
-                      {option.name}
-                    </li>
-                  )
-                }}
-                onChange={(e, val) => console.log(val.map(item => `${item.id}`))}
-                style={{ width: '100%' }}
-                renderInput={params => <TextField {...params} label='Select Action' placeholder='Actions' />}
-              />
-            </Grid> */}
-
             <Grid item xs={12}>
               <InputField
                 name='title'
@@ -233,14 +200,16 @@ const PossescardsDrawer = (props: SidebarAddUserType) => {
             </Grid>
 
             <Grid item xs={12}>
-              <TextField
+              <InputField
                 name='description'
                 label='Action Description'
                 placeholder='Enter Description'
                 type='text-area'
                 fullWidth
                 multiline={true}
+                minRow={5}
                 rows={5}
+                //  @ts-ignore
                 control={control}
               />
             </Grid>

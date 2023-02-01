@@ -21,15 +21,14 @@ import {
     addAction, fetchAllAction, deleteAction, fetchOneAction, updateAction
 } from 'src/store/apps/recommendations'
 
-import { PossesCardsSchema } from 'src/@core/schema'
+import { RecommendationsSchema } from 'src/@core/schema'
+
+
 
 const defaultValues = {
     title: '',
     description: '',
-    // points: [],
-    image: '',
-    text_color: '',
-    color: '',
+    function: '',
 }
 
 export const useRecommendations = (serviceId: string | null) => {
@@ -44,7 +43,7 @@ export const useRecommendations = (serviceId: string | null) => {
     const form = useForm({
         defaultValues,
         mode: 'onChange',
-        resolver: yupResolver(PossesCardsSchema.add)
+        // resolver: yupResolver(RecommendationsSchema.add)
     })
     useEffect(() => {
         serviceId && dispatch(fetchOneAction(serviceId))
@@ -55,18 +54,16 @@ export const useRecommendations = (serviceId: string | null) => {
         if (store.recommendation && serviceId) {
             'title' in store.recommendation && form.setValue('title', store.recommendation.title)
             'description' in store.recommendation && form.setValue('description', store.recommendation.description)
+            // @ts-ignore
+            'function' in store.recommendation && form.setValue('function', store.recommendation.function)
             // 'points' in store.recommendation && form.setValue('points', store.recommendation.points)
-            'image' in store.recommendation && form.setValue('image', store.recommendation.image)
-            'text_color' in store.recommendation && form.setValue('text_color', store.recommendation.text_color)
-            'color' in store.recommendation && form.setValue('color', store.recommendation.color)
         }
         else {
             form.setValue('title', '')
             form.setValue('description', '')
+            form.setValue('function', '')
             //   form.setValue('points', '')
             // form.setValue('image', '')
-            form.setValue('text_color', '')
-            form.setValue('color', '')
         }
     }, [store.recommendation, serviceId])
 
@@ -82,16 +79,16 @@ export const useRecommendations = (serviceId: string | null) => {
         dispatch(fetchAllAction());
     }
 
-    const getPossesCard = async (id: string) => {
+    const getRecommendation = async (id: string) => {
         dispatch(fetchOneAction(id));
     }
 
 
-    const deletePossesCard = async (id: string) => {
+    const deleteRecommendation = async (id: string) => {
         dispatch(deleteAction(id));
     }
 
-    const addPossesCard = async (data: any) => {
+    const addRecommendation = async (data: any) => {
         dispatch(addAction({ ...data }))
             .then(({ payload }: any) => {
                 if (payload.statusCode === "10000") {
@@ -106,7 +103,7 @@ export const useRecommendations = (serviceId: string | null) => {
             })
     }
 
-    const updatePossesCard = async (id: string, data: any) => {
+    const updateRecommendation = async (id: string, data: any) => {
         dispatch(updateAction({ id, data }))
             .then(({ payload }: any) => {
                 if (payload.statusCode === "10000") {
@@ -122,10 +119,10 @@ export const useRecommendations = (serviceId: string | null) => {
 
     return {
         form, store,
-        getPossesCard,
+        getRecommendation,
         getRecommendations,
-        addPossesCard,
-        deletePossesCard,
-        updatePossesCard
+        addRecommendation,
+        deleteRecommendation,
+        updateRecommendation
     }
 }

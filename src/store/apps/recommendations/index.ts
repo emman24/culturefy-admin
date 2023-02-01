@@ -43,11 +43,11 @@ export const addAction = createAsyncThunk(
   async (data: { [key: string]: number | string }, { getState, dispatch }: Redux) => {
     dispatch(Slice.actions.handleStatus('pending'))
     try {
-      // const response = await RecommendationServices.createPossesCard(data)
-      // toast.success('Added succesfully!')
-      // dispatch(Slice.actions.handleStatus('success'))
-      // dispatch(fetchAllAction())
-      // return response.data
+      const response = await RecommendationServices.createRecommendations(data)
+      toast.success('Added succesfully!')
+      dispatch(Slice.actions.handleStatus('success'))
+      dispatch(fetchAllAction())
+      return response.data
     } catch (error: any) {
       toast.error(error.response.data.message || 'Something went wrong!')
       dispatch(Slice.actions.handleStatus('error'))
@@ -59,11 +59,11 @@ export const addAction = createAsyncThunk(
 export const deleteAction = createAsyncThunk('possescards/delete', async (id: string, { dispatch }: Redux) => {
   dispatch(Slice.actions.handleStatus('pending'))
   try {
-    // const response = await RecommendationServices.deletePossesCard(id)
-    // toast.success('deleted succesfully!')
-    // dispatch(Slice.actions.handleStatus('success'))
-    // dispatch(fetchAllAction())
-    // return response.data
+    const response = await RecommendationServices.deleteRecommendations(id)
+    toast.success('deleted succesfully!')
+    dispatch(Slice.actions.handleStatus('success'))
+    dispatch(fetchAllAction())
+    return response.data
   } catch (error: any) {
     toast.error(error.response.data.message || 'Something went wrong!')
     dispatch(Slice.actions.handleStatus('error'))
