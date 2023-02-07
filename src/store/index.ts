@@ -11,6 +11,8 @@ import positionGoal from './apps/positionGoal'
 import possescards from './apps/possescards'
 import businessQuestions from './apps/businessQuestions'
 import recommendations from './apps/recommendations'
+import course from './apps/course'
+
 
 
 // import project from './apps/project'
@@ -24,7 +26,8 @@ export const store = configureStore({
     positionGoal,
     possescards,
     businessQuestions,
-    recommendations
+    recommendations,
+    course,
     // challenges
   },
   middleware: getDefaultMiddleware =>

@@ -202,6 +202,13 @@ const FileUploaderRestrictions = ({
 
   return (
     <DropzoneWrapper>
+      {
+        //@ts-ignore
+        props.label ?
+        //@ts-ignore
+        <p> {props.label} </p> 
+        : ''
+      }
       <div {...getRootProps({ className: 'dropzone' })}>
         <input {...getInputProps()} />
         <Box sx={{ display: 'flex', flexDirection: ['column', 'column', 'row'], alignItems: 'center' }}>

@@ -13,6 +13,9 @@ import CogTransfer from 'mdi-material-ui/CogTransfer'
 import AssignmentIcon from 'mdi-material-ui/ClipboardCheck'
 import SchoolOutline from 'mdi-material-ui/SchoolOutline'
 import Account from 'mdi-material-ui/Account'
+import BookAccountOutline  from 'mdi-material-ui/BookAccountOutline';
+import VideoIcon  from 'mdi-material-ui/Video';
+
 
 // ** Type import
 import { VerticalNavItemsType } from 'src/@core/layouts/types'
@@ -104,26 +107,26 @@ const navigation = (): VerticalNavItemsType => {
         // },
       ]
     },
-    // {
-    //   title: 'Learning',
-    //   icon: SchoolOutline,
-    //   children: [
-    //     {
-    //       title: 'Assignment Type',
-    //       icon: AssignmentIcon,
-    //       path: '/assignment-type',
-    //       action: 'itsHaveAccess',
-    //       subject: 'assignment-type-page',
-    //     },
-    //     {
-    //       title: 'Report Label',
-    //       icon: AssignmentIcon,
-    //       path: '/label',
-    //       action: 'itsHaveAccess',
-    //       subject: 'report-label-page',
-    //     },
-    //   ]
-    // },
+    {
+      title: 'Learning',
+      icon: SchoolOutline,
+      children: [
+        {
+          title: 'Course',
+          icon: BookAccountOutline,
+          path: '/course',
+          action: 'itsHaveAccess',
+          subject: 'course-page',
+        },
+        {
+          title: 'Course Videos',
+          icon: VideoIcon,
+          path: '/label',
+          action: 'itsHaveAccess',
+          subject: 'report-label-page',
+        },
+      ]
+    },
 
     // {
     //   title: 'Users',
