@@ -27,6 +27,7 @@ import { useDropzone, DropzoneOptions } from 'react-dropzone'
 
 // ** Styled Component
 import DropzoneWrapper from 'src/@core/styles/libs/react-dropzone'
+import { uploadToS3 } from 'src/@core/utils/uploadToS3'
 
 interface FileProp {
   name: string
@@ -163,33 +164,36 @@ const FileUploaderRestrictions = ({
 
   const handleUpload = () => {
     setStatus('pending')
-    const uploadURL: string = 'https://api.cloudinary.com/v1_1/https-www-kharreedlo-com/image/upload';
-    const uploadPreset: string = 'mfcn3oqs';
+    // const uploadURL: string = 'https://api.cloudinary.com/v1_1/https-www-kharreedlo-com/image/upload';
+    // const uploadPreset: string = 'mfcn3oqs';
     if (files) {
-
       files.forEach((file) => {
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('upload_preset', uploadPreset);
-        axios({
-          url: uploadURL,
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          data: formData,
-        })
+        // const formData = new FormData();
+        // formData.append('file', file);
+        // formData.append('upload_preset', uploadPreset);
+        // axios({
+        //   url: uploadURL,
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/x-www-form-urlencoded',
+        //   },
+        //   data: formData,
+        // })
+        uploadToS3(file)
           .then((res) => {
             if (maxFiles === 1) {
-              onChange(`${res.data.secure_url}`)
+              onChange(`${res.data.source}`)
             } else {
-              onChange([...value, `${res.data.secure_url}`])
+              onChange([...value, `${res.data.source}`])
             }
             toast.success('Images uploaded!')
           })
           .catch((err) => toast.error('Images upload field!'))
           .finally(() => setStatus('idle'))
       });
+
+
+      
     }
   }
 

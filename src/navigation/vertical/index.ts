@@ -121,9 +121,9 @@ const navigation = (): VerticalNavItemsType => {
         {
           title: 'Course Videos',
           icon: VideoIcon,
-          path: '/label',
+          path: '/course-video',
           action: 'itsHaveAccess',
-          subject: 'report-label-page',
+          subject: 'course-video-page',
         },
       ]
     },

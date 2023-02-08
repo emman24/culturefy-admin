@@ -12,6 +12,8 @@ import possescards from './apps/possescards'
 import businessQuestions from './apps/businessQuestions'
 import recommendations from './apps/recommendations'
 import course from './apps/course'
+import courseVideo from './apps/courseVideo'
+
 
 
 
@@ -20,7 +22,7 @@ import course from './apps/course'
 export const store = configureStore({
   reducer: {
     // example,
-    // user,
+    user,
     business,
     businessUser,
     positionGoal,
@@ -28,6 +30,7 @@ export const store = configureStore({
     businessQuestions,
     recommendations,
     course,
+    courseVideo,
     // challenges
   },
   middleware: getDefaultMiddleware =>

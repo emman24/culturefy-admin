@@ -11,6 +11,8 @@ export { default as positionGoalSchema } from './positionGoal'
 export { default as PossesCardsSchema } from './possescards'
 export { default as RecommendationsSchema } from './recommendation'
 export { default as CourseSchema } from './course'
+export { default as CourseVideoSchema } from './courseVideo'
+
 
 
 

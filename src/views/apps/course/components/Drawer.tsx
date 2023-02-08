@@ -31,6 +31,7 @@ import { RootState, AppDispatch } from 'src/store'
 import { Trumpet } from 'mdi-material-ui'
 import { useEffect, useState } from 'react'
 import FieldArrayCustom from 'src/@core/components/form/FieldArray'
+import { useAuth } from 'src/hooks/useAuth'
 
 interface SidebarAddUserType {
   open: boolean
@@ -66,18 +67,17 @@ const CourseDrawer = (props: SidebarAddUserType) => {
     store,
   } = useCourse(serviceId)
 
+  const { user } = useAuth();
 
-  const onSubmit =  (data: any) => {
-    console.log('data in if ', data);
+  // console.log('user ', user._id)
+
+  const onSubmit =  async (data: any) => {
     if (serviceId) {
       // await updateAssignmentType(serviceId, data)
-      // await updateCourse(serviceId, data);
-      console.log('data in if ', data);
+      await updateCourse(serviceId, {...data, status: 'PUBLIC', isPublish: true, instructor: user._id});
     } else {
-      // await addCourse(data);
-      console.log('data in else ', data);
+      await addCourse({...data, status: 'PUBLIC', isPublish: true, instructor: user._id});
     }
-    console.log('data out ', data);
   }
 
 
@@ -99,7 +99,7 @@ const CourseDrawer = (props: SidebarAddUserType) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Header>
           <Typography variant='h6'>
-            {!serviceId ? "Add Possescard" : "Update Possescard"}
+            {!serviceId ? "Add Course" : "Update Course"}
           </Typography>
           <Close fontSize='small' onClick={handleClose} sx={{ cursor: 'pointer' }} />
         </Header>
