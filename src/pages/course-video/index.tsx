@@ -176,9 +176,9 @@ const Page = () => {
     return (
         <Grid container spacing={6}>
             <Grid item xs={12}>
-                <Card style={{ marginBottom: 10 }} >
+                {/* <Card style={{ marginBottom: 10 }} >
                     <TableHeader value={value} handleFilter={handleFilter} toggle={() => handleDrawer(null)} />
-                </Card>
+                </Card> */}
                 <Card>
                     <Table />
                 </Card>
