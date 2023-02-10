@@ -78,7 +78,7 @@ export const useCourseVideo = (serviceId: string | null) => {
             .then(({ payload }: any) => {
                 if (payload.statusCode === "10000") {
                     // form.reset()
-                    handleDrawer(null)
+                    // handleDrawer(null)
                     console.log('============BUSINESS_ADDED===============');
                 } else {
                     console.log('============API_ERROR===============');
@@ -93,7 +93,7 @@ export const useCourseVideo = (serviceId: string | null) => {
             .then(({ payload }: any) => {
                 if (payload.statusCode === "10000") {
                     // form.reset()
-                    handleDrawer(null)
+                    // handleDrawer(null)
                 } else {
                     console.log('============API_ERROR===============');
                     console.log(payload);

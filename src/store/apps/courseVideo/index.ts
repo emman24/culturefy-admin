@@ -109,23 +109,18 @@ export const Slice = createSlice({
     }
   },
   extraReducers: builder => {
-    builder.addCase(fetchAllAction.fulfilled, (state, action) => {
-      const { data } = action.payload
-      state.courseVideos = data.entities || []
-      state.total = data?.length || 0
-      // state.courseVideos = []
-      // state.total = 0
-    })
-    // builder.addCase(fetchOneAction.fulfilled, (state, action) => {
+    // builder.addCase(fetchAllAction.fulfilled, (state, action) => {
     //   const { data } = action.payload
-    //   console.log('data.entities ',data.entities[0])
-    //   state.courseVideo = data.entities[0] || {}
+    //   state.courseVideos = data.entities || []
+    //   state.total = data?.length || 0
+    //   // state.courseVideos = []
+    //   // state.total = 0
     // })
     builder.addCase(addAction.fulfilled, (state, action) => {
-      state.courseVideo = {};
+      // state.courseVideo = {};
     })
     builder.addCase(updateAction.fulfilled, (state, action) => {
-      state.courseVideo = {};
+      // state.courseVideo = {};
     })
   }
 })

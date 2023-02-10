@@ -236,6 +236,7 @@ const CourseDrawer = (props: SidebarAddUserType) => {
 
   const { updateCourseVideo } = useCourseVideo(serviceId);
 
+  console.log(course , "coursecoursecoursecoursecoursecourse")
 
   useEffect(() => {
     setCourseVideo(course?.courseVideo)

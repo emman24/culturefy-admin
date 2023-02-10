@@ -128,12 +128,12 @@ export const Slice = createSlice({
       console.log('data.entities ',data.entities[0])
       state.course = data.entities[0] || {}
     })
-    builder.addCase(addAction.fulfilled, (state, action) => {
-      state.course = {};
-    })
-    builder.addCase(updateAction.fulfilled, (state, action) => {
-      state.course = {};
-    })
+    // builder.addCase(addAction.fulfilled, (state, action) => {
+    //   state.course = {};
+    // })
+    // builder.addCase(updateAction.fulfilled, (state, action) => {
+    //   state.course = {};
+    // })
   }
 })
 
