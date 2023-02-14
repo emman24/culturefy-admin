@@ -97,7 +97,7 @@ const FileUploaderRestrictions = ({
   // ** Hooks
   const { getRootProps, getInputProps } = useDropzone({
     maxFiles,
-    maxSize,
+    // maxSize,
     accept,
     onDrop: (acceptedFiles: File[]) => {
       setFiles(acceptedFiles.map((file: File) => Object.assign(file)))

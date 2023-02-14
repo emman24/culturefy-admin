@@ -180,6 +180,7 @@ import Typography from '@mui/material/Typography'
 import Box, { BoxProps } from '@mui/material/Box'
 import MenuItem from '@mui/material/MenuItem'
 
+import FallbackSpinner from 'src/@core/components/spinner'
 
 import { useCourse } from 'src/@core/hooks/form/useCourse'
 
@@ -198,6 +199,7 @@ import uploadToCloudinary from 'src/@core/utils/cloudinary'
 import { useCourseVideo } from 'src/@core/hooks/form/useCourseVideo'
 import { minHeight } from '@mui/system'
 import { uploadToS3 } from 'src/@core/utils/uploadToS3'
+import { object } from 'yup'
 
 
 interface SidebarAddUserType {
@@ -226,6 +228,8 @@ const CourseDrawer = (props: SidebarAddUserType) => {
 
   const { open, toggle, serviceId } = props
   const [courseVideo, setCourseVideo] = useState([]);
+  const [uploadStatus, setUploadStatus] = useState('initial')
+  const [currentUploadingId, setCurrentUploadingId] = useState('')
 
   // ** Hooks
   const {
@@ -260,15 +264,22 @@ const CourseDrawer = (props: SidebarAddUserType) => {
   }
 
   const onUpload = async (item) => {
-    // const url = await uploadToCloudinary(item.source);
-    const url = await uploadToS3(item.source);
-    // console.log('url ', url?.data?.source);
-    updateCourseVideo(item._id, { ...item, source: url?.data?.source })
+    // console.log('item ',item)
+    setCurrentUploadingId(item._id)
+    setUploadStatus('pending')
+    if( typeof item.source === 'object'){
+      const url = await uploadToS3(item.source);
+      updateCourseVideo(item._id, { ...item, source: url?.data?.source })
+      setUploadStatus('success')
+      return;
+    }
+    updateCourseVideo(item._id, {...item })
+    setUploadStatus('success')
   }
 
 
   // console.log('course  ', course)
-  console.log('courseVideo  ', courseVideo)
+  console.log('uploadStatus  ', uploadStatus)
 
 
   return (
@@ -333,15 +344,18 @@ const CourseDrawer = (props: SidebarAddUserType) => {
                         type='button'
                         onClick={() => onUpload(course_video)}
                       >
-                        Upload
+                        {
+                          uploadStatus === 'pending' && currentUploadingId===course_video._id ? 'Uploading...' : 'Upload'
+                        }
+                        
                       </Button>
                     </Grid>
 
                     <Grid item xs={6}>
                     { course_video?.source?.name ? 
                     course_video?.source?.name : 
-                    // course_video?.source.split('/').pop() 
-                    ''
+                    course_video?.source.split('/').pop() 
+                    // ''
                     }
                     </Grid>
 
@@ -352,6 +366,11 @@ const CourseDrawer = (props: SidebarAddUserType) => {
             :
             ''
         }
+        {/* {
+          uploadStatus === 'pending' ?
+          <FallbackSpinner />
+          : <FallbackSpinner />
+        } */}
 
 
       </form>
