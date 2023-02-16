@@ -68,11 +68,13 @@ const PositionGoalDrawer = (props: SidebarAddUserType) => {
 
 
   const onSubmit = async (data: any) => {
+    console.log('data', data);
     if (serviceId) {
       await updatepositionGoal(serviceId, data);
     } else {
       await addpositionGoal(data);
     }
+    
   }
 
   const handleClose = () => {
@@ -105,6 +107,16 @@ const PositionGoalDrawer = (props: SidebarAddUserType) => {
                 name='title'
                 label='Title'
                 placeholder='Enter title'
+                //  @ts-ignore
+                control={control}
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <InputField
+                name='description'
+                label='Description'
+                placeholder='Enter Description'
                 //  @ts-ignore
                 control={control}
               />

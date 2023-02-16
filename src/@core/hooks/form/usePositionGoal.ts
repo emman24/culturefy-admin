@@ -25,6 +25,7 @@ import { positionGoalSchema } from 'src/@core/schema'
 
 const defaultValues = {
   title: '',
+  description: '',
 }
 
 export const usePositionGoal = (serviceId: string | null) => {
@@ -46,10 +47,13 @@ export const usePositionGoal = (serviceId: string | null) => {
   useMemo(() => {
     if (store.positionGoal && serviceId) {
     //   console.log('store.positionGoal?.title ',store.positionGoal?.title);
-      'title' in store?.positionGoal && form.setValue('title', store?.positionGoal?.title)
+      'title' in store?.positionGoal && form.setValue('title', store?.positionGoal?.title);
+      'description' in store?.positionGoal && form.setValue('description', store?.positionGoal?.description);
+
     }
     else {
-      form.setValue('title', '')
+      form.setValue('title', '');
+      form.setValue('description', '')
     }
   }, [store.positionGoal, serviceId])
 

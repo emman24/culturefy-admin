@@ -65,6 +65,19 @@ const columns = [
     }
   },
   {
+    flex: 0.2,
+    minWidth: 200,
+    field: 'description',
+    headerName: 'description',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography noWrap variant='body2'>
+          {row.description ? row.description : ``}
+        </Typography>
+      )
+    }
+  },
+  {
     flex: 0.1,
     minWidth: 90,
     sortable: false,
