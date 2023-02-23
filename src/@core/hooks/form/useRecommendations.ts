@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // ** Types import
 import { RootState, AppDispatch } from 'src/store'
 
-import { ApiParams } from './../../../types/api';
+import { ApiParams } from '../../../types/api';
 
 // ** Import Custom hooks
 import useToggleDrawer from "src/@core/hooks/useToggleDrawer"

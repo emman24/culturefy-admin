@@ -76,35 +76,42 @@ const navigation = (): VerticalNavItemsType => {
             {
               title: 'Recommendation',
               icon: AssignmentIcon,
-              path: '/recommendation',
+              path: '/recommendation?role=ADMIN',
               action: 'itsHaveAccess',
               subject: 'report-label-page',
             },
           ]
         },
-        // {
-        //   title: 'User',
-        //   icon: UserIcon,
-        //   // path: '/label',
-        //   // action: 'itsHaveAccess',
-        //   // subject: 'report-label-page',
-        //   children: [
-        //     {
-        //       title: 'Position Goal',
-        //       icon: AssignmentIcon,
-        //       // path: '/assignment-type',
-        //       action: 'itsHaveAccess',
-        //       subject: 'assignment-type-page',
-        //     },
-        //     {
-        //       title: 'BCS Answers',
-        //       icon: AssignmentIcon,
-        //       // path: '/label',
-        //       action: 'itsHaveAccess',
-        //       subject: 'report-label-page',
-        //     },
-        //   ]
-        // },
+        {
+          title: 'User',
+          icon: UserIcon,
+          // path: '/label',
+          // action: 'itsHaveAccess',
+          // subject: 'report-label-page',
+          children: [
+            {
+              title: 'Work Goal',
+              icon: AssignmentIcon,
+              path: '/work-goal',
+              action: 'itsHaveAccess',
+              subject: 'work-goal-page',
+            },
+            {
+              title: 'Recommendation',
+              icon: AssignmentIcon,
+              path: '/recommendation?role=USER',
+              action: 'itsHaveAccess',
+              subject: 'report-label-page',
+            },
+            // {
+            //   title: 'BCS Answers',
+            //   icon: AssignmentIcon,
+            //   // path: '/label',
+            //   action: 'itsHaveAccess',
+            //   subject: 'report-label-page',
+            // },
+          ]
+        },
       ]
     },
     {
