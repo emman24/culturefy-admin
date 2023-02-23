@@ -3,8 +3,8 @@ import { AxiosResponse } from 'axios'
 import requests from 'src/services/httpService';
 
 const RecommendationsServices = {
-  getAll(): Promise<AxiosResponse> {
-    return requests.get(`/recommendation`);
+  getAll(role : string): Promise<AxiosResponse> {
+    return requests.get(`/recommendation?role=${role}`);
   },
   getById(id: string): Promise<AxiosResponse> {
     return requests.get(`/recommendation/${id}`);

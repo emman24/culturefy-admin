@@ -68,7 +68,6 @@ const PositionGoalDrawer = (props: SidebarAddUserType) => {
 
 
   const onSubmit = async (data: any) => {
-    console.log('data', data);
     if (serviceId) {
       await updateWorkGoal(serviceId, data);
     } else {

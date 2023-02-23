@@ -75,8 +75,8 @@ export const useRecommendations = (serviceId: string | null) => {
     //     dispatch(fetchAssignmentTypesAction({ query }))
     //   }
 
-    const getRecommendations = async () => {
-        dispatch(fetchAllAction());
+    const getRecommendations = async (role : string) => {
+        dispatch(fetchAllAction(role));
     }
 
     const getRecommendation = async (id: string) => {

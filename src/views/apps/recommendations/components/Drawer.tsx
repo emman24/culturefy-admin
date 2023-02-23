@@ -34,6 +34,9 @@ import { RootState, AppDispatch } from 'src/store'
 import { TextBox, TextBoxMultiple, Trumpet } from 'mdi-material-ui'
 import { useEffect, useState } from 'react'
 import FieldArrayCustom from 'src/@core/components/form/FieldArray'
+import { useRouter } from 'next/router'
+import { useWorkGoal } from 'src/@core/hooks/form/useWorkGoal'
+import { ROLES } from 'src/@core/constants/constants'
 
 interface SidebarAddUserType {
   open: boolean
@@ -61,6 +64,10 @@ const PossescardsDrawer = (props: SidebarAddUserType) => {
   const [fileUrl, setFileUrl] = useState('')
   const [goals, setGoals] = useState([''])
 
+  const router = useRouter()
+
+  console.log(router.query, 'router ')
+
   // ** Props
   const { open, toggle, serviceId } = props
 
@@ -79,8 +86,7 @@ const PossescardsDrawer = (props: SidebarAddUserType) => {
     store
   } = useRecommendations(serviceId)
 
-  console.log(errors, "==============================");
-
+  console.log(errors, '==============================')
 
   const handleUpdateAssesst = async (file: any) => {
     console.log(file.url)
@@ -91,16 +97,14 @@ const PossescardsDrawer = (props: SidebarAddUserType) => {
   const onSubmit = async (data: any) => {
     if (serviceId) {
       await updateAssignmentType(serviceId, data)
-      data = { ...data, goals: goals }
+      data = { ...data, goals: goals, role: router?.query?.role }
       await updateRecommendation(serviceId, data)
-      console.log('data updateRecommendation', data);
-
+      console.log('data updateRecommendation', data)
     } else {
-      data = { ...data, goals: goals }
+      data = { ...data, goals: goals, role: router?.query?.role }
       await addRecommendation(data)
-      console.log('data addRecommendation ', data);
+      console.log('data addRecommendation ', data)
     }
-    // console.log('data ', data)
   }
 
   const handleClose = () => {
@@ -110,18 +114,26 @@ const PossescardsDrawer = (props: SidebarAddUserType) => {
 
   const [fieldsArray, setFieldsArray] = useState([''])
 
-
   // console.log(goals, 'goal;s')
   const {
     getpositionGoal,
     store: { positionGoals }
   } = usePositionGoal(null)
 
-  useEffect(() => {
-    getpositionGoal()
-  }, [])
+  const {
+    getWorkGoal,
+    store: { workGoals }
+  } = useWorkGoal(null)
 
-  // console.log('fieldsArray', fieldsArray);
+  useEffect(() => {
+    if (open) {
+      if (router?.query?.role !== ROLES.USER) {
+        getpositionGoal()
+      } else {
+        getWorkGoal()
+      }
+    }
+  }, [open])
 
   //function
   const functionData = [
@@ -147,12 +159,11 @@ const PossescardsDrawer = (props: SidebarAddUserType) => {
         </Header>
         <Box sx={{ p: 5 }}>
           <Grid container spacing={4}>
-
             <Grid item xs={12}>
               <Autocomplete
                 multiple
                 id='checkboxes-tags-demo'
-                options={positionGoals}
+                options={router?.query?.role !== ROLES.USER ? positionGoals : workGoals}
                 disableCloseOnSelect
                 getOptionLabel={option => option.title}
                 renderOption={(props, option, { selected }) => {
@@ -180,7 +191,7 @@ const PossescardsDrawer = (props: SidebarAddUserType) => {
                 label='Select Function'
                 //  @ts-ignore
                 control={control}
-              // disabled={true}
+                // disabled={true}
               >
                 {functionData?.map(item => (
                   <MenuItem key={item.name} value={item.value}>

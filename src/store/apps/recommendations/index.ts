@@ -32,8 +32,8 @@ export const fetchOneAction = createAsyncThunk('possescards/fetchOne', async (id
 
 export const fetchAllAction = createAsyncThunk(
   'possescards/fetchAll',
-  async () => {
-    const response = await RecommendationServices.getAll()
+  async (role : string) => {
+    const response = await RecommendationServices.getAll(role)
     return response.data
   }
 )
@@ -44,9 +44,11 @@ export const addAction = createAsyncThunk(
     dispatch(Slice.actions.handleStatus('pending'))
     try {
       const response = await RecommendationServices.createRecommendations(data)
+
+      console.log(response.data , "dataaa")
       toast.success('Added succesfully!')
       dispatch(Slice.actions.handleStatus('success'))
-      dispatch(fetchAllAction())
+      dispatch(fetchAllAction(response?.data?.data.task?.role))
       return response.data
     } catch (error: any) {
       toast.error(error.response.data.message || 'Something went wrong!')
@@ -62,7 +64,7 @@ export const deleteAction = createAsyncThunk('possescards/delete', async (id: st
     const response = await RecommendationServices.deleteRecommendations(id)
     toast.success('deleted succesfully!')
     dispatch(Slice.actions.handleStatus('success'))
-    dispatch(fetchAllAction())
+    dispatch(fetchAllAction(response?.data?.data?.role))
     return response.data
   } catch (error: any) {
     toast.error(error.response.data.message || 'Something went wrong!')

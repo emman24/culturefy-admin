@@ -39,9 +39,8 @@ import { IUser } from 'src/types/apps/user'
 import { RootState, AppDispatch } from 'src/store'
 import { fetchAllAction } from 'src/store/apps/business'
 
-
 import { useRecommendations } from 'src/@core/hooks/form/useRecommendations'
-
+import { useRouter } from 'next/router'
 
 interface CellType {
   row: IUser
@@ -105,7 +104,6 @@ const columns = [
     field: 'title',
     headerName: 'title',
     renderCell: ({ row }: CellType) => {
-      console.log(row)
       return (
         <Typography noWrap variant='body2'>
           {row.title}
@@ -147,12 +145,10 @@ const columns = [
     headerName: 'Actions',
     renderCell: ({ row }: CellType) => <RowOptions id={row._id} />
   }
-
 ]
 
 const RowOptions = ({ id }: { id: string }) => {
-
-  const { getRecommendations,deleteRecommendation, updateRecommendation } = useRecommendations(null);
+  const { getRecommendations, deleteRecommendation, updateRecommendation } = useRecommendations(null)
   // ** Hooks
   const { handleDrawer, handleModal } = useToggleDrawer()
 
@@ -200,10 +196,10 @@ const RowOptions = ({ id }: { id: string }) => {
         }}
         PaperProps={{ style: { minWidth: '8rem' } }}
       >
-        <MenuItem onClick={handleUpdate}>
+        {/* <MenuItem onClick={handleUpdate}>
           <PencilOutline fontSize='small' sx={{ mr: 2 }} />
           Edit
-        </MenuItem>
+        </MenuItem> */}
         <MenuItem onClick={handleDelete}>
           <DeleteOutline fontSize='small' sx={{ mr: 2 }} />
           Delete
@@ -216,12 +212,18 @@ const RowOptions = ({ id }: { id: string }) => {
 const EmployeeTable = () => {
   // ** State
   const [pageSize, setPageSize] = useState<number>(10)
-  const { getRecommendations, store:{ recommendations } } = useRecommendations(null);
-  
-  useEffect(() => {
-    getRecommendations();
-  }, [])
+  const {
+    getRecommendations,
+    store: { recommendations }
+  } = useRecommendations(null)
+  const router = useRouter()
 
+  console.log(router.query, 'router ')
+
+  useEffect(() => {
+    if (!router?.query?.role || typeof router?.query?.role === "object") return
+    getRecommendations(router?.query?.role)
+  }, [router?.query?.role])
 
   // console.log('store?.possescards ', possescards)
 
@@ -230,7 +232,7 @@ const EmployeeTable = () => {
   return (
     <DataGrid
       autoHeight
-      getRowId={(row) => row?._id}
+      getRowId={row => row?._id}
       rows={recommendations || []}
       columns={columns}
       checkboxSelection
