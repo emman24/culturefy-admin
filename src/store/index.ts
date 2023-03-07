@@ -13,8 +13,7 @@ import businessQuestions from './apps/businessQuestions'
 import recommendations from './apps/recommendations'
 import course from './apps/course'
 import courseVideo from './apps/courseVideo'
-
-
+import certificate from './apps/certificate'
 
 
 // import project from './apps/project'
@@ -31,7 +30,8 @@ export const store = configureStore({
     recommendations,
     course,
     courseVideo,
-    // challenges
+    // challenges,
+    certificate
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

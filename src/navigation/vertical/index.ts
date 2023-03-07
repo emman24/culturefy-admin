@@ -15,6 +15,8 @@ import SchoolOutline from 'mdi-material-ui/SchoolOutline'
 import Account from 'mdi-material-ui/Account'
 import BookAccountOutline  from 'mdi-material-ui/BookAccountOutline';
 import VideoIcon  from 'mdi-material-ui/Video';
+import Certificate  from 'mdi-material-ui/Certificate';
+
 
 
 // ** Type import
@@ -124,6 +126,13 @@ const navigation = (): VerticalNavItemsType => {
           path: '/course-video',
           action: 'itsHaveAccess',
           subject: 'course-video-page',
+        },
+        {
+          title: 'Certificates',
+          icon: Certificate,
+          path: '/certificates',
+          action: 'itsHaveAccess',
+          subject: 'certificates-page',
         },
       ]
     },
