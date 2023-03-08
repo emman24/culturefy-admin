@@ -5,13 +5,8 @@ import authConfig from 'src/configs/auth'
 
 const instance = axios.create({
   // baseURL: "http://192.168.0.44:5000/api/v1", // local
-<<<<<<< HEAD
-  baseURL: 'http://localhost:5000/api/v1', // local,
-  // baseURL: "https://api.culturefy.app/api/v1",
-=======
   // baseURL: 'http://localhost:5000/api/v1', // local,
   baseURL: "https://api.culturefy.app/api/v1",
->>>>>>> ef9e10d4a03e1c956ec452b1cb458505e6bbf8d3
   
   timeout: 500000,
   headers: {
