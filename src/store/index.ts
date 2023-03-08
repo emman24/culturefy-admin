@@ -13,14 +13,11 @@ import businessQuestions from './apps/businessQuestions'
 import recommendations from './apps/recommendations'
 import course from './apps/course'
 import courseVideo from './apps/courseVideo'
-<<<<<<< HEAD
 import certificate from './apps/certificate'
-=======
 import workGoal from './apps/workGoal'
 
 
 
->>>>>>> ef9e10d4a03e1c956ec452b1cb458505e6bbf8d3
 
 
 // import project from './apps/project'
@@ -37,13 +34,10 @@ export const store = configureStore({
     recommendations,
     course,
     courseVideo,
-<<<<<<< HEAD
     // challenges,
-    certificate
-=======
+    certificate,
     workGoal,
     // challenges
->>>>>>> ef9e10d4a03e1c956ec452b1cb458505e6bbf8d3
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
