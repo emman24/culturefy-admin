@@ -59,16 +59,16 @@ const CourseDrawer = (props: SidebarAddUserType) => {
     store,
   } = useCertificate(serviceId);
 
-  const { getCourses, store:{ courses } } = useCourse(null);
+  const { getCourses, store: { courses } } = useCourse(null);
 
 
-  const onSubmit =  async (data: any) => {
+  const onSubmit = async (data: any) => {
     if (serviceId) {
-      // console.log('data ',data);      
-      await updateCertificate(serviceId, data);
+      console.log('data ',data);      
+      // await updateCertificate(serviceId, data);
     } else {
-      // console.log('data ',data);      
-      await addCertificate(data);
+      console.log('data ',data);      
+      // await addCertificate(data);
     }
   }
 
@@ -78,12 +78,12 @@ const CourseDrawer = (props: SidebarAddUserType) => {
     toggle();
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getCourses()
-  },[])
+  }, [])
 
-  console.log('courses ',courses);
-  
+  console.log('courses ', courses);
+
 
   return (
     <Drawer
@@ -120,11 +120,11 @@ const CourseDrawer = (props: SidebarAddUserType) => {
                 label='Select Course'
                 //  @ts-ignore
                 control={control}
-                // sx={{maxWidth:600, minWidth:600, right: 0, left:'unset !important', background:'red !important'}}
+              // sx={{maxWidth:600, minWidth:600, right: 0, left:'unset !important', background:'red !important'}}
               >
-                {courses?.map((course,index) => (
-                  <MenuItem key={course._id} value={course._id} sx={{maxWidth: 560, overflow:'unset', whiteSpace: 'unset !important', alignItems:'flex-start', gap:4}} >
-                    <span>{index+1}</span> {course.title}
+                {courses?.map((course, index) => (
+                  <MenuItem key={course._id} value={course._id} sx={{ maxWidth: 560, overflow: 'unset', whiteSpace: 'unset !important', alignItems: 'flex-start', gap: 4 }} >
+                    <span>{index + 1}</span> {course.title}
                   </MenuItem>
                 ))}
               </Select>
@@ -146,7 +146,10 @@ const CourseDrawer = (props: SidebarAddUserType) => {
           <Button size='large' variant='outlined' color='secondary' onClick={handleClose}>
             Cancel
           </Button>
-          <LoadingButton
+          <Button type='submit' size='large' variant='contained' color='secondary'>
+            Submit
+          </Button>
+          {/* <LoadingButton
             sx={{ mr: 3 }}
             // loading={store.status === 'pending'}
             // disabled={store.status === 'pending'}
@@ -156,7 +159,7 @@ const CourseDrawer = (props: SidebarAddUserType) => {
             type='submit'
           >
             Submit
-          </LoadingButton>
+          </LoadingButton> */}
         </Footer>
       </form>
     </Drawer>

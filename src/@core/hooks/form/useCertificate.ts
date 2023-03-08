@@ -44,10 +44,11 @@ export const useCertificate = (serviceId: string | null) => {
     }, [serviceId])
 
     useMemo(() => {
-        console.log('store.certificate ',store.certificate);
+        // console.log('store?.certificate?.course?.title ',store?.certificate?.course?.title);
         if (store.certificate && serviceId) {
             'title' in store.certificate && form.setValue('title', store?.certificate?.title)
-            'course' in store.certificate && form.setValue('course', store?.certificate?.course)
+            // @ts-ignore 
+            'course' in store.certificate && form.setValue('course', store?.certificate?.course?._id)
         }
         else {
             form.setValue('title', '')

@@ -5,6 +5,6 @@ export default {
     add: yup.object().shape({
         title: yup.string().required(),
         // course: yup.object().required(),
-        course: yup.string().required(),
+        course: yup.mixed().required(),
     })
 }

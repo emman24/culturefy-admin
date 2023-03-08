@@ -113,7 +113,7 @@ const columns = [
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          {row.course}
+          {row.course?.title}
         </Typography>
       )
     }
