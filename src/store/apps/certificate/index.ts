@@ -10,11 +10,12 @@ import CertificateServices from 'src/services/certificate.service'
 // ** Types Imports
 import { Redux } from 'src/store'
 import { ApiParams } from 'src/types/api'
-import { ICertificate } from 'src/types/apps/certificate'
+import { ICertificate, ICertificateTest } from 'src/types/apps/certificate'
 
 interface InitialState {
   certificates: ICertificate[] | [],
   certificate: ICertificate | {},
+  certificate_test: ICertificateTest | {},
   total: number
   params: ApiParams
   status: 'pending' | 'error' | 'success' | 'idle'
@@ -94,6 +95,33 @@ export const updateAction = createAsyncThunk(
 )
 
 
+// CERTFICATE TESTS ACTIONS
+export const testFetchOneAction = createAsyncThunk('certificate_test/fetchOne', async (id: string) => {
+  const response = await CertificateServices.getTestById(id)
+  return response.data
+})
+
+export const testUpdateAction = createAsyncThunk(
+  'certificate_test/update',
+  async ({ id, data }: { id: string; data: ICertificate }, { getState, dispatch }: Redux) => {
+    dispatch(Slice.actions.handleStatus('pending'))
+    try {
+      const response = await CertificateServices.updateTestById(id,data)
+      // console.log('certificate id ',response.data.data.entity.certificate);
+      dispatch(testFetchOneAction(response.data.data.entity.certificate))
+      toast.success('updated succesfully!')
+      dispatch(Slice.actions.handleStatus('success'))
+      return response.data
+    } catch (error: any) {
+      console.log('erroraaaaaaaaaaaaa',error);
+      
+      toast.error(error.response.data.message || 'Something went wrong!')
+      dispatch(Slice.actions.handleStatus('error'))
+      return error.response.data
+    }
+  }
+)
+
 
 // @ts-ignore
 
@@ -102,6 +130,7 @@ export const Slice = createSlice({
   initialState: {
     certificates: [],
     certificate: {},
+    certificate_test: {},
     params: {},
     total: 0,
     status: 'pending'
@@ -125,6 +154,11 @@ export const Slice = createSlice({
     builder.addCase(fetchOneAction.fulfilled, (state, action) => {
       const { data } = action.payload
       state.certificate = data.entities || {}
+    })
+    // CERTFICATE TESTS
+    builder.addCase(testFetchOneAction.fulfilled, (state, action) => {
+      const { data } = action.payload
+      state.certificate_test = data.entities || {}
     })
   }
 })

@@ -6,5 +6,6 @@ export default {
         title: yup.string().required(),
         // course: yup.object().required(),
         course: yup.mixed().required(),
+        require_test: yup.boolean().required()
     })
 }

@@ -185,14 +185,13 @@ const Page = () => {
             </Grid>
 
             <Drawer open={isDrawerOpen} serviceId={serviceId} toggle={() => handleDrawer(null)} />
-            {/* <DeleteAlert title='assignment type' onAgree={handleDelete} /> */}
         </Grid>
     )
 }
 
 Page.acl = {
     action: 'itsHaveAccess',
-    subject: 'assignment-type-page'
+    subject: 'businesses-page'
 }
 
 export default Page

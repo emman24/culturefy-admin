@@ -18,14 +18,16 @@ import useToggleDrawer from "src/@core/hooks/useToggleDrawer"
 
 // ** Actions Imports
 import {
-    addAction, fetchAllAction, deleteAction, fetchOneAction, updateAction
+    addAction, fetchAllAction, deleteAction, fetchOneAction, updateAction,
+    testFetchOneAction, testUpdateAction
 } from 'src/store/apps/certificate'
 
-import { CertificateSchema }  from 'src/@core/schema'
+import { CertificateSchema } from 'src/@core/schema'
 
 const defaultValues = {
     title: '',
     course: '',
+    require_test: false,
 }
 
 export const useCertificate = (serviceId: string | null) => {
@@ -49,10 +51,14 @@ export const useCertificate = (serviceId: string | null) => {
             'title' in store.certificate && form.setValue('title', store?.certificate?.title)
             // @ts-ignore 
             'course' in store.certificate && form.setValue('course', store?.certificate?.course?._id)
+            // @ts-ignore 
+            'require_test' in store.certificate && form.setValue('require_test', store?.certificate?.course?.require_test)
         }
         else {
             form.setValue('title', '')
             form.setValue('course', '')
+            form.setValue('require_test', false)
+
         }
     }, [store.certificate, serviceId])
 
@@ -99,12 +105,37 @@ export const useCertificate = (serviceId: string | null) => {
             })
     }
 
+
+    // CERTFICATE TESTS FUNCTIONS
+    const getCertificateTest = async (id: string) => {
+        dispatch(testFetchOneAction(id));
+    }
+
+
+    const updateCertificateTest = async (id: string, data: any) => {
+        dispatch(testUpdateAction({ id, data }))
+            .then(({ payload }: any) => {
+                if (payload.statusCode === "10000") {
+                    form.reset()
+                } else {
+                    console.log('============API_ERROR===============');
+                    console.log(payload);
+                    console.log('====================================');
+                }
+            })
+    }
+
+
+
     return {
         form, store,
         getCertificate,
         getCertificates,
         addCertificate,
         deleteCertificate,
-        updateCertificate
+        updateCertificate,
+
+        getCertificateTest,
+        updateCertificateTest
     }
 }

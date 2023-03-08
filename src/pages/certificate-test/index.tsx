@@ -1,59 +1,30 @@
 // ** React Imports
-import { useState, useEffect, MouseEvent, useCallback, ReactElement } from 'react'
+import { useState, useCallback, ReactElement } from 'react'
 
 // ** Next Import
 import Link from 'next/link'
 
 // ** MUI Imports
-import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
-import Menu from '@mui/material/Menu'
 import Grid from '@mui/material/Grid'
-import { DataGrid } from '@mui/x-data-grid'
-import MenuItem from '@mui/material/MenuItem'
 import { styled } from '@mui/material/styles'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import CardHeader from '@mui/material/CardHeader'
-import InputLabel from '@mui/material/InputLabel'
-import FormControl from '@mui/material/FormControl'
-import CardContent from '@mui/material/CardContent'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
 
 // ** Icons Imports
 import Laptop from 'mdi-material-ui/Laptop'
 import ChartDonut from 'mdi-material-ui/ChartDonut'
 import CogOutline from 'mdi-material-ui/CogOutline'
-import EyeOutline from 'mdi-material-ui/EyeOutline'
-import DotsVertical from 'mdi-material-ui/DotsVertical'
 import PencilOutline from 'mdi-material-ui/PencilOutline'
-import DeleteOutline from 'mdi-material-ui/DeleteOutline'
 import AccountOutline from 'mdi-material-ui/AccountOutline'
 
-// ** Store Imports
-import { useDispatch, useSelector } from 'react-redux'
-
-// ** Utils Import
-import { getInitials } from 'src/@core/utils/get-initials'
-
-// ** Actions Imports
-// import { fetchData, deleteUser } from 'src/store/apps/user'
-// import { fetchAssignmentTypesAction } from 'src/store/apps/assignment-type'
 
 // ** Types Imports
-import { RootState, AppDispatch } from 'src/store'
 import { ThemeColor } from 'src/@core/layouts/types'
-// import { EmployeeType } from 'src/types/apps/employeeTypes'
 
 // ** Custom Components Imports
-import TableHeader from 'src/views/apps/business/components/TableHeader'
-import Table from 'src/views/apps/business/components/Table'
-import Drawer from 'src/views/apps/business/components/Drawer'
-import DeleteAlert from 'src/@core/components/common/deleteAlert'
+import Table from 'src/views/apps/certificate-test/components/Table'
 
 // ** Import Custom hooks
 import useToggleDrawer from "src/@core/hooks/useToggleDrawer"
-import { useAssignmentType } from 'src/@core/hooks/form/useAssignmentType'
 import { Switch } from '@mui/material'
 
 interface UserRoleType {
@@ -150,49 +121,22 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 
 
 const Page = () => {
-    // ** State
-    const [role, setRole] = useState<string>('')
-    const [plan, setPlan] = useState<string>('')
-    const [value, setValue] = useState<string>('')
-    const [status, setStatus] = useState<string>('')
 
-    // ** Hooks
-    const dispatch = useDispatch<AppDispatch>()
-    const { serviceId, isDrawerOpen, handleDrawer, view } = useToggleDrawer();
-    // const { deleteAssignmentType } = useAssignmentType(null)
-
-    // useEffect(() => {
-    //     dispatch(fetchAssignmentTypesAction({}))
-    // }, [dispatch, plan, role, status, value])
-
-    const handleFilter = useCallback((val: string) => {
-        setValue(val)
-    }, [])
-
-    const handleDelete = () => {
-        // serviceId && deleteAssignmentType(serviceId)
-    }
 
     return (
         <Grid container spacing={6}>
             <Grid item xs={12}>
-                <Card style={{ marginBottom: 10 }} >
-                    <TableHeader value={value} handleFilter={handleFilter} toggle={() => handleDrawer(null)} />
-                </Card>
                 <Card>
                     <Table />
                 </Card>
             </Grid>
-
-            <Drawer open={isDrawerOpen} serviceId={serviceId} toggle={() => handleDrawer(null)} />
-            {/* <DeleteAlert title='assignment type' onAgree={handleDelete} /> */}
         </Grid>
     )
 }
 
 Page.acl = {
     action: 'itsHaveAccess',
-    subject: 'businesses-questions-page'
+    subject: 'certificate-test-page'
 }
 
 export default Page

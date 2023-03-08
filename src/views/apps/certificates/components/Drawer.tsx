@@ -12,7 +12,7 @@ import { useCertificate } from 'src/@core/hooks/form/useCertificate'
 
 
 // ** import form support components
-import { InputField, Select } from 'src/@core/components/form'
+import { InputField, RadioField, Select } from 'src/@core/components/form'
 
 
 // ** Icons Imports
@@ -23,7 +23,7 @@ import { Grid, MenuItem } from '@mui/material'
 
 // ** Types Imports
 import { useCourse } from 'src/@core/hooks/form/useCourse'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 interface SidebarAddUserType {
   open: boolean
@@ -48,7 +48,7 @@ const Footer = styled(Box)<BoxProps>(({ theme }) => ({
 }))
 
 const CourseDrawer = (props: SidebarAddUserType) => {
-
+  // const [testRequired, setTestRequired] = useState(false);
   // ** Props
   const { open, toggle, serviceId } = props
 
@@ -56,19 +56,20 @@ const CourseDrawer = (props: SidebarAddUserType) => {
   const {
     form: { control, reset, handleSubmit, formState: { errors } },
     addCertificate, updateCertificate,
-    store,
+    store: { certificate },
   } = useCertificate(serviceId);
 
   const { getCourses, store: { courses } } = useCourse(null);
 
+  console.log('certificate ', certificate);
 
   const onSubmit = async (data: any) => {
     if (serviceId) {
-      console.log('data ',data);      
-      // await updateCertificate(serviceId, data);
+      // console.log('data if ', data);
+      await updateCertificate(serviceId, data);
     } else {
-      console.log('data ',data);      
-      // await addCertificate(data);
+      // console.log('data else ', data);
+      await addCertificate(data);
     }
   }
 
@@ -83,6 +84,11 @@ const CourseDrawer = (props: SidebarAddUserType) => {
   }, [])
 
   console.log('courses ', courses);
+
+  // const onChangeTestField = (e) => {
+  //   setTestRequired(e.target.value)
+  // }
+  // console.log('testRequired ',testRequired);
 
 
   return (
@@ -128,6 +134,29 @@ const CourseDrawer = (props: SidebarAddUserType) => {
                   </MenuItem>
                 ))}
               </Select>
+            </Grid>
+
+            {/* <Grid item xs={12}>
+              <p>Test Required</p>
+              <div>
+                <span>
+                  <label htmlFor="testRequired_yes">Yes</label>
+                  <input type="radio" name="testRequired" id="testRequired_yes" value={true} onChange={onChangeTestField} />
+                </span>
+                <span style={{marginLeft:'10px'}}>
+                  <label htmlFor="testRequired_no">No</label>
+                  <input type="radio" name="testRequired" id="testRequired_no" value={false} onChange={onChangeTestField} />
+                </span>
+              </div>
+            </Grid> */}
+            <Grid item xs={12}>
+              <RadioField
+                name='require_test'
+                label='Require Test'
+                options={[{ label: "Yes", value: true }, { label: "No", value: false }]}
+                //  @ts-ignore
+                control={control}
+              />
             </Grid>
 
             {/* <Grid item xs={12}>

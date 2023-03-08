@@ -13,9 +13,9 @@ import CogTransfer from 'mdi-material-ui/CogTransfer'
 import AssignmentIcon from 'mdi-material-ui/ClipboardCheck'
 import SchoolOutline from 'mdi-material-ui/SchoolOutline'
 import Account from 'mdi-material-ui/Account'
-import BookAccountOutline  from 'mdi-material-ui/BookAccountOutline';
-import VideoIcon  from 'mdi-material-ui/Video';
-import Certificate  from 'mdi-material-ui/Certificate';
+import BookAccountOutline from 'mdi-material-ui/BookAccountOutline';
+import VideoIcon from 'mdi-material-ui/Video';
+import Certificate from 'mdi-material-ui/Certificate';
 
 
 
@@ -137,9 +137,25 @@ const navigation = (): VerticalNavItemsType => {
         {
           title: 'Certificates',
           icon: Certificate,
-          path: '/certificates',
-          action: 'itsHaveAccess',
-          subject: 'certificates-page',
+          // path: '/certificates',
+          // action: 'itsHaveAccess',
+          // subject: 'certificates-page',
+          children: [
+            {
+              title: 'Certificates',
+              icon: Certificate,
+              path: '/certificates',
+              action: 'itsHaveAccess',
+              subject: 'certificates-page',
+            },
+            {
+              title: 'Certificate Test',
+              icon: Certificate,
+              path: '/certificate-test',
+              action: 'itsHaveAccess',
+              subject: 'certificate-test-page',
+            }
+          ]
         },
       ]
     },
@@ -162,21 +178,21 @@ const navigation = (): VerticalNavItemsType => {
           icon: Account,
           path: '/business-user',
           action: 'itsHaveAccess',
-          subject: 'assignment-type-page',
+          subject: 'business-user-page',
         },
-        {    
+        {
           title: 'Businesses',
           icon: AssignmentIcon,
           path: '/businesses',
           action: 'itsHaveAccess',
-          subject: 'assignment-type-page',
+          subject: 'businesses-page',
         },
         {
-          title: 'Businesses Questions',
+          title: 'Questions',
           icon: AssignmentIcon,
           path: '/business-questions',
           action: 'itsHaveAccess',
-          subject: 'report-label-page',
+          subject: 'business-questions-page',
         },
       ]
     },

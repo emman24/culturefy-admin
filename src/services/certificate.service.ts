@@ -19,6 +19,13 @@ const CertificateServices = {
     return requests.put(`/certficate/${id}`,body);
   },
   
+  // CERTFICATE TESTS
+  getTestById(id: string): Promise<AxiosResponse> {
+    return requests.get(`/certficate/test/${id}`);
+  },
+  updateTestById(id: string,  body:any): Promise<AxiosResponse> {
+    return requests.put(`/certficate/test/${id}`,body);
+  },
 };
 
 export default CertificateServices;

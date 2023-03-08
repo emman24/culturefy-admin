@@ -23,7 +23,7 @@ const Page = () => {
 
 Page.acl = {
     action: 'itsHaveAccess',
-    subject: 'assignment-type-page'
+    subject: 'business-questions-page'
 }
 
 export default Page
