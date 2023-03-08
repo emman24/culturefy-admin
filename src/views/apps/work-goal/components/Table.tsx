@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { useState, useEffect, MouseEvent, useCallback, ReactElement } from 'react'
 
 // ** Next Import
@@ -20,7 +21,6 @@ import DeleteOutline from 'mdi-material-ui/DeleteOutline'
 
 // ** Custom Components Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
-// @ts-nocheck
 
 // ** Utils Import
 import { getInitials } from 'src/@core/utils/get-initials'
@@ -35,67 +35,20 @@ import { useEmployee } from 'src/@core/hooks/form/useEmployee'
 import useToggleDrawer from 'src/@core/hooks/useToggleDrawer'
 
 // ** Types Imports
-import { IUser } from 'src/types/apps/user'
+import { IPositionGoal } from 'src/types/apps/positionGoal'
 import { RootState, AppDispatch } from 'src/store'
-import { fetchAllAction } from 'src/store/apps/business'
+import { fetchAllAction } from 'src/store/apps/businessUser'
 
-import { useRecommendations } from 'src/@core/hooks/form/useRecommendations'
-import { useRouter } from 'next/router'
+
+import { useWorkGoal } from 'src/@core/hooks/form/useWorkGoal'
+
 
 interface CellType {
-  row: IUser
+  row: IPositionGoal
 }
 
-// ** Styled component for the link inside menu
-const MenuItemLink = styled('a')(({ theme }) => ({
-  width: '100%',
-  display: 'flex',
-  alignItems: 'center',
-  textDecoration: 'none',
-  padding: theme.spacing(1.5, 4),
-  color: theme.palette.text.primary
-}))
-
-// ** Styled component for the link for the avatar with image
-const AvatarWithImageLink = styled(Link)(({ theme }) => ({
-  marginRight: theme.spacing(3)
-}))
-
-// ** Styled component for the link for the avatar without image
-const AvatarWithoutImageLink = styled(Link)(({ theme }) => ({
-  textDecoration: 'none',
-  marginRight: theme.spacing(3)
-}))
-
-// ** Vars
-const EmployeeRoleIcons: IUser = {
-  ADMIN: <Laptop sx={{ mr: 2, color: 'error.main' }} />,
-  INSPECTOR: <CogOutline sx={{ mr: 2, color: 'warning.main' }} />,
-  MANAGER: <PencilOutline sx={{ mr: 2, color: 'info.main' }} />
-}
 
 // ** renders client column
-export const renderClient = (row: IUser) => {
-  if (row.company && row.company.logo) {
-    return (
-      <AvatarWithImageLink href={`/users/view/${row.id}`}>
-        <CustomAvatar src={row?.company?.logo} sx={{ mr: 3, width: 34, height: 34 }} />
-      </AvatarWithImageLink>
-    )
-  } else {
-    return (
-      <AvatarWithoutImageLink href={`/users/view/${row.id}`}>
-        <CustomAvatar
-          skin='light'
-          color={row.avatarColor || 'primary'}
-          sx={{ mr: 3, width: 34, height: 34, fontSize: '1rem' }}
-        >
-          {getInitials(row?.company?.name)}
-        </CustomAvatar>
-      </AvatarWithoutImageLink>
-    )
-  }
-}
 
 const columns = [
   {
@@ -106,7 +59,7 @@ const columns = [
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          {row.title}
+          {row.title ? row.title : ``}
         </Typography>
       )
     }
@@ -115,24 +68,11 @@ const columns = [
     flex: 0.2,
     minWidth: 200,
     field: 'description',
-    headerName: 'Description',
+    headerName: 'description',
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          {row.description ? row.description : ` `}
-        </Typography>
-      )
-    }
-  },
-  {
-    flex: 0.2,
-    minWidth: 200,
-    field: 'function',
-    headerName: 'Function',
-    renderCell: ({ row }: CellType) => {
-      return (
-        <Typography noWrap variant='body2'>
-          {row.function}
+          {row.description ? row.description : ``}
         </Typography>
       )
     }
@@ -145,10 +85,12 @@ const columns = [
     headerName: 'Actions',
     renderCell: ({ row }: CellType) => <RowOptions id={row._id} />
   }
+
 ]
 
 const RowOptions = ({ id }: { id: string }) => {
-  const { getRecommendations, deleteRecommendation, updateRecommendation } = useRecommendations(null)
+
+  const { deleteWorkGoal } = useWorkGoal(null);
   // ** Hooks
   const { handleDrawer, handleModal } = useToggleDrawer()
 
@@ -165,14 +107,14 @@ const RowOptions = ({ id }: { id: string }) => {
   }
 
   const handleDelete = async () => {
-    deleteRecommendation(id)
+    deleteWorkGoal(id)
     // console.log('id ',id);
     handleRowOptionsClose()
   }
 
   const handleUpdate = () => {
-    // updateRecommendation(id)
     handleRowOptionsClose()
+    console.log('id ',id);
     handleDrawer(id)
   }
 
@@ -196,10 +138,10 @@ const RowOptions = ({ id }: { id: string }) => {
         }}
         PaperProps={{ style: { minWidth: '8rem' } }}
       >
-        {/* <MenuItem onClick={handleUpdate}>
+        <MenuItem onClick={handleUpdate}>
           <PencilOutline fontSize='small' sx={{ mr: 2 }} />
           Edit
-        </MenuItem> */}
+        </MenuItem>
         <MenuItem onClick={handleDelete}>
           <DeleteOutline fontSize='small' sx={{ mr: 2 }} />
           Delete
@@ -212,28 +154,21 @@ const RowOptions = ({ id }: { id: string }) => {
 const EmployeeTable = () => {
   // ** State
   const [pageSize, setPageSize] = useState<number>(10)
-  const {
-    getRecommendations,
-    store: { recommendations }
-  } = useRecommendations(null)
-  const router = useRouter()
-
-  console.log(router.query, 'router ')
-
+  const { getWorkGoal, store: { workGoals } } = useWorkGoal(null);
+  
   useEffect(() => {
-    if (!router?.query?.role || typeof router?.query?.role === "object") return
-    getRecommendations(router?.query?.role)
-  }, [router?.query?.role])
+    getWorkGoal();
+  }, [])
 
-  // console.log('store?.possescards ', possescards)
 
-  // console.log(recommendations , "recommendations")
+  console.log('workGoals ', workGoals)
+  // console.log('store2 ', store2 )
 
   return (
     <DataGrid
       autoHeight
-      getRowId={row => row?._id}
-      rows={recommendations || []}
+      getRowId={(row) => row?._id}
+      rows={ workGoals || []}
       columns={columns}
       checkboxSelection
       pageSize={pageSize}

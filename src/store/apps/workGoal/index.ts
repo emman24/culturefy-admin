@@ -4,51 +4,48 @@ import toast from 'react-hot-toast'
 
 // ** Employee Service Imports
 // import { Services } from 'src/services'
-import RecommendationServices from 'src/services/recommendations.service'
+import WorkGoalsServices from 'src/services/work-goal.service'
 
 // ** Types Imports
-import { IUser } from 'src/types/apps/user'
+import { IPositionGoal } from 'src/types/apps/positionGoal'
 import { Redux } from 'src/store'
 import { ApiParams } from 'src/types/api'
-import { IPossescards } from 'src/types/apps/possescards'
 
 interface InitialState {
-  recommendations: IPossescards[] | [],
-  recommendation: IPossescards | {},
+  workGoals: IPositionGoal[] | [],
+  workGoal: IPositionGoal | {},
   total: number
   params: ApiParams
   status: 'pending' | 'error' | 'success' | 'idle'
 }
 
-export const QueryAction = createAsyncThunk('possescards/query', async (query: string, { getState, dispatch }: Redux) => {
+export const QueryAction = createAsyncThunk('workGoal/query', async (query: string, { getState, dispatch }: Redux) => {
   dispatch(Slice.actions.handleQuery(query))
   return query
 })
 
-export const fetchOneAction = createAsyncThunk('possescards/fetchOne', async (id: string) => {
-  const response = await RecommendationServices.getById(id)
+export const fetchOneAction = createAsyncThunk('workGoal/fetchOne', async (id: string) => {
+  const response = await WorkGoalsServices.getById(id)
   return response.data
 })
 
 export const fetchAllAction = createAsyncThunk(
-  'possescards/fetchAll',
-  async (role : string) => {
-    const response = await RecommendationServices.getAll(role)
+  'workGoal/fetchAll',
+  async () => {
+    const response = await WorkGoalsServices.getAll()
     return response.data
   }
 )
 
 export const addAction = createAsyncThunk(
-  'possescards/add',
+  'workGoal/add',
   async (data: { [key: string]: number | string }, { getState, dispatch }: Redux) => {
     dispatch(Slice.actions.handleStatus('pending'))
     try {
-      const response = await RecommendationServices.createRecommendations(data)
-
-      console.log(response.data , "dataaa")
+      const response = await WorkGoalsServices.addWorkGoal(data)
       toast.success('Added succesfully!')
       dispatch(Slice.actions.handleStatus('success'))
-      dispatch(fetchAllAction(response?.data?.data.task?.role))
+      dispatch(fetchAllAction())
       return response.data
     } catch (error: any) {
       toast.error(error.response.data.message || 'Something went wrong!')
@@ -58,13 +55,13 @@ export const addAction = createAsyncThunk(
   }
 )
 
-export const deleteAction = createAsyncThunk('possescards/delete', async (id: string, { dispatch }: Redux) => {
+export const deleteAction = createAsyncThunk('workGoal/delete', async (id: string, { dispatch }: Redux) => {
   dispatch(Slice.actions.handleStatus('pending'))
   try {
-    const response = await RecommendationServices.deleteRecommendations(id)
+    const response = await WorkGoalsServices.deleteWorkGoal(id)
     toast.success('deleted succesfully!')
     dispatch(Slice.actions.handleStatus('success'))
-    dispatch(fetchAllAction(response?.data?.data?.role))
+    dispatch(fetchAllAction())
     return response.data
   } catch (error: any) {
     toast.error(error.response.data.message || 'Something went wrong!')
@@ -76,17 +73,17 @@ export const deleteAction = createAsyncThunk('possescards/delete', async (id: st
 
 
 export const updateAction = createAsyncThunk(
-  'possescards/update',
-  async ({ id, data }: { id: string; data: IPossescards }, { getState, dispatch }: Redux) => {
+  'workGoal/update',
+  async ({ id, data }: { id: string; data: IPositionGoal }, { getState, dispatch }: Redux) => {
     dispatch(Slice.actions.handleStatus('pending'))
     try {
-      // const response = await RecommendationServices.updatePossesCard(id, data)
+      const response = await WorkGoalsServices.updateWorkGoal(id, data)
       // const query = getState().entity.params.query
       // dispatch(fetchAllAction({ query }))
-      // dispatch(fetchAllAction())
-      // toast.success('updated succesfully!')
-      // dispatch(Slice.actions.handleStatus('success'))
-      // return response.data
+      dispatch(fetchAllAction())
+      toast.success('updated succesfully!')
+      dispatch(Slice.actions.handleStatus('success'))
+      return response.data
     } catch (error: any) {
       toast.error(error.response.data.message || 'Something went wrong!')
       dispatch(Slice.actions.handleStatus('error'))
@@ -100,10 +97,10 @@ export const updateAction = createAsyncThunk(
 // @ts-ignore
 
 export const Slice = createSlice({
-  name: 'possescards',
+  name: 'positionGoal',
   initialState: {
-    recommendations: [],
-    recommendation: {},
+    workGoals: [],
+    workGoal: {},
     params: {},
     total: 0,
     status: 'pending'
@@ -119,21 +116,14 @@ export const Slice = createSlice({
   extraReducers: builder => {
     builder.addCase(fetchAllAction.fulfilled, (state, action) => {
       const { data } = action.payload
-      console.log(data , "data")
-      state.recommendations = data || []
+      state.workGoals = data.entities || []
       state.total = data?.length || 0
-      // state.possescards = []
+      // state.workGoals = []
       // state.total = 0
     })
     builder.addCase(fetchOneAction.fulfilled, (state, action) => {
       const { data } = action.payload
-      state.recommendation = data.entities || {}
-    })
-    builder.addCase(addAction.fulfilled, (state, action) => {
-      state.recommendation = {};
-    })
-    builder.addCase(updateAction.fulfilled, (state, action) => {
-      state.recommendation = {};
+      state.workGoal = data.entities || {}
     })
   }
 })

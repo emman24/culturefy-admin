@@ -11,7 +11,8 @@ import MenuItem from '@mui/material/MenuItem'
 import { useSelector } from 'react-redux'
 
 // ** Third Party Imports
-import { usePositionGoal } from 'src/@core/hooks/form/usePositionGoal'
+import { useWorkGoal } from 'src/@core/hooks/form/useWorkGoal'
+
 
 
 // ** import form support components
@@ -60,18 +61,17 @@ const PositionGoalDrawer = (props: SidebarAddUserType) => {
   // ** Hooks
   const {
     form: { control, reset, handleSubmit, formState: { errors } },
-    // addBusinessUser, updateBusinessUser,
-    addpositionGoal, updatepositionGoal,
+    addWorkGoal, updateWorkGoal    
     // store,
-  } = usePositionGoal(serviceId)
+  } = useWorkGoal(serviceId)
 
 
 
   const onSubmit = async (data: any) => {
     if (serviceId) {
-      await updatepositionGoal(serviceId, data);
+      await updateWorkGoal(serviceId, data);
     } else {
-      await addpositionGoal(data);
+      await addWorkGoal(data);
     }
     
   }
@@ -94,7 +94,7 @@ const PositionGoalDrawer = (props: SidebarAddUserType) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <Header>
           <Typography variant='h6'>
-            {!serviceId ? "Add Position Goal" : "Update Position Goal"}
+            {!serviceId ? "Add Work Goal" : "Update Work Goal"}
           </Typography>
           <Close fontSize='small' onClick={handleClose} sx={{ cursor: 'pointer' }} />
         </Header>
