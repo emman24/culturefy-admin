@@ -119,6 +119,19 @@ const columns = [
     }
   },
   {
+    flex: 0.2,
+    minWidth: 200,
+    field: 'require_test',
+    headerName: 'require test',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography noWrap variant='body2'>
+          {row.require_test ? 'Yes' : 'No'}
+        </Typography>
+      )
+    }
+  },
+  {
     flex: 0.1,
     minWidth: 90,
     sortable: false,

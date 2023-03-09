@@ -120,6 +120,19 @@ const columns = [
     }
   },
   {
+    flex: 0.2,
+    minWidth: 200,
+    field: 'require_test',
+    headerName: 'require test',
+    renderCell: ({ row }: CellType) => {
+      return (
+        <Typography noWrap variant='body2'>
+          {row.require_test ? 'Yes' : 'No'}
+        </Typography>
+      )
+    }
+  },
+  {
     flex: 0.1,
     minWidth: 90,
     sortable: false,
@@ -129,16 +142,20 @@ const columns = [
     renderCell: ({ row }: CellType) => {
       return (
         <Typography noWrap variant='body2'>
-          <Link href={`/update-certificate-test/${row._id}`}>
-            <Button
-              variant='contained'
-              color='secondary'
-              size='small'
-              id={row._id}
-            >
-              Update Test
-            </Button>
-          </Link>
+          {
+            row.require_test ?
+              <Link href={`/update-certificate-test/${row._id}`}>
+                <Button
+                  variant='contained'
+                  color='secondary'
+                  size='small'
+                  id={row._id}
+                >
+                  Update Test
+                </Button>
+              </Link>
+              : ''
+          }
         </Typography>
       )
     }
@@ -211,8 +228,8 @@ const RowOptions = ({ id }: { id: string }) => {
 const EmployeeTable = () => {
   // ** State
   const [pageSize, setPageSize] = useState<number>(10)
-  const { getCertificates, store:{ certificates } } = useCertificate(null);
-  
+  const { getCertificates, store: { certificates } } = useCertificate(null);
+
   useEffect(() => {
     getCertificates();
   }, [])
