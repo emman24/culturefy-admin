@@ -15,6 +15,7 @@ import course from './apps/course'
 import courseVideo from './apps/courseVideo'
 import certificate from './apps/certificate'
 import workGoal from './apps/workGoal'
+import brandAssets from './apps/brandAssets'
 
 
 
@@ -37,6 +38,7 @@ export const store = configureStore({
     // challenges,
     certificate,
     workGoal,
+    brandAssets,
     // challenges
   },
   middleware: getDefaultMiddleware =>

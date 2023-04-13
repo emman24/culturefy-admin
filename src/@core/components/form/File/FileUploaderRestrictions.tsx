@@ -144,7 +144,7 @@ const FileUploaderRestrictions = ({
           </Typography>
         </div>
       </div>
-      <IconButton onClick={ () => handleRemoveFile(file)}>
+      <IconButton onClick={() => handleRemoveFile(file)}>
         <Close fontSize='small' />
       </IconButton>
     </ListItem>
@@ -167,6 +167,7 @@ const FileUploaderRestrictions = ({
     // const uploadURL: string = 'https://api.cloudinary.com/v1_1/https-www-kharreedlo-com/image/upload';
     // const uploadPreset: string = 'mfcn3oqs';
     if (files) {
+      let multipleFiles: string[] = [];
       files.forEach((file) => {
         // const formData = new FormData();
         // formData.append('file', file);
@@ -185,6 +186,9 @@ const FileUploaderRestrictions = ({
               onChange(`${res.data.source}`)
             } else {
               onChange([...value, `${res.data.source}`])
+              multipleFiles.push(res.data.source);
+              // console.log('multipleFiles ',multipleFiles)
+              onChange([...multipleFiles])
             }
             toast.success('Images uploaded!')
           })
@@ -192,8 +196,6 @@ const FileUploaderRestrictions = ({
           .finally(() => setStatus('idle'))
       });
 
-
-      
     }
   }
 
@@ -209,9 +211,9 @@ const FileUploaderRestrictions = ({
       {
         //@ts-ignore
         props.label ?
-        //@ts-ignore
-        <p> {props.label} </p> 
-        : ''
+          //@ts-ignore
+          <p> {props.label} </p>
+          : ''
       }
       <div {...getRootProps({ className: 'dropzone' })}>
         <input {...getInputProps()} />
@@ -228,20 +230,20 @@ const FileUploaderRestrictions = ({
       </div>
       {
         fileurl ?
-        <List>
-          <ListItem>
-            <div className='file-details'>
-              <div className='file-preview'>{renderFilePreviewWithUrl(fileurl)}</div>
-              <div>
-                <Typography className='file-name'>File</Typography>
+          <List>
+            <ListItem>
+              <div className='file-details'>
+                <div className='file-preview'>{renderFilePreviewWithUrl(fileurl)}</div>
+                <div>
+                  <Typography className='file-name'>File</Typography>
+                </div>
               </div>
-            </div>
-            <IconButton onClick={() => setFileurl('')}>
-              <Close fontSize='small' />
-            </IconButton>
-          </ListItem>
-        </List>
-        : ''
+              <IconButton onClick={() => setFileurl('')}>
+                <Close fontSize='small' />
+              </IconButton>
+            </ListItem>
+          </List>
+          : ''
 
       }
       {files.length ? (

@@ -188,6 +188,13 @@ const navigation = (): VerticalNavItemsType => {
           subject: 'businesses-page',
         },
         {
+          title: 'Brand Assets',
+          icon: AssignmentIcon,
+          path: '/brand-assets',
+          action: 'itsHaveAccess',
+          subject: 'brand-assets-page',
+        },
+        {
           title: 'Questions',
           icon: AssignmentIcon,
           path: '/business-questions',

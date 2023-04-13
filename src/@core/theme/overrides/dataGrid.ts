@@ -17,7 +17,7 @@ const DataGrid = (theme: Theme) => {
           paddingLeft: `${theme.spacing(3.25)} !important`
         },
         columnHeaders: {
-          maxHeight: '54px !important',
+          maxHeight: '154px !important',
           minHeight: '54px !important',
           lineHeight: '24px !important',
           backgroundColor: theme.palette.customColors.tableHeaderBg
@@ -54,7 +54,7 @@ const DataGrid = (theme: Theme) => {
         },
         virtualScrollerRenderZone: {
           '& .MuiDataGrid-row': {
-            maxHeight: '50px !important',
+            maxHeight: '150px !important',
             minHeight: '50px !important'
           }
         },
@@ -66,7 +66,7 @@ const DataGrid = (theme: Theme) => {
           }
         },
         cell: {
-          maxHeight: '50px !important',
+          maxHeight: '150px !important',
           minHeight: '50px !important',
           lineHeight: '20px !important',
           borderColor: theme.palette.divider,

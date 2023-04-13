@@ -4,8 +4,8 @@ import axios from 'axios'
 import authConfig from 'src/configs/auth'
 
 const instance = axios.create({
-  // baseURL: "http://192.168.0.203:5000/api/v1", // SA
-  baseURL: "http://192.168.0.51:5000/api/v1", // MK
+  baseURL: "http://192.168.0.203:5000/api/v1", // SA
+  // baseURL: "http://192.168.0.51:5000/api/v1", // MK
   // baseURL: "https://culturefy-backend.herokuapp.com/aspi/v1",
   // baseURL: "https://api.culturefy.app/api/v1",
   // baseURL: "http://localhost:5000/api/v1",
