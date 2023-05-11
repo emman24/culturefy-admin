@@ -29,6 +29,15 @@ import { Trumpet } from 'mdi-material-ui'
 import { useEffect, useState } from 'react'
 import { useBusiness } from 'src/@core/hooks/form/useBusiness'
 
+import axios from 'axios'
+const v1API = 'https://api.us.amity.co/v1'
+const v3API = 'https://api.us.amity.co/api/v3'
+const v4API = 'https://api.us.amity.co/api/v4'
+
+const xAPIKey = 'b0efed533f8df46c18628b1c515e43dd835fd8e6bc366b2c'
+const xServerKey =
+  '138fbb2f22e5af367025ee9d6ff02c0d903fd74f560f87b71119197aa125645cd01015cd7b7236193b8fcc7a42a114864a399cd85b55dd2c88d6447055'
+
 interface SidebarAddUserType {
   open: boolean
   toggle: () => void
@@ -52,25 +61,29 @@ const Footer = styled(Box)<BoxProps>(({ theme }) => ({
 }))
 
 const EmployeeDrawer = (props: SidebarAddUserType) => {
-
   // const [fileUrl, setFileUrl] = useState('')
   // ** Props
   const { open, toggle, serviceId } = props
 
   // ** Hooks
   const {
-    form: { control, reset, handleSubmit, formState: { errors } },
-    addBusinessUser, updateBusinessUser,
+    form: {
+      control,
+      reset,
+      handleSubmit,
+      formState: { errors }
+    },
+    addBusinessUser,
+    updateBusinessUser
     // store,
   } = useBusinessUser(serviceId)
 
-  const { getBusiness , store } = useBusiness(null);
+  const { getBusiness, store } = useBusiness(null)
 
-  useEffect(()=>{
-    getBusiness();
-  },[])
+  useEffect(() => {
+    getBusiness()
+  }, [])
   // console.log('store getBusiness ', store.businesses);
-  
 
   const handleUpdateAssesst = async (file: any) => {
     // console.log(file.url);
@@ -81,12 +94,60 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
   const onSubmit = async (data: any) => {
     if (serviceId) {
       // await updateAssignmentType(serviceId, data)
-      await updateBusinessUser(serviceId, data);
+      await updateBusinessUser(serviceId, data)
     } else {
       // await addAssignmentType(data);
-      
-      data = { ...data, permissions: ["VOTE_IN_POLLS", "CREATE_FOLDERS"] };
-      await addBusinessUser(data);
+
+      data = { ...data, permissions: ['VOTE_IN_POLLS', 'CREATE_FOLDERS'] }
+
+      console.log('data', data)
+
+      const urlAuth = `${v3API}/authentication/token`
+      const configAuth = {
+        headers: {
+          'x-server-key': xServerKey
+        },
+        params: {
+          userId: data.email
+        }
+      }
+      const responseAuth = await axios(urlAuth, configAuth)
+
+      console.log('responseAuth', responseAuth)
+
+      const url = `${v3API}/sessions`
+      const response = await axios.post(
+        url,
+        {
+          authToken: responseAuth.data,
+          userId: data.email,
+          deviceId: data.email,
+          displayName: data.first_name
+        },
+        {
+          headers: {
+            'x-api-key': xAPIKey
+          }
+        }
+      )
+
+      console.log('response', response)
+
+      const urlCommunties = `${v3API}/communities/6397246e9b26db958ed3a91f/join`
+      const responseCommunties = await axios.post(
+        urlCommunties,
+        { communityId: '6397246e9b26db958ed3a91f' },
+        {
+          headers: {
+            'x-api-key': xAPIKey,
+            Authorization: 'Bearer ' + response?.data?.accessToken
+          }
+        }
+      )
+
+      console.log('responseCommunties', responseCommunties)
+
+      await addBusinessUser(data)
     }
   }
 
@@ -99,13 +160,13 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
     {
       id: 0,
       name: 'Admin',
-      value: 'ADMIN',
+      value: 'ADMIN'
     },
     {
       id: 0,
       name: 'User',
-      value: 'USER',
-    },
+      value: 'USER'
+    }
   ]
 
   return (
@@ -119,14 +180,11 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Header>
-          <Typography variant='h6'>
-            {!serviceId ? "Add Business User" : "Update Business User"}
-          </Typography>
+          <Typography variant='h6'>{!serviceId ? 'Add Business User' : 'Update Business User'}</Typography>
           <Close fontSize='small' onClick={handleClose} sx={{ cursor: 'pointer' }} />
         </Header>
         <Box sx={{ p: 5 }}>
-          <Grid container spacing={4} >
-
+          <Grid container spacing={4}>
             <Grid item xs={12}>
               <InputField
                 name='first_name'
@@ -186,7 +244,10 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
               <RadioField
                 name='gender'
                 label='Gender'
-                options={[{ label: "Male", value: "MALE" }, { label: "Female", value: "FEMALE" }]}
+                options={[
+                  { label: 'Male', value: 'MALE' },
+                  { label: 'Female', value: 'FEMALE' }
+                ]}
                 //  @ts-ignore
                 control={control}
               />
@@ -208,13 +269,13 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
                 label='Business Name'
                 //  @ts-ignore
                 control={control}
-              // disabled={true}
+                // disabled={true}
               >
-                {
-                  store?.businesses?.map((business) => (
-                    <MenuItem key={business._id} value={business._id}>{business.name}</MenuItem>
-                  ))
-                }
+                {store?.businesses?.map(business => (
+                  <MenuItem key={business._id} value={business._id}>
+                    {business.name}
+                  </MenuItem>
+                ))}
               </Select>
             </Grid>
 
@@ -224,18 +285,16 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
                 label='Role'
                 //  @ts-ignore
                 control={control}
-              // disabled={true}
+                // disabled={true}
               >
-                {
-                  rolesSelect.map((role) => (
-                    <MenuItem key={role.id} value={role.value}>{role.name}</MenuItem>
-                  ))
-                }
+                {rolesSelect.map(role => (
+                  <MenuItem key={role.id} value={role.value}>
+                    {role.name}
+                  </MenuItem>
+                ))}
               </Select>
             </Grid>
-
           </Grid>
-
         </Box>
         <Footer>
           <Button size='large' variant='outlined' color='secondary' onClick={handleClose}>
@@ -245,9 +304,9 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
             sx={{ mr: 3 }}
             // loading={store.status === 'pending'}
             // disabled={store.status === 'pending'}
-            loadingPosition="end"
+            loadingPosition='end'
             size='large'
-            variant="contained"
+            variant='contained'
             type='submit'
           >
             Submit
