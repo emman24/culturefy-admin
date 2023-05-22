@@ -34,9 +34,13 @@ const v1API = 'https://api.us.amity.co/v1'
 const v3API = 'https://api.us.amity.co/api/v3'
 const v4API = 'https://api.us.amity.co/api/v4'
 
-const xAPIKey = 'b0efed533f8df46c18628b1c515e43dd835fd8e6bc366b2c'
+// const xAPIKey = 'b0efed533f8df46c18628b1c515e43dd835fd8e6bc366b2c'
+// const xServerKey =
+//   '138fbb2f22e5af367025ee9d6ff02c0d903fd74f560f87b71119197aa125645cd01015cd7b7236193b8fcc7a42a114864a399cd85b55dd2c88d6447055'
+
+const xAPIKey = 'b0e8ee0b6c8af3304437df19040c408d810e8ee3ee313c2a'
 const xServerKey =
-  '138fbb2f22e5af367025ee9d6ff02c0d903fd74f560f87b71119197aa125645cd01015cd7b7236193b8fcc7a42a114864a399cd85b55dd2c88d6447055'
+  'd011cd21fa1fa78503c6bcf79e8af877331ac4e76653e4e95835acb814a7b3f186d35791bcc5c3535d2a8c6e5c840a07d0db9b02f948610173ff6d0762'
 
 interface SidebarAddUserType {
   open: boolean
@@ -133,10 +137,12 @@ const EmployeeDrawer = (props: SidebarAddUserType) => {
 
       console.log('response', response)
 
-      const urlCommunties = `${v3API}/communities/6397246e9b26db958ed3a91f/join`
+      const selectedBusiness = store?.businesses?.filter(item => item._id === data.business)
+
+      const urlCommunties = `${v3API}/communities/${selectedBusiness[0]?.community_id}/join`
       const responseCommunties = await axios.post(
         urlCommunties,
-        { communityId: '6397246e9b26db958ed3a91f' },
+        { communityId: selectedBusiness[0].community_id },
         {
           headers: {
             'x-api-key': xAPIKey,
